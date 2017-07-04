@@ -7,34 +7,26 @@ import org.springframework.stereotype.Repository;
 
 import convenience.util.BaseException;
 import convenience.util.HibernateUtil;
+import daoI.IUser;
 import model.BeanUser;
 
 @Repository
-public class UserDao implements UserDaoI{
+public class UserDao implements IUser{
 	public UserDao(){
 	      System.out.println("UserDao Constructor...\n\n\n\n\n");
 	}
+	
 	@Override
-	public void addUser() {
-		// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ÉµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public void addUser(BeanUser user) {
+		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
 		
 	}
 
-	@Override
-	public void delUser() {
-		// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ÉµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		
-	}
+
 
 	@Override
-	public void updateUser() {
-		// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ÉµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-		
-	}
-
-	@Override
-	public BeanUser searchUser(String userId) throws BaseException{
-		// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ÉµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	public BeanUser SearchUser(String userId) {
+		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
 		Session s = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = s.beginTransaction();
 		String hql = "from BeanUser where userId = '" + userId + "'";
@@ -42,6 +34,38 @@ public class UserDao implements UserDaoI{
 		Object user = qry.uniqueResult();
 		tx.commit();
 		return (BeanUser)user;
+	}
+
+
+
+	@Override
+	public BeanUser loadUser(String userId) {
+		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+		return null;
+	}
+
+
+
+	@Override
+	public BeanUser loadAllUser() {
+		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+		return null;
+	}
+
+
+
+	@Override
+	public void modifryUser(BeanUser user) {
+		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+		
+	}
+
+
+
+	@Override
+	public void DelUser(BeanUser user) {
+		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+		
 	}
 
 }

@@ -6,10 +6,10 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import convenience.util.BaseException;
 import daoI.IUserDao;
 import model.BeanUser;
 import serviceI.IUserService;
+import util.BaseException;
 
 @Service
 public class UserService implements IUserService{

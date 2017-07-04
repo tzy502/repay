@@ -5,9 +5,10 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
-import convenience.util.HibernateUtil;
+
 import daoI.IUserDao;
 import model.BeanUser;
+import util.HibernateUtil;
 
 @Repository
 public class UserDao implements IUserDao{

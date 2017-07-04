@@ -6,9 +6,9 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import convenience.util.HibernateUtil;
 import daoI.ITravelUserDao;
 import model.BeanTravelUser;
+import util.HibernateUtil;
 
 public class TravelUserDao implements ITravelUserDao{
 	public TravelUserDao(){

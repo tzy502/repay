@@ -6,9 +6,9 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import convenience.util.HibernateUtil;
 import daoI.ITransferCardDao;
 import model.BeanTransterCard;
+import util.HibernateUtil;
 
 public class TransferCardDao implements ITransferCardDao{
 	public TransferCardDao(){

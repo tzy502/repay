@@ -6,7 +6,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import convenience.util.HibernateUtil;
+import util.HibernateUtil;
 import daoI.IRole;
 import model.BeanRepay;
 import model.BeanRole;

@@ -1,4 +1,4 @@
-package convenience.util;
+package util;
 
 public class BaseException extends Exception {
 

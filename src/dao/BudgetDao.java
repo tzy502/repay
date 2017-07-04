@@ -7,7 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import convenience.util.HibernateUtil;
+import util.HibernateUtil;
 import daoI.IBudget;
 import model.BeanBudget;
 import model.BeanUser;

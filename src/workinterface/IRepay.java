@@ -1,5 +1,7 @@
 package workinterface;
 
+import model.BeanRepay;
+
 public interface IRepay {
 	public void addRepay(BeanRepay Repay);
 	//添加报销单

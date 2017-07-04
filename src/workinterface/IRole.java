@@ -1,5 +1,7 @@
 package workinterface;
 
+import model.BeanRole;
+
 public interface IRole {
 	public void addRole(BeanRole Role);
 	//添加角色

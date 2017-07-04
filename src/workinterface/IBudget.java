@@ -1,17 +1,19 @@
 package workinterface;
 
+import model.BeanBudget;
+
 public interface IBudget {
 	//预算表
-	public void addbudget(Beanbudget budget);
+	public void addbudget(BeanBudget budget);
 	//添加预算
-	public Beanbudget Searchbudget(int budgetId);
+	public BeanBudget Searchbudget(int budgetId);
 	//搜索预算
-	public Beanbudget loadbudget(int budgetId);
+	public BeanBudget loadbudget(int budgetId);
 	//搜索预算
-	public Beanbudget loadAllbudget();
+	public BeanBudget loadAllbudget();
 	//搜索预算
-	public void modifrybudget(Beanbudget budget);
+	public void modifrybudget(BeanBudget budget);
 	//修改预算
-	public void Delbudget(Beanbudget budget);
+	public void Delbudget(BeanBudget budget);
 	//删除预算
 }

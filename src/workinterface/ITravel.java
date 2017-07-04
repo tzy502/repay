@@ -1,16 +1,18 @@
 package workinterface;
 
+import model.BeanTravel;
+
 public interface ITravel {
-	public void addtravel(Beantravel travel);
+	public void addtravel(BeanTravel travel);
 	//添加交通地点表
-	public Beantravel Searchtravel(int travelId);
+	public BeanTravel Searchtravel(int travelId);
 	//搜索交通地点表
-	public Beantravel loadtravel(int travelId);
+	public BeanTravel loadtravel(int travelId);
 	//搜索交通地点表
-	public Beantravel loadAlltravel();
+	public BeanTravel loadAlltravel();
 	//搜索交通地点表
-	public void modifrytravel(Beantravel travel);
+	public void modifrytravel(BeanTravel travel);
 	//修改交通地点表
-	public void Deltravel(Beantravel travel);
+	public void Deltravel(BeanTravel travel);
 	//删除交通地点表
 }

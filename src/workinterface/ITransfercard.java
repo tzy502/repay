@@ -1,16 +1,18 @@
 package workinterface;
 
+import model.BeanTransterCard;
+
 public interface ITransfercard {
-	public void addTransfercard(BeanTransfercard Transfercard);
+	public void addTransfercard(BeanTransterCard Transfercard);
 	//添加人卡对应表
-	public BeanTransfercard SearchTransfercard(int TransfercardId);
+	public BeanTransterCard SearchTransfercard(int TransfercardId);
 	//搜索人卡对应表
-	public BeanTransfercard loadTransfercard(int TransfercardId);
+	public BeanTransterCard loadTransfercard(int TransfercardId);
 	//搜索人卡对应表
-	public BeanTransfercard loadAllTransfercard();
+	public BeanTransterCard loadAllTransfercard();
 	//搜索人卡对应表
-	public void modifryTransfercard(BeanTransfercard Transfercard);
+	public void modifryTransfercard(BeanTransterCard Transfercard);
 	//修改人卡对应表
-	public void DelTransfercard(BeanTransfercard Transfercard);
+	public void DelTransfercard(BeanTransterCard Transfercard);
 	//删除人卡对应表
 }

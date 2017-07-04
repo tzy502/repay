@@ -1,5 +1,7 @@
 package workinterface;
 
+import model.BeanUser;
+
 public interface IUser {
 	public void addUser(BeanUser user);
 	//添加用户

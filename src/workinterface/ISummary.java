@@ -1,5 +1,7 @@
 package workinterface;
 
+import model.BeanSummary;
+
 public interface ISummary {
 	public void addSummary(BeanSummary Summary);
 	//添加汇总单

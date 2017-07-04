@@ -1,4 +1,4 @@
-package convenience.util;
+package util;
 
 import java.sql.Connection;
 

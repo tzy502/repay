@@ -6,9 +6,8 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import convenience.util.HibernateUtil;
+import util.HibernateUtil;
 import daoI.ISummary;
-import model.BeanBudget;
 import model.BeanSummary;
 
 public class SummaryDao implements ISummary {
@@ -58,7 +57,6 @@ public class SummaryDao implements ISummary {
 			java.util.List list = qry.list();
 			session.getTransaction().commit();	
 			result =list;
-	
 		} catch (Exception e) {
 			e.printStackTrace();
 			tx.rollback();

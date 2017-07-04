@@ -13,22 +13,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import convenience.util.BaseException;
 import model.BeanUser;
 import service.UserService;
-import service.UserServiceI;
+import serviceI.IUserService;
+import util.BaseException;
 
 @Controller  
 public class UserController {
 	@Autowired
-	private UserServiceI userService;
+	private IUserService userService;
 	
 	@RequestMapping(value = "/login.do") 
 	@ResponseBody
 	public String login(@RequestBody String params) throws JSONException{  
-	
-
-
     	JSONObject json = new JSONObject(params);
     	String userId = (String) json.get("userId");
     	String password = (String) json.get("password");
@@ -39,7 +36,7 @@ public class UserController {
     	try {
     		user = userService.checkLogin(userId, password);
 		} catch (BaseException e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+			// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Éµï¿½ catch ï¿½ï¿½
 			e.printStackTrace();
 		}
     	JSONObject jo = new JSONObject();

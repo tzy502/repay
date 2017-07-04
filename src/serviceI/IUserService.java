@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import convenience.util.BaseException;
 import model.BeanUser;
+import util.BaseException;
 
 @Component
 public interface IUserService {

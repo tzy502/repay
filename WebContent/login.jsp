@@ -26,7 +26,7 @@ function ajaxTest() {
     $.ajax({    
         type: "post",    
         async: true,    
-        url: "/activity/login.do",    
+        url: "/repay/login.do",    
   		data: JSON.stringify(params),
         dataType: "json",   
         contentType: "application/json; charset=utf-8",   
@@ -36,11 +36,12 @@ function ajaxTest() {
         success: function(data) {  
         	/* alert("success:"+data.msg);   */
             $("#result").html(data.msg) ;   
-            if (data.msg == "succ") {//根据返回值进行跳转
-                window.location.href = 'main.jsp?userName='+data.userName+'&userId='+data.userId;
+            if (data.msg == "true") {//根据返回值进行跳转
+            	alert("登陆成功！！");
+                //window.location.href = 'main.jsp?userName='+data.userName+'&userId='+data.userId;
             }
-            else if(data.msg == "error"){
-            	alert("账号密码出错了！！");
+            else{
+            	alert(data.msg);
             }
         }     
     }); 

@@ -1,27 +1,27 @@
 package dao;
 
 import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.springframework.stereotype.Repository;
-import convenience.util.HibernateUtil;
-import daoI.IUserDao;
-import model.BeanUser;
 
-@Repository
-public class UserDao implements IUserDao{
-	public UserDao(){
-	      System.out.println("UserDao Constructor...\n\n\n\n\n");
+import convenience.util.HibernateUtil;
+import daoI.ITransferCardDao;
+import model.BeanTransterCard;
+
+public class TransferCardDao implements ITransferCardDao{
+	public TransferCardDao(){
+		System.out.println("TransferCardDao Constructor...\n\n\n\n\n");
 	}
 	
 	@Override
-	public void addUser(BeanUser user) {
+	public void addTransferCard(BeanTransterCard TransferCard) {
 		// TODO 自动生成的方法存根
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		try {
-			session.save(user);
+			session.save(TransferCard);
 			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -30,52 +30,44 @@ public class UserDao implements IUserDao{
 	}
 
 	@Override
-	public BeanUser SearchUser(String userId) {
+	public BeanTransterCard SearchTransferCard(int TransferCardId) {
 		// TODO 自动生成的方法存根
 		Session s = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = s.beginTransaction();
-		String hql = "from BeanUser where userId = '" + userId + "'";
+		String hql = "from BeanTransterCard where TransferCardId = '" + TransferCardId + "'";
 		Query qry = s.createQuery(hql);
-		Object user = qry.uniqueResult();
+		Object transterCard = qry.uniqueResult();
 		tx.commit();
-		return (BeanUser)user;
+		return (BeanTransterCard)transterCard;
 	}
 
 	@Override
-	public List<BeanUser> loadUser(String userName) {
+	public BeanTransterCard loadTransferCard(int TransferCardId) {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
+	@Override
+	public List<BeanTransterCard> loadAllTransferCard() {
 		// TODO 自动生成的方法存根
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		String hql = "from BeanUser where userName like '%" + userName + "%'";
-		hql += " order by userId ";
+		String hql = "from BeanTransterCard ";
+		hql += " order by transterCardId ";
 		Query qry = session.createQuery(hql);
 		@SuppressWarnings("unchecked")
-		List<BeanUser> result = qry.list();
+		List<BeanTransterCard> result = qry.list();
 		tx.commit();
 		return result;
 	}
 
 	@Override
-	public List<BeanUser> loadAllUser() {
-		// TODO 自动生成的方法存根
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		String hql = "from BeanUser ";
-		hql += " order by userId ";
-		Query qry = session.createQuery(hql);
-		@SuppressWarnings("unchecked")
-		List<BeanUser> result = qry.list();
-		tx.commit();
-		return result;
-	}
-
-	@Override
-	public void modifryUser(BeanUser user) {
+	public void modifryTransferCard(BeanTransterCard TransferCard) {
 		// TODO 自动生成的方法存根
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		try {
-			session.update(user);
+			session.update(TransferCard);
 			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -84,12 +76,12 @@ public class UserDao implements IUserDao{
 	}
 
 	@Override
-	public void delUser(BeanUser user) {
+	public void delTransferCard(BeanTransterCard TransferCard) {
 		// TODO 自动生成的方法存根
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		try {
-			session.delete(user);
+			session.delete(TransferCard);
 			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -97,10 +89,4 @@ public class UserDao implements IUserDao{
 		}
 	}
 
-	public static void main(String arg[]){
-		BeanUser user = new BeanUser();
-		user.setUserId("12");
-		user.setPassword("1235");
-		new UserDao().addUser(user);
-	}
 }

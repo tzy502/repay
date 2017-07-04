@@ -1,31 +1,72 @@
 package service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
 import convenience.util.BaseException;
-import daoI.IUser;
+import daoI.IUserDao;
 import model.BeanUser;
+import serviceI.IUserService;
 
 @Service
-public class UserService implements UserServiceI{
+public class UserService implements IUserService{
 	@Resource
-	private IUser userDaoI;
+	private IUserDao IUserDao;
 	public UserService(){
 	      System.out.println("UserService Constructor...\n\n\n\n\n\n");
 	}
 	 
 	@Override
-	public BeanUser checkLogin(String userId, String password) throws BaseException {
-		// TODO �Զ����ɵķ������
-		
-		BeanUser user = userDaoI.SearchUser(userId);
-		System.out.println("Password2:"+password);
-		if(user != null && password.equals(user.getPassword())){
-			return user;
-		}
+	public BeanUser register(String userId, String password) throws BaseException {
+		// TODO 自动生成的方法存根
 		return null;
-
+	}
+	@Override
+	public BeanUser login(String userId, String password) throws BaseException {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+	@Override
+	public BeanUser changePassword(String userId, String oldPassword, String newPassword) throws BaseException {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+	@Override
+	public BeanUser resetPassword(String userId) throws BaseException {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+	@Override
+	public BeanUser addUser(BeanUser user) throws BaseException {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+	@Override
+	public BeanUser updateUser(BeanUser user) throws BaseException {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+	@Override
+	public BeanUser delUser(String userId) throws BaseException {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+	@Override
+	public BeanUser searchUser(String userId) throws BaseException {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+	@Override
+	public List<BeanUser> loadAllUser() throws BaseException {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+	@Override
+	public List<BeanUser> loadUser(String userName) throws BaseException {
+		// TODO 自动生成的方法存根
+		return null;
 	}
 }

@@ -10,25 +10,28 @@ import util.BaseException;
 @Component
 public interface IUserService {
 	//注册
-	public BeanUser register(String userId, String password)throws BaseException;
+	public void register(String userId, String password, String userName, String userJob, String userPermissions, 
+			String cardNumber, String userPhone)throws BaseException;
 	
 	//登陆
-	public BeanUser login(String userId, String password)throws BaseException;
+	public String login(String userId, String password)throws BaseException;
 	
 	//修改密码
-	public BeanUser changePassword(String userId, String oldPassword, String newPassword)throws BaseException;
+	public void changePassword(String userId, String oldPassword, String newPassword)throws BaseException;
 	
 	//重置密码
-	public BeanUser resetPassword(String userId)throws BaseException;
+	public void resetPassword(String userId)throws BaseException;
 	
 	//添加用户
-	public BeanUser addUser(BeanUser user)throws BaseException;
+	public void addUser(String userId, String password, String userName, String userJob, String userPermissions, 
+			String cardNumber, String userPhone)throws BaseException;
 	
 	//修改用户信息
-	public BeanUser updateUser(BeanUser user)throws BaseException;
+	public void updateUser(String userId, String password, String userName, String userJob, String userPermissions, 
+			String cardNumber, String userPhone)throws BaseException;
 	
 	//删除用户
-	public BeanUser delUser(String userId)throws BaseException;
+	public void delUser(String userId)throws BaseException;
 	
 	//查询用户
 	public BeanUser searchUser(String userId)throws BaseException;

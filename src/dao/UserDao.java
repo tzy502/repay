@@ -1,11 +1,12 @@
 package dao;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
-import convenience.util.BaseException;
 import convenience.util.HibernateUtil;
 import daoI.IUser;
 import model.BeanUser;
@@ -19,7 +20,15 @@ public class UserDao implements IUser{
 	@Override
 	public void addUser(BeanUser user) {
 		// TODO 自动生成的方法存根
-		
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		try {
+			session.save(user);
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}
 	}
 
 
@@ -39,17 +48,31 @@ public class UserDao implements IUser{
 
 
 	@Override
-	public BeanUser loadUser(String userId) {
+	public BeanUser loadUser(String userName) {
 		// TODO 自动生成的方法存根
-		return null;
+		Session s = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx = s.beginTransaction();
+		String hql = "from BeanUser where userName like '%" + userName + "%'";
+		Query qry = s.createQuery(hql);
+		Object user = qry.uniqueResult();
+		tx.commit();
+		return (BeanUser)user;
 	}
 
 
 
 	@Override
-	public BeanUser loadAllUser() {
+	public List<BeanUser> loadAllUser() {
 		// TODO 自动生成的方法存根
-		return null;
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		String hql = "from BeanUser ";
+		hql += " order by userId ";
+		Query qry = session.createQuery(hql);
+		@SuppressWarnings("unchecked")
+		List<BeanUser> result = qry.list();
+		tx.commit();
+		return result;
 	}
 
 
@@ -57,7 +80,15 @@ public class UserDao implements IUser{
 	@Override
 	public void modifryUser(BeanUser user) {
 		// TODO 自动生成的方法存根
-		
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		try {
+			session.update(user);
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}
 	}
 
 
@@ -65,7 +96,15 @@ public class UserDao implements IUser{
 	@Override
 	public void DelUser(BeanUser user) {
 		// TODO 自动生成的方法存根
-		
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		try {
+			session.delete(user);
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}
 	}
 
 }

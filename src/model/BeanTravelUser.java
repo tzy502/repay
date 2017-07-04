@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "role")
+@Table(name = "traveluser")
 public class BeanTravelUser {
 	private int travelUserId;
 	private String travelId;

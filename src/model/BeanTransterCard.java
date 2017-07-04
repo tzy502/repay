@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "transterCard")
+@Table(name = "transtercard")
 public class BeanTransterCard {
 	
 	private int transferCardId;

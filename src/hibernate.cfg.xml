@@ -54,7 +54,7 @@
         <mapping class="model.BeanRepay"/>
         <mapping class="model.BeanRole"/>
         <mapping class="model.BeanSummary"/>
-        <mapping class="model.BeanTransferCard"/>
+        <mapping class="model.BeanTransterCard"/>
         <mapping class="model.BeanTravel"/>
         <mapping class="model.BeanTravelUser"/>
            

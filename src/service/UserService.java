@@ -5,20 +5,20 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import convenience.util.BaseException;
-import daoI.IUser;
+import daoI.IUserDao;
 import model.BeanUser;
 
 @Service
 public class UserService implements UserServiceI{
 	@Resource
-	private IUser userDaoI;
+	private IUserDao userDaoI;
 	public UserService(){
 	      System.out.println("UserService Constructor...\n\n\n\n\n\n");
 	}
 	 
 	@Override
 	public BeanUser checkLogin(String userId, String password) throws BaseException {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+		// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ÉµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		
 		BeanUser user = userDaoI.SearchUser(userId);
 		System.out.println("Password2:"+password);

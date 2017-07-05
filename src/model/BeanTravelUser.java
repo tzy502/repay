@@ -9,7 +9,7 @@ import javax.persistence.Table;
 @Table(name = "traveluser")
 public class BeanTravelUser {
 	private int travelUserId;
-	private String travelId;
+	private String repayId;
 	private String userId;
 	
 	@Id
@@ -21,12 +21,12 @@ public class BeanTravelUser {
 		this.travelUserId = travelUserId;
 	}
 	
-	@Column(name = "travelId")
+	@Column(name = "repayId")
 	public String getTravelId() {
-		return travelId;
+		return repayId;
 	}
-	public void setTravelId(String travelId) {
-		this.travelId = travelId;
+	public void setTravelId(String repayId) {
+		this.repayId = repayId;
 	}
 	
 	@Column(name = "userId")

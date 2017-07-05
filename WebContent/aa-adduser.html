@@ -24,8 +24,8 @@
 <meta name="description" content="H-ui.admin 3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
 <body>
-<article class="page-container">
-	<form class="form form-horizontal" id="form-admin-add">
+<article class="page-container" id = 'form-user-add'>
+	<form class="form form-horizontal" >
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>账号：</label>
 		<div class="formControls col-xs-8 col-sm-9">
@@ -39,15 +39,9 @@
 		</div>
 	</div>
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>初始密码：</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>职位：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="password" class="input-text" autocomplete="off" value="" placeholder="密码" id="password" name="password">
-		</div>
-	</div>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>确认密码：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="password" class="input-text" autocomplete="off"  placeholder="确认新密码" id="password2" name="password2">
+			<input type="text" class="input-text" value="" placeholder="" id="userJob" name="userJob">
 		</div>
 	</div>
 	<div class="row cl">
@@ -59,7 +53,7 @@
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="phone" name="phone">
+			<input type="text" class="input-text" value="" placeholder="" id="userPhone" name="userPhone">
 		</div>
 	</div>
 	
@@ -67,7 +61,7 @@
 	
 	<div class="row cl">
 		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-			<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+			<input class="btn btn-primary radius" type="button" onclick = "addUser()" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
 		</div>
 	</div>
 	</form>
@@ -85,14 +79,15 @@
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/validate-methods.js"></script> 
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/messages_zh.js"></script> 
 <script type="text/javascript">
-$(function(){
+function addUser(){
+	alert("添加");
 	$('.skin-minimal input').iCheck({
 		checkboxClass: 'icheckbox-blue',
 		radioClass: 'iradio-blue',
 		increaseArea: '20%'
 	});
 	
-	$("#form-admin-add").validate({
+	$("#form-user-add").validate({
 		rules:{
 			userId:{
 				required:true,
@@ -118,26 +113,33 @@ $(function(){
 			},
 			
 		},
-		onkeyup:false,
-		focusCleanup:true,
-		success:"valid",
-		submitHandler:function(form){
-			$(form).ajaxSubmit({
-				type: 'post',
-				url: "xxxxxxx" ,
-				success: function(data){
-					layer.msg('添加成功!',{icon:1,time:1000});
-				},
-                error: function(XmlHttpRequest, textStatus, errorThrown){
-					layer.msg('error!',{icon:1,time:1000});
-				}
-			});
-			var index = parent.layer.getFrameIndex(window.name);
-			parent.$('.btn-refresh').click();
-			parent.layer.close(index);
-		}
 	});
-});
+		var params={
+		    	"userId":document.getElementById("userId").value,
+		    	"userName":document.getElementById("userName").value,
+				"userJob":document.getElementById("userJob").value,
+				"cardNumber":document.getElementById("cardNumber").value,
+				"userPhone":document.getElementById("userPhone").value,
+		}
+	    $.ajax({    
+	        type: "post",    
+	        async: true,    
+	        url: "/repay/addUser.do",    
+	        data: JSON.stringify(params),
+	        dataType: "json",   
+	        contentType: "application/json; charset=utf-8",   
+	        success: function(data){
+				layer.msg('添加成功!',{icon:1,time:1000});
+			},
+	        error: function(XmlHttpRequest, textStatus, errorThrown){
+				layer.msg('error!',{icon:1,time:1000});
+			}
+		});
+		var index = parent.layer.getFrameIndex(window.name);
+		parent.$('.btn-refresh').click();
+		parent.layer.close(index);
+
+}
 </script> 
 <!--/请在上方写此页面业务相关的脚本-->
 </body>

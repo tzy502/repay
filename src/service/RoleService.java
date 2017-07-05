@@ -6,14 +6,14 @@ import java.util.List;
 import dao.RoleDao;
 import model.BeanRole;
 import serviceI.IRoleService;
+import util.BaseException;
 
 public class RoleService implements IRoleService {
 	RoleDao rd=new RoleDao();
 	@Override
-	public void addRole(int roleId, String roleName, String rolePermissions, String roleDescription) {
+	public void addRole( String roleName, String rolePermissions, String roleDescription)throws BaseException {
 		// TODO Auto-generated method stub
 		BeanRole role=new BeanRole();
-		role.setRoleId(roleId);
 		role.setRoleName(roleName);
 		role.setRolePermissions(rolePermissions);
 		role.setRoleDescription(roleDescription);
@@ -22,14 +22,19 @@ public class RoleService implements IRoleService {
 	}
 
 	@Override
-	public BeanRole SearchRole(int RoleId) {
+	public BeanRole SearchRole(int RoleId)throws BaseException {
 		BeanRole role=new BeanRole();
+		role =null;
 		role=rd.SearchRole(RoleId);
+		if(role==null){
+			throw new BaseException("查无数据");
+		}
+			
 		return role;
 	}
 
 	@Override
-	public List<BeanRole> loadAllRole() {
+	public List<BeanRole> loadAllRole()throws BaseException {
 		// TODO Auto-generated method stub
 		List<BeanRole> result=new ArrayList<BeanRole>();
 		result=rd.loadAllRole();

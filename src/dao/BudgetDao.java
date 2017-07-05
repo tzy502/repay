@@ -32,6 +32,7 @@ public class BudgetDao implements IBudget {
 	public BeanBudget Searchbudget(int budgetId) {
 		// TODO Auto-generated method stub
 		BeanBudget result =new BeanBudget();
+		result=null;
 		Session session =    HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx=session.beginTransaction();
 		try {

@@ -84,4 +84,17 @@ public class TravelDao implements ITravelDao{
 		}
 	}
 
+
+	@Override
+	public int TravelmaxId() {
+		Session s = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx = s.beginTransaction();
+		String hql = "select max(travelId) from BeanTravel";
+		Query qry = s.createQuery(hql);
+		java.util.List<Integer> list=qry.list(); 
+		int maxid=list.get(0);
+		tx.commit();
+		return maxid;
+	}
+
 }

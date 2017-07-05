@@ -16,6 +16,7 @@ public class RepayService implements IRepayService {
 			float checkFood, float checkMi, float checkOther, float sum, String approvalId, String data,String applicationId)throws BaseException {
 		// TODO Auto-generated method stub
 		BeanRepay br=new BeanRepay();
+		br.setRepayId(rd.repaymaxId());
 		br.setWorkerId(workerId);
 		br.setCompany(company);
 		br.setProjectId(projectId);

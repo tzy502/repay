@@ -8,22 +8,23 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "summarymoney")
 public class BeanSummaryMoney {
-	private int key;
+	private int keyword;
 	private int summaryprojectid;
 	private int summaryid;
 	private float cost;
 	@Id
-	@Column(name = "key")
-	public int getKey() {
-		return key;
+	@Column(name = "keyword")
+	public int getKeyword() {
+		return keyword;
 	}
-	public void setKey(int key) {
-		this.key = key;
+	public void setKeyword(int keyword) {
+		this.keyword = keyword;
 	}
 	@Column(name = "summaryprojectid")
 	public int getSummaryprojectid() {
 		return summaryprojectid;
 	}
+
 	public void setSummaryprojectid(int summaryprojectid) {
 		this.summaryprojectid = summaryprojectid;
 	}

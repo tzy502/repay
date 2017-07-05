@@ -17,4 +17,5 @@ public interface IRepay {
 	//修改报销�?
 	public void DelRepay(BeanRepay Repay);
 	//删除报销�?
+	public int repaymaxId();
 }

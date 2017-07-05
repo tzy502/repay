@@ -3,6 +3,7 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -112,5 +113,14 @@ public class RepayDao implements IRepay {
 			tx.rollback();
 		}
 	}
-
+	public int repaymaxId() {
+		Session s = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx = s.beginTransaction();
+		String hql = "select max(repayId) from BeanRepay";
+		Query qry = s.createQuery(hql);
+		java.util.List<Integer> list=qry.list(); 
+		int maxid=list.get(0);
+		tx.commit();
+		return maxid;
+	}
 }

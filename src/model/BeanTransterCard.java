@@ -12,7 +12,7 @@ public class BeanTransterCard {
 	private int transferCardId;
 	private int repayId;
 	private String transferCardFees;
-	
+	private String userid;
 	@Id
 	@Column(name = "transferCardId")
 	public int getTransferCardId() {
@@ -37,4 +37,12 @@ public class BeanTransterCard {
 	public void setTransferCardFees(String transferCardFees) {
 		this.transferCardFees = transferCardFees;
 	}
+	@Column(name = "userid")
+	public String getUserid() {
+		return userid;
+	}
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+	
 }

@@ -14,7 +14,6 @@ public class BeanSummary {
 	private String company;
 	private String projectId;
 	private int annex;
-	
 	private float sum;
 	private String manager; 
 	private String applicationId;

@@ -40,7 +40,6 @@
 				<th scope="col" colspan="9">员工列表</th>
 			</tr>
 			<tr class="text-c">
-				<th width="25"><input type="checkbox" name="" value=""></th>
 				<th width="40">ID</th>
 				<th width="40">用户名</th>
 				<th width="40">职位</th>
@@ -50,27 +49,26 @@
 				<th width="100">操作</th>
 			</tr>
 		</thead>
-		<tbody>
-			<tr class="text-c">
-				<td><input type="checkbox" value="1" name=""></td>
+		<tbody id = 'tbody-alluser'>
+			<!-- <tr class='text-c'>
+				<td>2ss</td>
 				<td>2</td>
 				<td>2</td>
 				<td>2</td>
 				<td>2</td>
 				<td>2</td>
-				<td>2</td>
-				<td class="td-manage">
-					<a style="text-decoration:none" onClick="resetPassword(this,'1')" href="javascript:;" title="重置密码">
-						<i class="Hui-iconfont">&#xe6f7;</i>
+				<td class='td-manage'>
+					<a style='text-decoration:none' onClick='resetPassword(this,'1')' href='javascript:;' title='重置密码'>
+						<i class='Hui-iconfont'>&#xe6f7;</i>
 					</a> 
-					<a title="编辑" href="javascript:;" onclick="admin_edit('用户编辑','aa-adduser.html','2','800','500')" class="ml-5" style="text-decoration:none">
-						<i class="Hui-iconfont">&#xe6df;</i>
+					<a title='编辑' href='javascript:;' onclick='admin_edit('用户编辑','aa-adduser.html','2','800','500')' class='ml-5' style='text-decoration:none'>
+						<i class='Hui-iconfont'>&#xe6df;</i>
 					</a> 
-					<a title="删除" href="javascript:;" onclick="admin_del(this,'1')" class="ml-5" style="text-decoration:none">
-						<i class="Hui-iconfont">&#xe6e2;</i>
+					<a title='删除' href='javascript:;' onclick='admin_del(this,'1')' class='ml-5' style='text-decoration:none'>
+						<i class='Hui-iconfont'>&#xe6e2;</i>
 					</a>
 				</td>
-			</tr>
+			</tr> -->
 		</tbody>
 	</table>
 </div>
@@ -94,9 +92,103 @@
 	w		弹出层宽度（缺省调默认值）
 	h		弹出层高度（缺省调默认值）
 */
+
+
+
+$(document).ready(function (){
+	$('body').on('click','#reset',function(event){
+		var userId = this.title;
+		layer.confirm('确认要重置密码吗？',function(index){
+			var params={
+			    	"userId":userId,
+			}
+			$.ajax({
+				type: 'POST',
+				url: '',
+				data: JSON.stringify(params),
+				dataType: 'json',
+				contentType: "application/json; charset=utf-8",
+				success: function(data){
+					layer.msg('已重置!',{icon:1,time:1000});
+				},
+				error:function(data) {
+					console.log(data.msg);
+				},
+			});		
+		});
+	}); 
+	$('body').on('click','#update',function(event){
+		layer_show('用户编辑','aa-adduser.html','800','500');
+	}); 
+	$('body').on('click','#delete',function(event){
+		var userId = this.title;
+		layer.confirm('确认要删除吗？',function(){
+			var params={
+			    	"userId":userId,
+			}
+			$.ajax({
+				type: 'POST',
+				url: '/repay/deleteUser.do',
+				data: JSON.stringify(params),
+				dataType: 'json',
+				contentType: "application/json; charset=utf-8",
+				success: function(data){
+					layer.msg('已删除!',{icon:1,time:1000});
+					window.location.href = 'aa-userlist.html';
+					
+				},
+				error:function(data) {
+					console.log(data.msg);
+				},
+			});		
+		});
+	}); 
+	
+	$.ajax({    
+        type: "post",    
+        async: true,    
+        url: "/repay/loadAllUser.do",  
+        dataType: "json", 
+        contentType: "application/json; charset=utf-8",   
+        error: function(data){  
+        	alert("出错了！！:"+data.msg);
+        } , 
+        success: function(data) { 
+        	var str = "";  
+    		for(var i = 0; i < data.length; i++){
+    			str += "<tr class='text-c'>"+
+				"<td>"+data[i].userId+"</td>"+
+				"<td>"+data[i].userName+"</td>"+
+				"<td>"+data[i].userJob+"</td>"+
+				"<td>"+data[i].userPermissions+"</td>"+
+				"<td>"+data[i].cardNumber+"</td>"+   
+				"<td>"+data[i].userPhone+"</td>"+
+				"<td class='td-manage'>"+
+				"<a style='text-decoration:none' id = 'reset'  href='javascript:;' title='"+data[i].userId+"''>"+
+					"<i class='Hui-iconfont'>&#xe6f7;</i>"+
+				"</a>"+ 
+				"<a style='text-decoration:none' id = 'update' href='javascript:;' title='"+data[i].userId+"'>"+
+					"<i class='Hui-iconfont'>&#xe6df;</i>"+
+				"</a>"+
+				"<a style='text-decoration:none' id = 'delete' href='javascript:;' title='"+data[i].userId+"'>"+
+					"<i class='Hui-iconfont'>&#xe6e2;</i>"+
+				"</a>"+
+				"</td></tr>";
+
+        		}
+        	
+        	$("#tbody-alluser").html(str);  
+        	 
+        }     
+    });
+
+})
+
+
 /*管理员-增加*/
 function admin_add(title,url,w,h){
 	layer_show(title,url,w,h);
+	
 }
 /*管理员-删除*/
 function admin_del(obj,id){

@@ -24,17 +24,14 @@ public class UserService implements IUserService{
 	}
 	 
 	@Override
-	public void register(String userId, String password, String userName, String userJob, String userPermissions, 
-			String cardNumber, String userPhone) throws BaseException {
+	public void register(String userId, String password, String userName, String userJob, String userPhone) throws BaseException {
 		// TODO 自动生成的方法存根
 		BeanUser user = new BeanUser();
 		user.setUserId(userId);
 		//user.setPassword(encoderByMd5(password));
 		user.setPassword(password);
-		user.setCardNumber(cardNumber);
 		user.setUserJob(userJob);
 		user.setUserName(userName);
-		user.setUserPermissions(userPermissions);
 		user.setUserPhone(userPhone);
 		IUserDao.addUser(user);
 		
@@ -84,17 +81,16 @@ public class UserService implements IUserService{
 	
 	//添加用户
 	@Override
-	public void addUser(String userId, String password, String userName, String userJob, String userPermissions, 
-			String cardNumber, String userPhone) throws BaseException {
+	public void addUser(String userId, String password, String userName, String userJob, String userPhone) throws BaseException {
 		// TODO 自动生成的方法存根
 		BeanUser user = new BeanUser();
 		try {
 			user.setUserId(userId);
 			user.setPassword(encoderByMd5(password));
-			user.setCardNumber(cardNumber);
+
 			user.setUserJob(userJob);
 			user.setUserName(userName);
-			user.setUserPermissions(userPermissions);
+
 			user.setUserPhone(userPhone);
 			IUserDao.addUser(user);
 		} catch (NoSuchAlgorithmException e) {
@@ -108,17 +104,14 @@ public class UserService implements IUserService{
 	
 	//修改用户
 	@Override
-	public void updateUser(String userId, String password, String userName, String userJob, String userPermissions, 
-			String cardNumber, String userPhone) throws BaseException {
+	public void updateUser(String userId, String password, String userName, String userJob, String userPhone) throws BaseException {
 		// TODO 自动生成的方法存根
 		BeanUser user = IUserDao.SearchUser(userId);
 		try {
 			user.setUserId(userId);
 			user.setPassword(encoderByMd5(password));
-			user.setCardNumber(cardNumber);
 			user.setUserJob(userJob);
 			user.setUserName(userName);
-			user.setUserPermissions(userPermissions);
 			user.setUserPhone(userPhone);
 			IUserDao.addUser(user);
 		} catch (NoSuchAlgorithmException e) {

@@ -10,8 +10,7 @@ import util.BaseException;
 @Component
 public interface IUserService {
 	//注册
-	public void register(String userId, String password, String userName, String userJob, String userPermissions, 
-			String cardNumber, String userPhone)throws BaseException;
+	public void register(String userId, String password, String userName, String userJob, String userPhone)throws BaseException;
 	
 	//登陆
 	public String login(String userId, String password)throws BaseException;
@@ -23,12 +22,10 @@ public interface IUserService {
 	public void resetPassword(String userId)throws BaseException;
 	
 	//添加用户
-	public void addUser(String userId, String password, String userName, String userJob, String userPermissions, 
-			String cardNumber, String userPhone)throws BaseException;
+	public void addUser(String userId, String password, String userName, String userJob, String userPhone)throws BaseException;
 	
 	//修改用户信息
-	public void updateUser(String userId, String password, String userName, String userJob, String userPermissions, 
-			String cardNumber, String userPhone)throws BaseException;
+	public void updateUser(String userId, String password, String userName, String userJob, String userPhone)throws BaseException;
 	
 	//删除用户
 	public void delUser(String userId)throws BaseException;

@@ -8,12 +8,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "user")
 public class BeanUser {
+	private int roleId;
 	private String userId;
 	private String userName;
 	private String password;
 	private String userJob;
-	private String userPermissions;
-	private String cardNumber;
 	private String userPhone;
 	
 	@Id
@@ -23,6 +22,14 @@ public class BeanUser {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	
+	@Column(name = "roleId")
+	public int getRoleId() {
+		return roleId;
+	}
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
 	}
 	
 	@Column(name = "userName")
@@ -47,22 +54,6 @@ public class BeanUser {
 	}
 	public void setUserJob(String userJob) {
 		this.userJob = userJob;
-	}
-	
-	@Column(name = "userPermissions")
-	public String getUserPermissions() {
-		return userPermissions;
-	}
-	public void setUserPermissions(String userPermissions) {
-		this.userPermissions = userPermissions;
-	}
-	
-	@Column(name = "cardNumber")
-	public String getCardNumber() {
-		return cardNumber;
-	}
-	public void setCardNumber(String cardNumber) {
-		this.cardNumber = cardNumber;
 	}
 	
 	@Column(name = "userPhone")

@@ -23,7 +23,7 @@ public class BeanTravel {
 	private float stayFees;
 	private float foodFees;
 	private float miFess;
-	private float other ;
+	private float other;
 	
 	@Id
 	@Column(name = "travelId")

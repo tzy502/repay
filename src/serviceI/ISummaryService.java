@@ -8,10 +8,10 @@ import model.BeanSummary;
 import util.BaseException;
 @Component
 public interface ISummaryService {
-	public void addSummary(  int budgetId, String userId, String company, String projectId, int annex, 
-			float sum, String manager,  String applicationId)throws BaseException; 
-	public void modifrySummary(int summaryId, int budgetId, String userId, String company, String projectId, int annex, 
-			float sum, String manager,  String applicationId)throws BaseException;
+	public void addSummary(String userId, String company, String projectId, int billCount, float sum, String workerId,
+			String userName, float money, String cardNumber, String manager, String applicationId)throws BaseException; 
+	public void modifrySummary(int summaryId,String userId, String company, String projectId, int billCount, float sum, String workerId,
+			String userName, float money, String cardNumber, String manager, String applicationId)throws BaseException;
 	public void delSummary(int summaryId)throws BaseException;
 	public BeanSummary searchSummary(int summaryId) throws BaseException;
 	public List<BeanSummary> loadSummary() throws BaseException;

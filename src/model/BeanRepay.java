@@ -9,7 +9,6 @@ import javax.persistence.Table;
 @Table(name = "repay")
 public class BeanRepay {
 	private int repayId;
-	private String workerId;
 	private String company;
 	private String projectId;
 	private String reason;
@@ -27,6 +26,11 @@ public class BeanRepay {
 	private String approvalId;
 	private String data;
 	private String applicationId;
+	private String workerId;
+	private String userName;
+	private float money;
+	private String cardNumber;
+	private String auditor;
 	
 	@Id
 	@Column(name = "repayId")
@@ -179,5 +183,37 @@ public class BeanRepay {
 	}
 	public void setApplicationId(String applicationId) {
 		this.applicationId = applicationId;
+	}
+	
+	@Column(name = "auditor")
+	public String getAuditor() {
+		return auditor;
+	}
+	public void setAuditor(String auditor) {
+		this.auditor = auditor;
+	}
+	
+	@Column(name = "userName")
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
+	@Column(name = "money")
+	public float getMoney() {
+		return money;
+	}
+	public void setMoney(float money) {
+		this.money = money;
+	}
+	
+	@Column(name = "cardNumber")
+	public String getCardNumber() {
+		return cardNumber;
+	}
+	public void setCardNumber(String cardNumber) {
+		this.cardNumber = cardNumber;
 	}
 }

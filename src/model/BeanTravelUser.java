@@ -9,8 +9,9 @@ import javax.persistence.Table;
 @Table(name = "traveluser")
 public class BeanTravelUser {
 	private int travelUserId;
-	private String repayId;
-	private String userId;
+	private int repayId;
+	private String userName;
+	private String userJob;
 	
 	@Id
 	@Column(name = "travelUserId")
@@ -21,21 +22,27 @@ public class BeanTravelUser {
 		this.travelUserId = travelUserId;
 	}
 	
+	@Column(name = "userName")
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
+	@Column(name = "userJob")
+	public String getUserJob() {
+		return userJob;
+	}
+	public void setUserJob(String userJob) {
+		this.userJob = userJob;
+	}
+	
 	@Column(name = "repayId")
-	public String getTravelId() {
+	public int getRepayId() {
 		return repayId;
 	}
-	public void setTravelId(String repayId) {
+	public void setRepayId(int repayId) {
 		this.repayId = repayId;
 	}
-	
-	@Column(name = "userId")
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	
-	
 }

@@ -9,12 +9,15 @@ import javax.persistence.Table;
 @Table(name = "summary")
 public class BeanSummary {
 	private int summaryId;
-	private int budgetId;
 	private String userId;
 	private String company;
 	private String projectId;
-	private int annex;
+	private int billCount;
 	private float sum;
+	private String workerId;
+	private String userName;
+	private float money;
+	private String cardNumber;
 	private String manager; 
 	private String applicationId;
 	
@@ -25,14 +28,6 @@ public class BeanSummary {
 	}
 	public void setSummaryId(int summaryId) {
 		this.summaryId = summaryId;
-	}
-	
-	@Column(name = "budgetId")
-	public int getBudgetId() {
-		return budgetId;
-	}
-	public void setBudgetId(int budgetId) {
-		this.budgetId = budgetId;
 	}
 	
 	@Column(name = "userId")
@@ -59,14 +54,6 @@ public class BeanSummary {
 		this.projectId = projectId;
 	}
 	
-	@Column(name = "annex")
-	public int getAnnex() {
-		return annex;
-	}
-	public void setAnnex(int annex) {
-		this.annex = annex;
-	}
-	
 	
 	@Column(name = "sum")
 	public float getSum() {
@@ -90,5 +77,45 @@ public class BeanSummary {
 	}
 	public void setApplicationId(String applicationId) {
 		this.applicationId = applicationId;
+	}
+	
+	@Column(name = "billCount")
+	public int getBillCount() {
+		return billCount;
+	}
+	public void setBillCount(int billCount) {
+		this.billCount = billCount;
+	}
+	
+	@Column(name = "workerId")
+	public String getWorkerId() {
+		return workerId;
+	}
+	public void setWorkerId(String workerId) {
+		this.workerId = workerId;
+	}
+	
+	@Column(name = "userName")
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
+	@Column(name = "money")
+	public float getMoney() {
+		return money;
+	}
+	public void setMoney(float money) {
+		this.money = money;
+	}
+	
+	@Column(name = "cardNumber")
+	public String getCardNumber() {
+		return cardNumber;
+	}
+	public void setCardNumber(String cardNumber) {
+		this.cardNumber = cardNumber;
 	}
 }

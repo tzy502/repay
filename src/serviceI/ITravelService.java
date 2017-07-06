@@ -3,9 +3,11 @@ package serviceI;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import model.BeanTravel;
 import util.BaseException;
-
+@Component
 public interface ITravelService {
 	public void addTravel( int repayId, String travelLocation, String travelProvince,
 			Date  startData, Date endData, int days, float plane, float train, float tasfficOther,

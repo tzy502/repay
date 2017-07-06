@@ -2,9 +2,11 @@ package serviceI;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import model.BeanTravelUser;
 import util.BaseException;
-
+@Component
 public interface ITravelUserService {
 	public void addTravelUser(String travelId,String userId)throws BaseException; 
 	public void modifryTravelUser(int travelUserId,String travelId,String userId)throws BaseException;

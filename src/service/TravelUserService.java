@@ -2,12 +2,16 @@ package service;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
 import model.BeanTravelUser;
 import serviceI.ITravelUserService;
 import util.BaseException;
-
+@Service
 public class TravelUserService implements ITravelUserService {
-
+	@Resource
 	@Override
 	public void addTravelUser(String travelId, String userId) throws BaseException {
 		// TODO Auto-generated method stub

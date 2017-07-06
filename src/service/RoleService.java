@@ -3,12 +3,17 @@ package service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
 import dao.RoleDao;
 import model.BeanRole;
 import serviceI.IRoleService;
 import util.BaseException;
-
+@Service
 public class RoleService implements IRoleService {
+	@Resource
 	RoleDao rd=new RoleDao();
 	@Override
 	public void addRole( String roleName, String rolePermissions, String roleDescription)throws BaseException {

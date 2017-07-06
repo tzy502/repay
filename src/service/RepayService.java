@@ -3,13 +3,19 @@ package service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
 import dao.RepayDao;
 import model.BeanRepay;
 import serviceI.IRepayService;
 import util.BaseException;
-
+@Service
 public class RepayService implements IRepayService {
 	RepayDao rd=new RepayDao();
+	@Resource
+	
 	@Override
 	public void addRepay(String workerId, String company, String projectId, String reason, int annex,
 			String annexPath, float checkDays, float checkPlane, float checkTrain, float checkTOther, float checkStay,

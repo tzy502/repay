@@ -3,12 +3,17 @@ package service;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
 import dao.TravelDao;
 import model.BeanTravel;
 import serviceI.ITravelService;
 import util.BaseException;
-
+@Service
 public class TravelService implements ITravelService {
+	@Resource
 	TravelDao td=new TravelDao();
 	@Override
 	public void addTravel(int repayId, String travelLocation, String travelProvince, Date startData, Date endData,

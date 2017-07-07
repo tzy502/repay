@@ -30,7 +30,7 @@ public class ItemService implements IItemService{
 	}
 
 	@Override
-	public void DelItem(int itemId) throws BaseException {
+	public void delItem(int itemId) throws BaseException {
 		 
 		
 	}

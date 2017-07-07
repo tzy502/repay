@@ -15,7 +15,7 @@ public interface IItemService {
 	//修改
 	public void updateItem(int itemId, String ItemName)throws BaseException;
 	
-	public void DelItem(int itemId)throws BaseException;
+	public void delItem(int itemId)throws BaseException;
 	//查询
 	public BeanItem searchItem(int itemId)throws BaseException;
 	

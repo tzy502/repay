@@ -28,8 +28,8 @@ public class ProjectService implements IProjectService {
 		bp.setFieldId(fieldId);
 		bp.setSource(source);
 		bp.setSourceId(sourceId);
-		bp.setProstartDate(prostartDate);
-		bp.setProendDate(proendDate);
+		bp.setStartDate(prostartDate);
+		bp.setEndDate(proendDate);
 		pd.addProject(bp);
 		
 		
@@ -48,8 +48,8 @@ public class ProjectService implements IProjectService {
 		bp.setFieldId(fieldId);
 		bp.setSource(source);
 		bp.setSourceId(sourceId);
-		bp.setProstartDate(prostartDate);
-		bp.setProendDate(proendDate);
+		bp.setStartDate(prostartDate);
+		bp.setEndDate(proendDate);
 		bp.setProjectId(projectId);
 		pd.updateProject(bp);
 		

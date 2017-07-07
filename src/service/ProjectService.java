@@ -56,7 +56,7 @@ public class ProjectService implements IProjectService {
 	}
 
 	@Override
-	public void DelProject(int projectId) throws BaseException {
+	public void delProject(int projectId) throws BaseException {
 		// TODO Auto-generated method stub
 		pd.delProject(SearchProject(projectId));
 	}

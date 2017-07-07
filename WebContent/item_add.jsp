@@ -29,7 +29,7 @@
 <article class="page-container" id = 'form-item-add'>
 	<form class="form form-horizontal" >
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>项目名称：</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>报销项目名称：</label>
 		<div class="formControls col-xs-8 col-sm-9">
 			<input type="text" class="input-text" value="" placeholder="项目名称" id="itemName" name="itemName">
 		</div>

@@ -64,7 +64,7 @@ public class ItemController {
 	}
 	
 	//修改报销项目
-	@RequestMapping(value = "/addItem.do", produces = "application/json; charset=utf-8") 
+	@RequestMapping(value = "/updateItem.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String updateItem(@RequestBody String params) throws JSONException{
 		System.out.println(params);
@@ -84,21 +84,42 @@ public class ItemController {
 	}
 	
 	//删除报销项目
-	@RequestMapping(value = "/addItem.do", produces = "application/json; charset=utf-8") 
+	@RequestMapping(value = "/deleteItem.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String deleteItem(@RequestBody String params) throws JSONException{
 		System.out.println(params);
 		JSONObject json = new JSONObject(params);
-		int itemId = (int) json.get("itemId");
+		String itemId = (String) json.get("itemId");
     	JSONObject jo = new JSONObject();
     	try {
-    		IItemService.delItem(itemId);
+    		IItemService.delItem(Integer.valueOf(itemId));
 		} catch (BaseException e) {
 			// TODO 自动生成的 catch 块
 			jo.put("msg", e.getMessage());
 			return jo.toString();
 		}
     	jo.put("msg", "succ");
+		return jo.toString();  
+	}
+	
+	//查询报销项目
+	@RequestMapping(value = "/searchItem.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String searchItem(@RequestBody String params) throws JSONException{
+		System.out.println(params);
+		JSONObject json = new JSONObject(params);
+		int itemId = (int) json.get("itemId");
+		BeanItem item = null;
+    	JSONObject jo = new JSONObject();
+    	try {
+    		item = IItemService.searchItem(itemId);
+		} catch (BaseException e) {
+			// TODO 自动生成的 catch 块
+			jo.put("msg", e.getMessage());
+			return jo.toString();
+		}
+    	jo.put("itemId", item.getItemId());
+    	jo.put("itemName", item.getItemName());
 		return jo.toString();  
 	}
 

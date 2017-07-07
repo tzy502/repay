@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -55,4 +56,24 @@ public class ProjectController {
 		}
 		return json.toString();
 	}
+	
+	//删除项目
+	@RequestMapping(value = "/deleteProject.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String deleteItem(@RequestBody String params) throws JSONException{
+		System.out.println(params);
+		JSONObject json = new JSONObject(params);
+		int projectId = (int) json.get("projectId");
+    	JSONObject jo = new JSONObject();
+    	try {
+    		IProjectService.delProject(projectId);
+		} catch (BaseException e) {
+			// TODO 自动生成的 catch 块
+			jo.put("msg", e.getMessage());
+			return jo.toString();
+		}
+    	jo.put("msg", "succ");
+		return jo.toString();  
+	}
+
 }

@@ -3,6 +3,7 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
@@ -42,7 +43,7 @@ public class ItemDao implements IItemDao {
 		Transaction tx=session.beginTransaction();
 		try {
 
-		org.hibernate.Query qry = session.createQuery("from BeanItem where userid=?");
+		org.hibernate.Query qry = session.createQuery("from BeanItem where itemId=?");
 		qry.setParameter(0, itemId);
 		java.util.List list = qry.list();
 		session.getTransaction().commit();	

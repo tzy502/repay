@@ -5,16 +5,21 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
-import daoI.IItem;
+import daoI.IItemDao;
 import model.BeanBudget;
 import model.BeanItem;
 import util.HibernateUtil;
 
-public class ItemDao implements IItem {
-
+@Repository
+public class ItemDao implements IItemDao {
+	public ItemDao(){
+	      System.out.println("ItemDao Constructor...\n\n\n\n\n");
+	}
+	
 	@Override
-	public void additem(BeanItem item) {
+	public void addItem(BeanItem item) {
 		// TODO Auto-generated method stub
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
@@ -28,7 +33,7 @@ public class ItemDao implements IItem {
 	}
 
 	@Override
-	public BeanItem Searchitem(int itemId) {
+	public BeanItem SearchItem(int itemId) {
 		// TODO Auto-generated method stub
 		BeanItem result =new BeanItem();
 		result=null;
@@ -49,7 +54,7 @@ public class ItemDao implements IItem {
 	}
 
 	@Override
-	public List<BeanItem> loaditem(int itemId) {
+	public List<BeanItem> loadItem(int itemId) {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
 		List<BeanItem> result =new ArrayList<BeanItem>();
@@ -69,7 +74,7 @@ public class ItemDao implements IItem {
 	}
 
 	@Override
-	public List<BeanItem> loadAllitem() {
+	public List<BeanItem> loadAllItem() {
 		// TODO Auto-generated method stub
 		List<BeanItem> result =new ArrayList<BeanItem>();
 		Session session =    HibernateUtil.getSessionFactory().getCurrentSession();
@@ -88,7 +93,7 @@ public class ItemDao implements IItem {
 	}
 
 	@Override
-	public void modifryitem(BeanItem item) {
+	public void modifryItem(BeanItem item) {
 		// TODO Auto-generated method stub
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
@@ -102,7 +107,7 @@ public class ItemDao implements IItem {
 	}
 
 	@Override
-	public void Delitem(BeanItem item) {
+	public void delItem(BeanItem item) {
 		// TODO Auto-generated method stub
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();

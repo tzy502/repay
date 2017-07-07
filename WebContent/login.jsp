@@ -38,7 +38,7 @@ function ajaxTest() {
             $("#result").html(data.msg) ;   
             if (data.msg == "true") {//根据返回值进行跳转
             	alert("登陆成功！！");
-                //window.location.href = 'main.jsp?userName='+data.userName+'&userId='+data.userId;
+                window.location.href = 'main.jsp?userName='+data.userName+'&userId='+data.userId;
             }
             else{
             	alert(data.msg);

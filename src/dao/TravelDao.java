@@ -5,11 +5,12 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
 import daoI.ITravelDao;
 import model.BeanTravel;
 import util.HibernateUtil;
-
+@Repository
 public class TravelDao implements ITravelDao{
 	public TravelDao(){
 		System.out.println("TravelDao Constructor...\n\n\n\n\n");

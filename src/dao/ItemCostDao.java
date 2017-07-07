@@ -5,12 +5,13 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
 import daoI.IItemCost;
 import model.BeanBudget;
 import model.BeanItemCost;
 import util.HibernateUtil;
-
+@Repository
 public class ItemCostDao implements IItemCost {
 
 	@Override

@@ -5,11 +5,12 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
 import util.HibernateUtil;
 import daoI.ISummary;
 import model.BeanSummary;
-
+@Repository
 public class SummaryDao implements ISummary {
 
 	@Override

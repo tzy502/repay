@@ -15,5 +15,5 @@ public interface IProjectService {
 			String fieldId, String source,String sourceId, Date prostartDate, Date proendDate)throws BaseException;
 	public void DelProject(int projectId)throws BaseException;
 	public BeanProject SearchProject(int projectId)throws BaseException;
-	public List<BeanProject> LoadProject()throws BaseException;
+	public List<BeanProject> loadAllProject()throws BaseException;
 }

@@ -74,7 +74,7 @@ public class ProjectService implements IProjectService {
 	}
 
 	@Override
-	public List<BeanProject> LoadProject() throws BaseException {
+	public List<BeanProject> loadAllProject() throws BaseException {
 		// TODO Auto-generated method stub
 		 List<BeanProject> result=new ArrayList<BeanProject>();
 		 result=pd.loadAllProject();

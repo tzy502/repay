@@ -1,17 +1,19 @@
 package dao;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
 import util.HibernateUtil;
 import daoI.IBudget;
 import model.BeanBudget;
 import model.BeanUser;
-
+@Repository
 public class BudgetDao implements IBudget {
 
 	@Override

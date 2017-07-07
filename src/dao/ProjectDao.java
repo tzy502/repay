@@ -5,12 +5,13 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
 import daoI.IProject;
 import model.BeanProject;
 import model.BeanUser;
 import util.HibernateUtil;
-
+@Repository
 public class ProjectDao implements IProject{
 	public ProjectDao(){
 	      System.out.println("ProjectDao Constructor...\n\n\n\n\n");

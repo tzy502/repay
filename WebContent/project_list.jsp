@@ -195,7 +195,7 @@ function searchProject(){
 }
 
 /*项目-增加*/
-function item_add(title,url,w,h){
+function project_add(title,url,w,h){
 	layer_show(title,url,w,h);
 	
 }

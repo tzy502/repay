@@ -29,7 +29,7 @@ public class ItemService implements IItemService{
 	public void updateItem(int itemId, String itemName) throws BaseException {
 		 BeanItem item = IItemDao.SearchItem(itemId);
 		 item.setItemName(itemName);
-		 IItemDao.addItem(item);
+		 IItemDao.modifryItem(item);
 		
 	}
 

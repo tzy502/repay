@@ -56,7 +56,8 @@ public class ItemController {
  		JSONArray json = new JSONArray();
 		for(int i = 0; i < item.size(); i++){
 			JSONObject jo = new JSONObject();
-			jo.put("item", item.get(i).getItemName());
+			jo.put("itemId", item.get(i).getItemId());
+			jo.put("itemName", item.get(i).getItemName());
 			json.put(jo);
 		}
 		return json.toString();

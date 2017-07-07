@@ -5,12 +5,13 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
 import util.HibernateUtil;
 import daoI.IRole;
 import model.BeanRepay;
 import model.BeanRole;
-
+@Repository
 public class RoleDao implements IRole {
 
 	@Override

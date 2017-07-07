@@ -5,12 +5,13 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
 import daoI.ISchoolItem;
 import model.BeanBudget;
 import model.BeanSchoolItem;
 import util.HibernateUtil;
-
+@Repository
 public class SchoolItem implements ISchoolItem {
 
 	@Override

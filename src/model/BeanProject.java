@@ -11,6 +11,7 @@ import javax.persistence.Table;
 @Table(name = "project")
 public class BeanProject {
 	private int projectId;
+	private String userId;
 	private String projectName;
 	private String projectType;
 	private String projectTypeId;
@@ -18,8 +19,8 @@ public class BeanProject {
 	private String fieldId;
 	private String source;
 	private String sourceId;
-	private Date prostartDate;
-	private Date proendDate;
+	private Date startDate;
+	private Date endDate;
 	
 	@Id
 	@Column(name = "projectId")
@@ -86,19 +87,27 @@ public class BeanProject {
 		this.sourceId = sourceId;
 	}
 	
-	@Column(name = "prostartDate")
-	public Date getProstartDate() {
-		return prostartDate;
+	@Column(name = "userId")
+	public String getUserId() {
+		return userId;
 	}
-	public void setProstartDate(Date prostartDate) {
-		this.prostartDate = prostartDate;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	
-	@Column(name = "proendDate")
-	public Date getProendDate() {
-		return proendDate;
+	@Column(name = "startDate")
+	public Date getStartDate() {
+		return startDate;
 	}
-	public void setProendDate(Date proendDate) {
-		this.proendDate = proendDate;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+	
+	@Column(name = "endDate")
+	public Date getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 }

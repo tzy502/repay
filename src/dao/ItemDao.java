@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import daoI.IItemDao;
 import model.BeanBudget;
 import model.BeanItem;
+import model.BeanUser;
 import util.HibernateUtil;
 
 @Repository
@@ -120,4 +121,8 @@ public class ItemDao implements IItemDao {
 		}
 	}
 
+	public static void main(String arg[]){
+		List<BeanItem> item = new ItemDao().loadAllItem();
+		System.out.println(item.get(0).getItemName());
+	}
 }

@@ -13,5 +13,5 @@ public interface IProject {
 	
 	public List<BeanProject> loadAllProject();
 	
-	public BeanProject searchProject(String projectId);
+	public BeanProject searchProject(int projectId);
 }

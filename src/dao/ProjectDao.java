@@ -72,7 +72,7 @@ public class ProjectDao implements IProject{
 	}
 
 	@Override
-	public BeanProject searchProject(String projectId) {
+	public BeanProject searchProject(int projectId) {
 		// TODO 自动生成的方法存根
 		Session s = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = s.beginTransaction();

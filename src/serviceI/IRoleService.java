@@ -12,5 +12,5 @@ public interface IRoleService {
 	public BeanRole SearchRole(int roleId)throws BaseException;
 	public List<BeanRole> loadAllRole()throws BaseException;
 	public void modifryRole(int roleId,String roleName,String rolePermissions,String roleDescription)throws BaseException;
-	public void DelRole(BeanRole Role)throws BaseException;
+	public void DelRole(int roleId)throws BaseException;
 }

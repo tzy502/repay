@@ -6,12 +6,12 @@
 <hibernate-configuration>
     <session-factory> 
  		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
-        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://localhost:5433/repay?useUnicode=true&amp;characterEncoding=UTF</property>
-        <property name="connection.useUnicode">true</property>
-        <property name="connection.characterEncoding">utf-8</property>
-        <property name="connection.username">root</property>
-        <property name="connection.password">123456</property>
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://127.0.0.1:3306/repay</property>
+		<property name="connection.useUnicode">true</property>
+		<property name="connection.characterEncoding">utf8</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password">zucc</property>
  
       
         <!-- JDBC connection pool (use the built-in) -->

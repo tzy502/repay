@@ -82,7 +82,7 @@ function updateSchoolItem(){
 	    $.ajax({    
 	        type: "post",    
 	        async: true,    
-	        url: "/repay/addItem.do",    
+	        url: "/repay/addschoolitem.do",    
 	        data: JSON.stringify(params),
 	        dataType: "json",   
 	        contentType: "application/json; charset=utf-8",   

@@ -2,6 +2,7 @@ package controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -67,6 +68,34 @@ public class ProjectController {
     	JSONObject jo = new JSONObject();
     	try {
     		IProjectService.delProject(projectId);
+		} catch (BaseException e) {
+			// TODO 自动生成的 catch 块
+			jo.put("msg", e.getMessage());
+			return jo.toString();
+		}
+    	jo.put("msg", "succ");
+		return jo.toString();  
+	}
+	
+	//添加项目
+	@RequestMapping(value = "/addProject.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String addProject(@RequestBody String project) throws JSONException{
+		System.out.println("123");
+		JSONObject json = new JSONObject(project);
+		BeanProject p = new BeanProject();
+		p.setProjectName((String) json.get("projectName"));
+		p.setProjectType((String)json.get("projectType"));
+		p.setProjectTypeId((String)json.get("projectTypeId"));
+		p.setSource((String)json.get("source"));
+		p.setSourceId((String)json.get("sourceId"));
+		String startData = (String)json.get("startData");
+		p.setStartDate(new Date(startData));
+		String endData = (String)json.get("endData");
+		p.setEndDate(new Date(endData));
+    	JSONObject jo = new JSONObject();
+    	try {
+    		IProjectService.addProject();
 		} catch (BaseException e) {
 			// TODO 自动生成的 catch 块
 			jo.put("msg", e.getMessage());

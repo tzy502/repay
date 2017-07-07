@@ -111,9 +111,9 @@ $(document).ready(function (){
         } , 
         success: function(data) { 
         	var str = ""; 
-        	var j = 0;
+        	var j = 1;
     		for(var i = 0; i < data.length; i++){
-    			j = i+1;
+    			
     			str += "<tr class='text-c'>"+
 				"<td>"+j+"</td>"+
 				"<td>"+data[i].itemName+"</td>"+
@@ -125,7 +125,7 @@ $(document).ready(function (){
 					"<i class='Hui-iconfont'>&#xe6e2;</i>"+
 				"</a>"+
 				"</td></tr>";
-
+    			j++;
         		}
         	
         	$("#tbody-allItem").html(str);  

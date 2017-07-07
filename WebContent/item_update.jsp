@@ -30,8 +30,8 @@
 	<form class="form form-horizontal" >
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>项目名称：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="项目名称" id="itemName" name="itemName">
+		<div class="formControls col-xs-8 col-sm-9" id = "itemName-">
+			
 		</div>
 	</div>
 	<div class="row cl">
@@ -86,7 +86,7 @@ $(document).ready(function (){
         	alert("出错了！！:"+data.msg);
         } , 
         success: function(data) { 
-        	document.getElementById("itemName").innerHTML=data.itemName;
+        	document.getElementById("itemName-").innerHTML="<input type='text' class='input-text' value='"+data.itemName+"' id='itemName' name='itemName'>";
         }     
     });
 

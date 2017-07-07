@@ -31,7 +31,7 @@
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>项目名称：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="项目名称" id="projectName" name="projectName">
+			<input type="text" class="input-text" value="" placeholder="" id="projectName" name="projectName">
 		</div>
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>项目计划类别：</label>
 		<div class="formControls col-xs-8 col-sm-9">
@@ -82,25 +82,15 @@
 <!--/_footer 作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script> 
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/validate-methods.js"></script> 
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/messages_zh.js"></script> 
 <script type="text/javascript">
-function addItem(){
-	$('.skin-minimal input').iCheck({
-		checkboxClass: 'icheckbox-blue',
-		radioClass: 'iradio-blue',
-		increaseArea: '20%'
-	});
-	
-	$("#form-item-add").validate({
-		rules:{
-			itemName:{
-				required:true,
-			},		
-		},
-	});
-	var params={
+function addProject(){
+	layer.msg('添加!',{icon:1,time:1000});
+	var project={
+			"userId":"123",
 	    	"projectName":document.getElementById("projectName").value,
 	    	"projectType":document.getElementById("projectType").value,
 	    	"projectTypeId":document.getElementById("projectTypeId").value,
@@ -108,14 +98,14 @@ function addItem(){
 	    	"fieldId":document.getElementById("fieldId").value,
 	    	"source":document.getElementById("source").value,
 	    	"sourceId":document.getElementById("sourceId").value,
-	    	"startDate":document.getElementById("startDate").value,
-	    	"endDate":document.getElementById("endDate").value,
+	    	"startDate":document.getElementById("startData").value,
+	    	"endDate":document.getElementById("ednData").value, 
 	}
 	    $.ajax({    
 	        type: "post",    
 	        async: true,    
 	        url: "/repay/addProject.do",    
-	        data: JSON.stringify(params),
+	        data: JSON.stringify(project),
 	        dataType: "json",   
 	        contentType: "application/json; charset=utf-8",   
 	        success: function(data){

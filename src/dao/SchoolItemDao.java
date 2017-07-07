@@ -56,7 +56,7 @@ public class SchoolItemDao implements ISchoolItem {
 		Session session =    HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx=session.beginTransaction();
 		try {
-			org.hibernate.Query qry = session.createQuery("from BeanBudget");
+			org.hibernate.Query qry = session.createQuery("from BeanSchoolItem");
 
 			java.util.List list = qry.list();
 			session.getTransaction().commit();	
@@ -76,7 +76,7 @@ public class SchoolItemDao implements ISchoolItem {
 		Session session =    HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx=session.beginTransaction();
 		try {
-			org.hibernate.Query qry = session.createQuery("from BeanBudget");
+			org.hibernate.Query qry = session.createQuery("from BeanSchoolItem");
 			java.util.List list = qry.list();
 			session.getTransaction().commit();	
 			result =list;

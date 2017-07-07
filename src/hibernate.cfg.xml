@@ -54,9 +54,13 @@
         <mapping class="model.BeanRepay"/>
         <mapping class="model.BeanRole"/>
         <mapping class="model.BeanSummary"/>
-        <mapping class="model.BeanTransterCard"/>
         <mapping class="model.BeanTravel"/>
         <mapping class="model.BeanTravelUser"/>
+        <mapping class="model.BeanProject"/>
+        <mapping class="model.BeanItem"/>
+        <mapping class="model.BeanSchoolItem"/>
+        <mapping class="model.BeanItemCost"/>
+        <mapping class="model.BeanItemBudget"/>
            
                 
     </session-factory>

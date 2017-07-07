@@ -90,7 +90,7 @@
 function addProject(){
 	layer.msg('添加!',{icon:1,time:1000});
 	var project={
-			"userId":"123",
+			"userId":"12356",
 	    	"projectName":document.getElementById("projectName").value,
 	    	"projectType":document.getElementById("projectType").value,
 	    	"projectTypeId":document.getElementById("projectTypeId").value,
@@ -99,7 +99,7 @@ function addProject(){
 	    	"source":document.getElementById("source").value,
 	    	"sourceId":document.getElementById("sourceId").value,
 	    	"startDate":document.getElementById("startData").value,
-	    	"endDate":document.getElementById("ednData").value, 
+	    	"endDate":document.getElementById("endData").value, 
 	}
 	    $.ajax({    
 	        type: "post",    

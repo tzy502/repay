@@ -1,5 +1,6 @@
 package controller;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -80,22 +81,28 @@ public class ProjectController {
 	//添加项目
 	@RequestMapping(value = "/addProject.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
-	public String addProject(@RequestBody String project) throws JSONException{
+	public String addProject(@RequestBody String project) throws JSONException, ParseException{
 		System.out.println("123");
 		JSONObject json = new JSONObject(project);
 		BeanProject p = new BeanProject();
+		p.setUserId((String) json.get("userId"));
 		p.setProjectName((String) json.get("projectName"));
 		p.setProjectType((String)json.get("projectType"));
 		p.setProjectTypeId((String)json.get("projectTypeId"));
+		p.setField((String)json.get("field"));
+		p.setFieldId((String)json.get("fieldId"));
 		p.setSource((String)json.get("source"));
 		p.setSourceId((String)json.get("sourceId"));
-		String startData = (String)json.get("startData");
-		p.setStartDate(new Date(startData));
-		String endData = (String)json.get("endData");
-		p.setEndDate(new Date(endData));
+		String startData = (String)json.get("startDate");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  
+	    Date date = sdf.parse(startData); 
+	    p.setStartDate(date);
+		String endData = (String)json.get("endDate");
+		date = sdf.parse(endData); 
+		p.setEndDate(date);
     	JSONObject jo = new JSONObject();
     	try {
-    		IProjectService.addProject();
+    		IProjectService.addProject(p);
 		} catch (BaseException e) {
 			// TODO 自动生成的 catch 块
 			jo.put("msg", e.getMessage());

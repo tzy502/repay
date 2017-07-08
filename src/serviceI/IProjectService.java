@@ -15,4 +15,6 @@ public interface IProjectService {
 	public void delProject(int projectId)throws BaseException;
 	public BeanProject SearchProject(int projectId)throws BaseException;
 	public List<BeanProject> loadAllProject()throws BaseException;
+	
+	public List<BeanProject> searchBudgetProject()throws BaseException;
 }

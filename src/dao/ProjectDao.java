@@ -83,5 +83,18 @@ public class ProjectDao implements IProject{
 		tx.commit();
 		return (BeanProject)project;
 	}
+	@Override
+	public List<BeanProject> searchBudgetProject() {
+		// TODO 自动生成的方法存根
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		String hql = "from BeanProject ";
+		hql += " where isBudget = 0";
+		Query qry = session.createQuery(hql);
+		@SuppressWarnings("unchecked")
+		List<BeanProject> result = qry.list();
+		tx.commit();
+		return result;
+	}
 
 }

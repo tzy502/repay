@@ -21,6 +21,7 @@ public class BeanProject {
 	private String sourceId;
 	private Date startDate;
 	private Date endDate;
+	private int isBudget;
 	
 	@Id
 	@Column(name = "projectId")
@@ -109,5 +110,13 @@ public class BeanProject {
 	}
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+	
+	@Column(name = "isBudget")
+	public int getIsBudget() {
+		return isBudget;
+	}
+	public void setIsBudget(int isBudget) {
+		this.isBudget = isBudget;
 	}
 }

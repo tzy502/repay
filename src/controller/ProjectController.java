@@ -112,4 +112,35 @@ public class ProjectController {
 		return jo.toString();  
 	}
 
+	/** 查询项目
+	 * */
+	@RequestMapping(value = "/searchProject.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String searchProject(@RequestBody String project) throws JSONException{
+		JSONObject json = new JSONObject(project);
+		String projectId = (String)json.get("projectId");
+		BeanProject prject = null;
+		try {
+			prject = IProjectService.SearchProject(Integer.valueOf(projectId));
+		} catch (BaseException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		JSONObject jo = new JSONObject();
+		jo.put("projectId", prject.getProjectId());
+		jo.put("projectName", prject.getProjectName());
+		jo.put("userId", prject.getUserId());
+		jo.put("projectType", prject.getProjectType());
+		jo.put("projectTypeId", prject.getProjectTypeId());
+		jo.put("field", prject.getField());
+		jo.put("fieldId", prject.getFieldId());
+		jo.put("source", prject.getSource());
+		jo.put("sourceId", prject.getSourceId());
+		String startTime=new SimpleDateFormat("yyyy-MM-dd").format(prject.getStartDate());
+		jo.put("startData", startTime);
+		String endTime=new SimpleDateFormat("yyyy-MM-dd").format(prject.getEndDate());
+		jo.put("startData", startTime);
+		jo.put("endData", endTime);
+		return jo.toString();
+	}
 }

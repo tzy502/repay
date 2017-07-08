@@ -76,23 +76,23 @@
 
 $(document).ready(function (){
 	$('body').on('click','#update',function(event){
-		layer_show('项目编辑','item_update.jsp?itemId='+this.title,'800','500');
+		layer_show('项目编辑','budget_update.jsp?budgetId='+this.title,'800','500');
 	}); 
 	$('body').on('click','#delete',function(event){
-		var itemId = this.title;
+		var budgetId = this.title;
 		layer.confirm('确认要删除吗？',function(){
 			var params={
-			    	"itemId":itemId,
+			    	"budgetId":budgetId,
 			}
 			$.ajax({
 				type: 'POST',
-				url: '/repay/deleteItem.do',
+				url: '/repay/deleteBudget.do',
 				data: JSON.stringify(params),
 				dataType: 'json',
 				contentType: "application/json; charset=utf-8",
 				success: function(data){
 					layer.msg('已删除!',{icon:1,time:1000});
-					window.location.href = 'item_list.jsp';
+					window.location.href = 'budget_list.jsp';
 					
 				},
 				error:function(data) {
@@ -138,14 +138,14 @@ $(document).ready(function (){
 
 })
 
-function searchItem(){
+function searchBudget(){
 	var params={
-	    	"searchItem":document.getElementById("searchItem").value,
+	    	"searchBudget":document.getElementById("searchBudget").value,
 	}
 	$.ajax({    
         type: "post",    
         async: true,    
-        url: "/repay/loadItem.do",  
+        url: "/repay/loadBudget.do",  
         data: JSON.stringify(params),
         dataType: "json", 
         contentType: "application/json; charset=utf-8",   
@@ -154,29 +154,30 @@ function searchItem(){
         } , 
         success: function(data) { 
         	var str = "";  
-    		for(var i = 0; i < data.length; i++){
+        	for(var i = 0; i < data.length; i++){
     			str += "<tr class='text-c'>"+
-				"<td>"+data[i].itemId+"</td>"+
-				"<td>"+data[i].itemName+"</td>"+
+				"<td>"+data[i].budgetId+"</td>"+
+				"<td>"+data[i].projectId+"</td>"+
+				"<td>"+data[i].budgetSum+"</td>"+
+				"<td>"+data[i].independentFees+"</td>"+
+				"<td>"+data[i].applyFees+"</td>"+
 				"<td class='td-manage'>"+
-				"<a style='text-decoration:none' id = 'update' href='javascript:;' title='"+data[i].itemId+"'>"+
+				"<a style='text-decoration:none' id = 'update' href='javascript:;' title='"+data[i].budgetId+"'>"+
 					"<i class='Hui-iconfont'>&#xe6df;</i>"+
 				"</a>"+
-				"<a style='text-decoration:none' id = 'delete' href='javascript:;' title='"+data[i].itemId+"'>"+
+				"<a style='text-decoration:none' id = 'delete' href='javascript:;' title='"+data[i].budgetId+"'>"+
 					"<i class='Hui-iconfont'>&#xe6e2;</i>"+
 				"</a>"+
 				"</td></tr>";
-
         		}
-        	
-        	$("#tbody-allItem").html(str);  
-        	 
-        }     
-    });
+        	$("#tbody-allBudget").html(str);  
+        }
+        }
+    );
 }
 
 /*项目-增加*/
-function item_add(title,url,w,h){
+function budget_add(title,url,w,h){
 	layer_show(title,url,w,h);
 	
 }

@@ -18,4 +18,11 @@ public interface IBudget {
 	//修改预算
 	public void Delbudget(BeanBudget budget);
 	//删除预算
+	public int SearchmaxId( int projectId,	 float budgetSum, float independentFees, float applyFees);
 }
+/*
+ * 
+
+ * 
+ * */
+ 

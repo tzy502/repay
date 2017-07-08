@@ -71,4 +71,15 @@ public class BudgetService implements IBudgetService {
 		return result;
 	}
 
+	@Override
+	public int SearchmaxId(int projectId, float budgetSum, float independentFees, float applyFees) throws BaseException {
+		// TODO Auto-generated method stub
+		int result=-1;
+		result=bd.SearchmaxId(projectId, budgetSum, independentFees, applyFees);
+		if(result==-1){
+			throw new BaseException("添加错误");
+		}
+		return result;
+	}
+
 }

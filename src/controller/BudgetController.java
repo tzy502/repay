@@ -45,13 +45,30 @@ public class BudgetController {
 			json.put("msg", e);
 			return json.toString();
 		}
+		int budgetId;
+		try {
+			 budgetId=BudgetService.SearchmaxId(projectId, budgetSum, independentFees, applyFees);
+		} catch (BaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			json.put("msg", e);
+			return json.toString();
+		}
 		List<BeanItemBudget> result =new ArrayList<BeanItemBudget>();
 		BeanItemBudget bi=new BeanItemBudget();	
 		for(int i=0;i<json.length();i++){
 			 JSONObject jsonObj = jsonarrary.getJSONObject(i);
-			bi.setItemBudgetCost(Float.parseFloat((String)jsonObj.get("itemBudgetCost")));
-		//	bi.setBudgetId(budgetId);
-			bi.setItemId(Integer.valueOf((String)jsonObj.get("itemBudgetCost")));
+			try {
+				ItemBudgetService.addItemBudget(budgetId, Integer.valueOf((String)jsonObj.get("itemBudgetCost")), Float.parseFloat((String)jsonObj.get("itemBudgetCost")));
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (BaseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				json.put("msg", e);
+				return json.toString();
+			}
 		}
 		return json.toString();
 	}
@@ -90,8 +107,8 @@ public class BudgetController {
 	}
 	@RequestMapping(value = "/loadAllBudget.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
-	public String loadAllBudget(@RequestBody String params) throws JSONException{
-		JSONObject jo = new JSONObject(params);
+	public String loadAllBudget() throws JSONException{
+		JSONObject jo = new JSONObject();
 		JSONArray json = new JSONArray();
 		List<BeanBudget> bb=new  ArrayList<BeanBudget>();
 		try {
@@ -103,7 +120,7 @@ public class BudgetController {
 			return jo.toString();
 		}
 		for(int i=0;i<bb.size();i++){
-			JSONObject jo1 = new JSONObject(params);
+			JSONObject jo1 = new JSONObject();
 			jo1.put("budgetId", bb.get(i).getBudgetId());
 			jo1.put("projectId", bb.get(i).getProjectId());
 			jo1.put("budgetSum", bb.get(i).getBudgetSum());

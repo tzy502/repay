@@ -143,4 +143,38 @@ public class ProjectController {
 		jo.put("endData", endTime);
 		return jo.toString();
 	}
+	
+	/** 导出需要填写与预算项目
+	 * */
+	@RequestMapping(value = "/searchBudgetProject.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String searchBudgetProject() throws JSONException{
+		List<BeanProject> prject = null;
+		try {
+			prject = IProjectService.searchBudgetProject();
+		} catch (BaseException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+ 		JSONArray json = new JSONArray();
+		for(int i = 0; i < prject.size(); i++){
+			JSONObject jo = new JSONObject();
+			jo.put("projectId", prject.get(i).getProjectId());
+			jo.put("projectName", prject.get(i).getProjectName());
+			jo.put("userId", prject.get(i).getUserId());
+			jo.put("projectType", prject.get(i).getProjectType());
+			jo.put("projectTypeId", prject.get(i).getProjectTypeId());
+			jo.put("field", prject.get(i).getField());
+			jo.put("fieldId", prject.get(i).getFieldId());
+			jo.put("source", prject.get(i).getSource());
+			jo.put("sourceId", prject.get(i).getSourceId());
+			String startTime=new SimpleDateFormat("yyyy-MM-dd").format(prject.get(i).getStartDate());
+			jo.put("startData", startTime);
+			String endTime=new SimpleDateFormat("yyyy-MM-dd").format(prject.get(i).getEndDate());
+			jo.put("startData", startTime);
+			jo.put("endData", endTime);
+			json.put(jo);
+		}
+		return json.toString();
+	}
 }

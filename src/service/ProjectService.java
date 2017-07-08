@@ -39,6 +39,7 @@ public class ProjectService implements IProjectService {
 		bp.setStartDate(prostartDate);
 		bp.setEndDate(proendDate);
 		bp.setProjectId(projectId);
+		bp.setIsBudget(0);
 		IProjectDao.updateProject(bp);
 		
 	}
@@ -68,6 +69,14 @@ public class ProjectService implements IProjectService {
 		 result=IProjectDao.loadAllProject();
 				 
 		return result;
+	}
+
+	@Override
+	public List<BeanProject> searchBudgetProject() throws BaseException {
+		// TODO 自动生成的方法存根
+		List<BeanProject> result=new ArrayList<BeanProject>();
+		 result=IProjectDao.searchBudgetProject();
+		 return result;
 	}
 
 }

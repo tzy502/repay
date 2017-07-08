@@ -14,25 +14,25 @@ import util.BaseException;
 @Service
 public class ItemBudgetService implements IItemBudgetService {
 	@Resource
-	ItemBudgetDao ibd=new ItemBudgetDao();
+	private ItemBudgetDao ibd;
 	@Override
-	public void addItemBudget(int budgetId, int itemId, float itemBudgetCost) throws BaseException {
+	public void addItemBudget(int budgetId, String itemName, float itemBudgetCost) throws BaseException {
 		// TODO Auto-generated method stub
 		BeanItemBudget bit=new BeanItemBudget();
 		bit.setBudgetId(budgetId);
-		bit.setItemId(itemId);
+		bit.setItemName(itemName);
 		bit.setItemBudgetCost(itemBudgetCost);
 		ibd.additembudget(bit);
 	}
 
 	@Override
-	public void modifryItemBudget(int itemBudgetId, int budgetId, int itemId, float itemBudgetCost)
+	public void modifryItemBudget(int itemBudgetId, int budgetId, String itemName, float itemBudgetCost)
 			throws BaseException {
 		// TODO Auto-generated method stub
 		BeanItemBudget bit=new BeanItemBudget();
 		bit.setItemBudgetId(itemBudgetId);
 		bit.setBudgetId(budgetId);
-		bit.setItemId(itemId);
+		bit.setItemName(itemName);
 		bit.setItemBudgetCost(itemBudgetCost);
 		ibd.modifryitembudget(bit);
 	}

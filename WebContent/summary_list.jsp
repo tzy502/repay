@@ -23,28 +23,32 @@
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>学校报销项目列表</title>
+<title>汇总单列表</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 学校报销项目管理 <span class="c-gray en">&gt;</span> 学校报销项目列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 汇总单管理 <span class="c-gray en">&gt;</span> 汇总单列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 	<div class="text-c">
 		<input type="text" class="input-text" style="width:250px" placeholder="输入用户名称" id="" name="">
-		<button type="submit" class="btn btn-success" id="searchItem" name="searchItem" onclick = "searchItem();"><i class="Hui-iconfont">&#xe665;</i> 搜学校报销项目</button>
+		<button type="submit" class="btn btn-success" id="searchItem" name="searchItem" onclick = "searchItem();"><i class="Hui-iconfont">&#xe665;</i> 搜报销项目</button>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a href="javascript:;" onclick="item_add('添加学校报销项目','schoolitem_add.jsp','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加学校报销项目</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a href="javascript:;" onclick="summary_add('添加汇总单','summary_add.jsp','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加汇总单</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
 	<table class="table table-border table-bordered table-bg">
 		<thead>
 			<tr>
-				<th scope="col" colspan="9">学校报销项目列表</th>
+				<th scope="col" colspan="9">汇总单列表</th>
 			</tr>
 			<tr class="text-c">
 				<th width="40">ID</th>
-				<th width="40">学校报销项目名称</th>
+				<th width="40">单位（公章）</th>
+				<th width="40">经费项目代码</th>
+				<th width="40">合计人民币</th>
+				<th width="40">经费主管</th>
+				<th width="40">经办人</th>
 				<th width="100">操作</th>
 			</tr>
 		</thead>
-		<tbody id = 'tbody-allSchoolItem'>
+		<tbody id = 'tbody-allItem'>
 		</tbody>
 	</table>
 </div>
@@ -73,23 +77,23 @@
 
 $(document).ready(function (){
 	$('body').on('click','#update',function(event){
-		layer_show('项目编辑','schoolitem_update.jsp?schoolItemId='+this.title,'800','500');
+		layer_show('项目编辑','summary_update.jsp?summaryId='+this.title,'800','500');
 	}); 
 	$('body').on('click','#delete',function(event){
-		var schoolItemId = this.title;
+		var summaryId = this.title;
 		layer.confirm('确认要删除吗？',function(){
 			var params={
-			    	"schoolItemId":schoolItemId,
+			    	"summaryId":summaryId,
 			}
 			$.ajax({
 				type: 'POST',
-				url: '/repay/deleteSchoolItem.do',
+				url: '/repay/deleteItemId.do',
 				data: JSON.stringify(params),
 				dataType: 'json',
 				contentType: "application/json; charset=utf-8",
 				success: function(data){
 					layer.msg('已删除!',{icon:1,time:1000});
-					window.location.href = 'schoolitem_list.jsp';
+					window.location.href = 'summaryId_list.jsp';
 					
 				},
 				error:function(data) {
@@ -103,44 +107,50 @@ $(document).ready(function (){
 	$.ajax({    
         type: "post",    
         async: true,    
-        url: "/repay/loadAllSchoolItem.do",  
+        url: "/repay/loadAllSummary.do",  
         dataType: "json", 
         contentType: "application/json; charset=utf-8",   
         error: function(data){  
         	alert("出错了！！:"+data.msg);
         } , 
         success: function(data) { 
-        	var str = "";  
+        	var str = ""; 
+        	var j = 1;
     		for(var i = 0; i < data.length; i++){
+    			
     			str += "<tr class='text-c'>"+
-				"<td>"+data[i].schoolItemId+"</td>"+
-				"<td>"+data[i].schoolItemName+"</td>"+
+				"<td>"+j+"</td>"+
+				"<td>"+data[i].company+"</td>"+
+				"<td>"+data[i].projectId+"</td>"+
+				"<td>"+data[i].sum+"</td>"+
+				"<td>"+data[i].manager+"</td>"+
+				"<td>"+data[i].applicationId+"</td>"+
 				"<td class='td-manage'>"+
-				"<a style='text-decoration:none' id = 'update' href='javascript:;' title='"+data[i].schoolItemId+"'>"+
+				"<a style='text-decoration:none' id = 'update' href='javascript:;' title='"+data[i].summaryId+"'>"+
 					"<i class='Hui-iconfont'>&#xe6df;</i>"+
 				"</a>"+
-				"<a style='text-decoration:none' id = 'delete' href='javascript:;' title='"+data[i].schoolItemId+"'>"+
+				"<a style='text-decoration:none' id = 'delete' href='javascript:;' title='"+data[i].summaryId+"'>"+
 					"<i class='Hui-iconfont'>&#xe6e2;</i>"+
 				"</a>"+
 				"</td></tr>";
-
+    			j++;
         		}
         	
-        	$("#tbody-allSchoolItem").html(str);  
+        	$("#tbody-allItem").html(str);  
         	 
         }     
     });
 
 })
 
-function searchItem(){
+function searchSummary(){
 	var params={
 	    	"searchItem":document.getElementById("searchItem").value,
 	}
 	$.ajax({    
         type: "post",    
         async: true,    
-        url: "/repay/loadSchoolItem.do",  
+        url: "/repay/loadItem.do",  
         data: JSON.stringify(params),
         dataType: "json", 
         contentType: "application/json; charset=utf-8",   
@@ -152,13 +162,12 @@ function searchItem(){
     		for(var i = 0; i < data.length; i++){
     			str += "<tr class='text-c'>"+
 				"<td>"+data[i].itemId+"</td>"+
-				"<td>"+data[i].schoolItemId+"</td>"+
-				"<td>"+data[i].schoolItemName+"</td>"+
+				"<td>"+data[i].itemName+"</td>"+
 				"<td class='td-manage'>"+
-				"<a style='text-decoration:none' id = 'update' href='javascript:;' title='"+data[i].schoolItemId+"'>"+
+				"<a style='text-decoration:none' id = 'update' href='javascript:;' title='"+data[i].itemId+"'>"+
 					"<i class='Hui-iconfont'>&#xe6df;</i>"+
 				"</a>"+
-				"<a style='text-decoration:none' id = 'delete' href='javascript:;' title='"+data[i].schoolItemId+"'>"+
+				"<a style='text-decoration:none' id = 'delete' href='javascript:;' title='"+data[i].itemId+"'>"+
 					"<i class='Hui-iconfont'>&#xe6e2;</i>"+
 				"</a>"+
 				"</td></tr>";
@@ -172,7 +181,7 @@ function searchItem(){
 }
 
 /*项目-增加*/
-function item_add(title,url,w,h){
+function summaryId_add(title,url,w,h){
 	layer_show(title,url,w,h);
 	
 }

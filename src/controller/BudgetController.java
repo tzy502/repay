@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,6 +20,7 @@ import serviceI.IBudgetService;
 import serviceI.IItemBudgetService;
 import util.BaseException;
 
+@Controller
 public class BudgetController {
 	@Autowired
 	private IBudgetService BudgetService;
@@ -105,9 +107,12 @@ public class BudgetController {
 		System.out.println(jo.toString());
 		return jo.toString();
 	}
+	
+	
 	@RequestMapping(value = "/loadAllBudget.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String loadAllBudget() throws JSONException{
+		System.out.println("123");
 		JSONObject jo = new JSONObject();
 		JSONArray json = new JSONArray();
 		List<BeanBudget> bb=new  ArrayList<BeanBudget>();

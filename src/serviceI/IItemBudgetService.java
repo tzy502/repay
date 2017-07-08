@@ -14,4 +14,5 @@ public interface IItemBudgetService {
 	public void DelItemBudget(int itemBudgetId)throws BaseException;
 	public BeanItemBudget SearchItemBudget(int itemBudgetId)throws BaseException;
 	public List<BeanItemBudget> LoadItemBudget()throws BaseException;
+	public List<BeanItemBudget> SearchItemBudgetbybudgetid(int budgetid)throws BaseException;
 }

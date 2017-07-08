@@ -19,6 +19,9 @@ public class BudgetService implements IBudgetService {
 	public void addBudget(int projectId, float budgetSum, float independentFees, float applyFees) throws BaseException {
 		// TODO Auto-generated method stub
 		BeanBudget bb=new BeanBudget();
+		if(projectId==-1||independentFees==-1||applyFees==-1){
+			throw new BaseException("有数据没有填 ");
+		}
 		bb.setProjectId(projectId);
 		bb.setBudgetSum(budgetSum);
 		bb.setIndependentFees(independentFees);

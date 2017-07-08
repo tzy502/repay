@@ -36,7 +36,7 @@ public class RoleDao implements IRole {
 		Transaction tx=session.beginTransaction();
 		try {
 
-		org.hibernate.Query qry = session.createQuery("from BeanRole where userid=?");
+		org.hibernate.Query qry = session.createQuery("from BeanRole where roleId=?");
 		qry.setParameter(0, RoleId);
 		java.util.List list = qry.list();
 		session.getTransaction().commit();	

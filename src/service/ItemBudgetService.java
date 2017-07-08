@@ -60,8 +60,17 @@ public class ItemBudgetService implements IItemBudgetService {
 	public List<BeanItemBudget> LoadItemBudget() throws BaseException {
 		// TODO Auto-generated method stub
 		List<BeanItemBudget> result =new ArrayList<BeanItemBudget>();
-		result=ibd.loadAllitembudget();
+		result=ibd.loaditembudget();
 		return result;
+	}
+
+	@Override
+	public List<BeanItemBudget> SearchItemBudgetbybudgetid(int budgetid) throws BaseException {
+		// TODO Auto-generated method stub
+		List<BeanItemBudget> result =new ArrayList<BeanItemBudget>();
+		result=ibd.Searchitembudgetbybudgetid(budgetid);
+		return result;
+	
 	}
 
 }

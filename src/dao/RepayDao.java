@@ -37,7 +37,7 @@ public class RepayDao implements IRepay {
 		Transaction tx=session.beginTransaction();
 		try {
 
-		org.hibernate.Query qry = session.createQuery("from BeanRepay where userid=?");
+		org.hibernate.Query qry = session.createQuery("from BeanRepay where repayId=?");
 		qry.setParameter(0, RepayId);
 		java.util.List list = qry.list();
 		session.getTransaction().commit();	

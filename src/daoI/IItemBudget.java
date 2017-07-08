@@ -11,7 +11,7 @@ public interface IItemBudget {
 
 	public List<BeanItemBudget> loaditembudget(int itembudgetId);
 
-	public List<BeanItemBudget> loadAllitembudget();
+	public List<BeanItemBudget> loadAllitembudgetbybudgetid();
 
 	public void modifryitembudget(BeanItemBudget itembudget);
 

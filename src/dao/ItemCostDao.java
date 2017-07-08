@@ -37,7 +37,7 @@ public class ItemCostDao implements IItemCost {
 		Transaction tx=session.beginTransaction();
 		try {
 
-		org.hibernate.Query qry = session.createQuery("from BeanItemCost where userid=?");
+		org.hibernate.Query qry = session.createQuery("from BeanItemCost where uitemCostIdserid=?");
 		qry.setParameter(0, itemcostId);
 		java.util.List list = qry.list();
 		session.getTransaction().commit();	

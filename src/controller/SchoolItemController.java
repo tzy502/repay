@@ -24,10 +24,24 @@ public class SchoolItemController {
 	@ResponseBody
 	public String addSchoolItem(@RequestBody String params) throws JSONException{
 		System.out.println(params);
+		System.out.println("addschoolitem测试");
 		JSONObject json = new JSONObject(params);
-
-		String schoolItemName;
-
+		int itemId=-1;
+		itemId=Integer.valueOf((String)json.get("itemId"));
+		String schoolItemName=null;
+		schoolItemName=(String)json.get("schoolItemName");
+		
+		
+		JSONObject jo = new JSONObject();
+		try {
+			ISchoolItem.addSchoolItem(itemId, schoolItemName);
+		} catch (BaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			jo.put("msg", e);
+			return jo.toString(); 
+		}
+		
 		return "a";
 
 	}
@@ -54,6 +68,41 @@ public class SchoolItemController {
 		}
 
 		System.out.println("1213123"+json.toString());
+		return json.toString();
+	}
+	@RequestMapping(value = "/updateSchoolItem.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String updateSchoolItem(@RequestBody String params) throws JSONException{
+		JSONObject json = new JSONObject(params);
+		int schoolItemId=Integer.valueOf((String)json.get("schoolItemId"));
+		int itemId=-1;
+		itemId=Integer.valueOf((String)json.get("itemId"));
+		String schoolItemName=null;
+		schoolItemName=(String)json.get("schoolItemName");
+		try {
+			ISchoolItem.modifrySchoolItem(schoolItemId, itemId, schoolItemName);
+		} catch (BaseException e) {
+			// TODO Auto-generated catch block
+			json.put("msg", e);
+			return json.toString(); 
+		}
+		
+		return json.toString();
+	}
+	@RequestMapping(value = "/deleteSchoolItem.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String deleteSchoolItem(@RequestBody String params) throws JSONException{
+		JSONObject json = new JSONObject(params);
+		int schoolItemId=Integer.valueOf((String)json.get("schoolItemId"));
+		try {
+			ISchoolItem.DelSchoolItem(schoolItemId);
+		} catch (BaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			json.put("msg", e);
+			return json.toString();
+		}
+
 		return json.toString();
 	}
 }

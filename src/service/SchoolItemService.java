@@ -18,7 +18,14 @@ public class SchoolItemService implements ISchoolItemService {
 	@Override
 	public void addSchoolItem(int itemId, String schoolItemName) throws BaseException {
 		// TODO Auto-generated method stub
+		System.out.println("SchoolItemService");
 		BeanSchoolItem bci=new BeanSchoolItem();
+		if(itemId==-1){
+			throw new BaseException("填写项目id");
+		}
+		if(schoolItemName==null){
+			throw new BaseException("填写项目名");
+		}	
 		bci.setItemId(itemId);
 		bci.setSchoolItemName(schoolItemName);
 		sid.addschoolitem(bci);

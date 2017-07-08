@@ -37,7 +37,7 @@ public class SchoolItemDao implements ISchoolItem {
 		Transaction tx=session.beginTransaction();
 		try {
 
-		org.hibernate.Query qry = session.createQuery("from BeanSchoolItem where userid=?");
+		org.hibernate.Query qry = session.createQuery("from BeanSchoolItem where schoolItemId=?");
 		qry.setParameter(0, schoolitemId);
 		java.util.List list = qry.list();
 		session.getTransaction().commit();	

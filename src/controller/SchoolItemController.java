@@ -20,7 +20,7 @@ import util.BaseException;
 public class SchoolItemController {
 	@Autowired
 	private ISchoolItemService ISchoolItem;
-	@RequestMapping(value = "/addschoolitem.do", produces = "application/json; charset=utf-8") 
+	@RequestMapping(value = "/addSchoolItem.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String addSchoolItem(@RequestBody String params) throws JSONException{
 		System.out.println(params);
@@ -52,7 +52,7 @@ public class SchoolItemController {
 		List<BeanSchoolItem> result=null;
 		
 		JSONArray json = new JSONArray();
-		JSONObject jo = new JSONObject();
+		
 		try {
 			result = ISchoolItem.LoadSchoolItem();
 		} catch (BaseException e) {
@@ -61,6 +61,7 @@ public class SchoolItemController {
 		}
 		System.out.println(result.size());
 		for(int i=0;i<result.size();i++){
+			JSONObject jo = new JSONObject();
 			jo.put("schoolItemId", result.get(i).getSchoolItemId());
 			jo.put("itemId",result.get(i).getItemId());
 			jo.put("schoolItemName", result.get(i).getSchoolItemName());

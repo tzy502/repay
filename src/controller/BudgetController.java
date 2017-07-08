@@ -36,6 +36,7 @@ public class BudgetController {
 		budgetSum=Integer.valueOf((String)json.get("budgetSum"));
 		independentFees=Integer.valueOf((String)json.get("independentFees"));
 		applyFees=Integer.valueOf((String)json.get("applyFees"));
+		JSONArray jsonarrary = new JSONArray((String)json.getString("itemBudget"));
 		try {
 			BudgetService.addBudget(projectId, budgetSum, independentFees, applyFees);
 		} catch (BaseException e) {
@@ -43,6 +44,14 @@ public class BudgetController {
 			e.printStackTrace();
 			json.put("msg", e);
 			return json.toString();
+		}
+		List<BeanItemBudget> result =new ArrayList<BeanItemBudget>();
+		BeanItemBudget bi=new BeanItemBudget();	
+		for(int i=0;i<json.length();i++){
+			 JSONObject jsonObj = jsonarrary.getJSONObject(i);
+			bi.setItemBudgetCost(Float.parseFloat((String)jsonObj.get("itemBudgetCost")));
+		//	bi.setBudgetId(budgetId);
+			bi.setItemId(Integer.valueOf((String)jsonObj.get("itemBudgetCost")));
 		}
 		return json.toString();
 	}
@@ -83,7 +92,6 @@ public class BudgetController {
 	@ResponseBody
 	public String loadAllBudget(@RequestBody String params) throws JSONException{
 		JSONObject jo = new JSONObject(params);
-		int budgetid =Integer.valueOf((String) jo.get("budgetid"));	
 		JSONArray json = new JSONArray();
 		List<BeanBudget> bb=new  ArrayList<BeanBudget>();
 		try {
@@ -133,10 +141,10 @@ public class BudgetController {
 		for(int i=0;i<json.length();i++){
 			 JSONObject jsonObj = json.getJSONObject(i);
 			 bi=ItemBudgetService.SearchItemBudget(Integer.valueOf((String) jsonObj.get("itemBudgetId")));
-			 bi.setBudgetId(budgetid);
-			 bi.setItemBudgetCost("itemBudgetCost");
-			 
+			 bi.setItemBudgetCost(Float.parseFloat((String)jsonObj.get("itemBudgetCost")));
+			 ItemBudgetService.modifryItemBudget(bi.getItemBudgetId(), bi.getBudgetId(), bi.getItemId(), bi.getItemBudgetCost());		 
 		}
+		
 		return jo.toString();
 	}
 		

@@ -39,7 +39,7 @@
 		
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>学校报销项目名称：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="项目名称" id="schoolItemName" name="itemName">
+			<input type="text" class="input-text" value="" placeholder="项目名称" id="schoolItemName" name="schoolItemName">
 		</div>
 	</div>
 	<div class="row cl">
@@ -74,6 +74,7 @@ function addSchoolItem(){
 				"itemId":itemId,
 		    	"schoolItemName":document.getElementById("schoolItemName").value,
 		}
+		alert(JSON.stringify(params));
 	    $.ajax({    
 	        type: "post",    
 	        async: true,    

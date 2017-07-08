@@ -73,7 +73,7 @@
 
 $(document).ready(function (){
 	$('body').on('click','#update',function(event){
-		layer_show('项目编辑','schoolitem_update.jsp?itemId='+this.title,'800','500');
+		layer_show('项目编辑','schoolitem_update.jsp?schoolItemId='+this.title,'800','500');
 	}); 
 	$('body').on('click','#delete',function(event){
 		var schoolItemId = this.title;

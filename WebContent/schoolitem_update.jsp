@@ -31,15 +31,15 @@
 	<div class="row cl">	
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span> 报销项目名称：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<select>
-			  <option value ="volvo">Volvo</option>
-			  <option value ="saab">Saab</option>
-			</select>
+			<table>
+				<tbody id = "tbody-item">
+				</tbody>
+			</table>
 		</div>
 		
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>学校报销项目名称：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="项目名称" id="itemName" name="itemName">
+			<input type="text" class="input-text" value="" placeholder="项目名称" id="schoolItemName" name="schoolItemName">
 		</div>
 	</div>
 	<div class="row cl">
@@ -62,27 +62,41 @@
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/validate-methods.js"></script> 
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/messages_zh.js"></script> 
 <script type="text/javascript">
+function GetRequest() {   
+	   var url = location.search; 
+	   var theRequest = new Object();   
+	   if (url.indexOf("?") != -1) {   
+	      var str = url.substr(1);   
+	      strs = str.split("&");   
+	      for(var i = 0; i < strs.length; i ++) {   
+	         theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);   
+	      }   
+	   }   
+	   return theRequest;   
+}   
+var Request = new Object(); 
+Request = GetRequest(); 
+var schoolItemId;
+schoolItemId = Request['schoolItemId'];
+
 function updateSchoolItem(){
 	$('.skin-minimal input').iCheck({
 		checkboxClass: 'icheckbox-blue',
 		radioClass: 'iradio-blue',
 		increaseArea: '20%'
 	});
-	
-	$("#form-item-add").validate({
-		rules:{
-			itemName:{
-				required:true,
-			},		
-		},
-	});
+
+		var itemId = $('#itemId option:selected').val();
 		var params={
-		    	"itemName":document.getElementById("itemName").value,
+				"schollItemId":schoolItemId,
+				"itemId":itemId,
+		    	"schoolItemName":document.getElementById("schoolItemName").value,
 		}
+		alert(JSON.stringify(params));
 	    $.ajax({    
 	        type: "post",    
 	        async: true,    
-	        url: "/repay/addItem.do",    
+	        url: "/repay/updateSchoolItem.do",    
 	        data: JSON.stringify(params),
 	        dataType: "json",   
 	        contentType: "application/json; charset=utf-8",   
@@ -101,7 +115,28 @@ function updateSchoolItem(){
 
 $(document).ready(function (){
 	
-	//加载初识数据
+	//加载数据
+	$.ajax({    
+        type: "post",    
+        async: true,    
+        url: "/repay/loadAllItem.do",  
+        dataType: "json", 
+        contentType: "application/json; charset=utf-8",   
+        error: function(data){  
+        	alert("出错了！！:"+data.msg);
+        } , 
+        success: function(data) { 
+        	var str = "";  
+        	str+="<select id = 'itemId'>";
+    		for(var i = 0; i < data.length; i++){
+    			str += "<option value ='"+data[i].itemId+"'>"+data[i].itemName+"</option>";
+        	}
+    		str+="</select>";
+        	
+        	$("#tbody-item").html(str);  
+        	 
+        }     
+    });
 })
 </script> 
 <!--/请在上方写此页面业务相关的脚本-->

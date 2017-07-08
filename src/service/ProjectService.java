@@ -9,30 +9,18 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import dao.ProjectDao;
+import daoI.IProject;
 import model.BeanProject;
 import serviceI.IProjectService;
 import util.BaseException;
 @Service
 public class ProjectService implements IProjectService {
 	@Resource
-	ProjectDao pd=new ProjectDao();
+	private IProject IProjectDao;
 	@Override
-	public void addProject(String projectName, String projectType, String projectTypeId, String field, String fieldId,
-			String source, String sourceId, Date prostartDate, Date proendDate) throws BaseException {
+	public void addProject(BeanProject project) throws BaseException {
 		// TODO Auto-generated method stub
-		BeanProject bp=new BeanProject();
-		bp.setProjectName(projectName);
-		bp.setProjectType(projectType);
-		bp.setProjectTypeId(projectTypeId);
-		bp.setField(field);
-		bp.setFieldId(fieldId);
-		bp.setSource(source);
-		bp.setSourceId(sourceId);
-		bp.setStartDate(prostartDate);
-		bp.setEndDate(proendDate);
-		pd.addProject(bp);
-		
-		
+		IProjectDao.addProject(project);
 	}
 
 	@Override
@@ -51,14 +39,14 @@ public class ProjectService implements IProjectService {
 		bp.setStartDate(prostartDate);
 		bp.setEndDate(proendDate);
 		bp.setProjectId(projectId);
-		pd.updateProject(bp);
+		IProjectDao.updateProject(bp);
 		
 	}
 
 	@Override
 	public void delProject(int projectId) throws BaseException {
 		// TODO Auto-generated method stub
-		pd.delProject(SearchProject(projectId));
+		IProjectDao.delProject(SearchProject(projectId));
 	}
 
 	@Override
@@ -66,7 +54,7 @@ public class ProjectService implements IProjectService {
 		// TODO Auto-generated method stub
 		BeanProject bp=new BeanProject();
 		bp=null;
-		bp=pd.searchProject(projectId);
+		bp=IProjectDao.searchProject(projectId);
 		if(bp==null){
 			throw new BaseException("查无数据");
 		}
@@ -77,7 +65,7 @@ public class ProjectService implements IProjectService {
 	public List<BeanProject> loadAllProject() throws BaseException {
 		// TODO Auto-generated method stub
 		 List<BeanProject> result=new ArrayList<BeanProject>();
-		 result=pd.loadAllProject();
+		 result=IProjectDao.loadAllProject();
 				 
 		return result;
 	}

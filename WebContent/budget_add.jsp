@@ -21,30 +21,46 @@
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>添加项目</title>
+<title>添加项目预算</title>
 <meta name="keywords" content="H-ui.admin 3.0,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
 <meta name="description" content="H-ui.admin 3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
 <body>
-<article class="page-container" id = 'form-item-add'>
-	<form class="form form-horizontal" >
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>自筹和配套费用：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="independentFees" name="independentFees">
-		</div>
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>向省厅申请费用：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="applyFees" name="applyFees">
-		</div>
-		<table>
-			<tbody id = 'tbody-budget'>
-			</tbody>
-		</table>
-	</div>
+<article class="page-container">
+	<form class="form form-horizontal" id="form-admin-add">
+	<table class="table table-border table-bordered" id = 'project'>
+		<tbody id = 'tbody-project'>
+		</tbody>
+	</table>
+	<table class="table table-border table-bordered" id = 'budget'>
+		<tbody id = 'tbody-budget'>
+			<tr>
+				<th width = '20'>项目经费预算</th>
+				<td width = '40%' colspan='2'>自筹和配套</td>
+				<td width = '40%' colspan='2'>向省厅申请</td>
+			</tr>	
+			<tr>
+				<th width = '20%'></th>
+				<td width = '40%' colspan='2'><input type='text' placeholder='' id = 'independentFees' class='input-text radius size-S'></td>
+				<td width = '40%' colspan='2'><input type='text' placeholder='' id = 'applyFees' class='input-text radius size-S'></td>
+			</tr>
+		</tbody>
+	</table>
+	<table class="table table-border table-bordered">
+		<tbody>
+			<tr>
+				<th width = '20%'>项目总经费开支预算</th>
+				<th width = '80%'><table class="table table-border table-bordered" >
+					<tbody id = 'tbody-itemBudget'>
+					</tbody>
+					</table>	
+				</th>
+			</tr>	
+		</tbody>
+	</table>
 	<div class="row cl">
 		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-			<input class="btn btn-primary radius" type="button" onclick = "addItem()" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+			<input class="btn btn-primary radius" type="button" onclick = "addBudget()" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
 		</div>
 	</div>
 	</form>
@@ -62,13 +78,50 @@
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/validate-methods.js"></script> 
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/messages_zh.js"></script> 
 <script type="text/javascript">
+var j = 0;
+function GetRequest() {   
+	   var url = location.search; 
+	   var theRequest = new Object();   
+	   if (url.indexOf("?") != -1) {   
+	      var str = url.substr(1);   
+	      strs = str.split("&");   
+	      for(var i = 0; i < strs.length; i ++) {   
+	         theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);   
+	      }   
+	   }   
+	   return theRequest;   
+}   
+var Request = new Object(); 
+Request = GetRequest(); 
+var projectId;
+projectId = Request['projectId']; 
 $(document).ready(function (){
-	var j = 0;
+	var params = {
+			"projectId":projectId,
+	}
 	$.ajax({    
-        type: "post",    
-        async: true,    
+        type: "post",        
+        url: "/repay/searchProject.do", 
+        data:JSON.stringify(params),
+        dataType: "json", 
+        contentType: "application/json; charset=utf-8",   
+        error: function(data){  
+        	alert("出错了！！:"+data.msg);
+        } , 
+        success: function(data) { 
+        	var str = "<tr><th width = '20'>项目名称</th><td width = '80%' colspan='4'>"+data.projectName+"</td></tr>"+
+        	"<tr><th width = '20%'>项目计划类别</th><td width = '40%' colspan='2'>"+data.projectType+"</td><td width = '20%'>代码</td><td width = '20%'>"+data.projectTypeId+"</td></tr>"+
+        	"<tr><th width = '20%'>技术管理领域</th><td width = '40%' colspan='2'>"+data.field+"</td><td width = '20%'>代码</td><td width = '20%'>"+data.fieldId+"</td></tr>"+
+        	"<tr><th width = '20%'>项目技术来源</th><td width = '40%' colspan='2'>"+data.source+"</td><td width = '20%'>代码</td><td width = '20%'>"+data.sourceId+"</td></tr>"+
+    		"<tr><th width = '20%'>开始日期</th><td width = '20%' >"+data.startData+"</td></td><td width = '20%' >完成日期</td><td width = '40%' colspan='2'>"+data.endData+"</td></td></tr>"+
+        	"<input type = 'hidden' value = '"+data.projectId+"' id = 'projectId'>";	
+        	$("#tbody-project").html(str);
+        }     
+    });
+	
+	$.ajax({    
+        type: "post",        
         url: "/repay/loadAllItem.do",  
-        data: JSON.stringify(params),  
         dataType: "json", 
         contentType: "application/json; charset=utf-8",   
         error: function(data){  
@@ -78,58 +131,51 @@ $(document).ready(function (){
         	var str = "";  
     		for(var i = 0; i < data.length; i++){
     			j++;
-    			str+="<label class='form-label col-xs-4 col-sm-3'><span class='c-red'>*</span>"+data[i].itemName+"：</label>"+
-    			"<div class='formControls col-xs-8 col-sm-9'>"+
-    				"<input type='text' class='input-text' value='' placeholder="" id='"+data[i].itemId+"' name='"+data[i].itemId+"'>"+
-    			"</div>";
-        	}
-        	
-        	$("#tbody-budget").html(str);
+    			//alert("出错了！！:");
+    			str+="<tr><th width = '20%'>"+data[i].itemName+"</th>"+
+    			"<input type='hidden' value ='"+data[i].itemName+"' id='itemName"+i+"' name = 'itemName"+i+"'>"+
+    			"<td width = '60%'><input type='text'  id='item"+i+"'  name = 'item"+i+"' class='input-text radius size-S'></td></tr>";
+        	}	
+        	$("#tbody-itemBudget").html(str);
         }     
     });
+	
 
-	function addBudget(){
-		$('.skin-minimal input').iCheck({
-			checkboxClass: 'icheckbox-blue',
-			radioClass: 'iradio-blue',
-			increaseArea: '20%'
-		});
-		
-		$("#form-item-add").validate({
-			rules:{
-				itemName:{
-					required:true,
-				},		
-			},
-		});
-			var params={
-			    	"independentFees":document.getElementById("independentFees").value,
-			    	"applyFees":document.getElementById("applyFees").value,
-			}
-			for(var i = 0; i < j; i++){
-				params[i]=document.getElementById(i).value;
-	    	}
-	    	
-		    $.ajax({    
-		        type: "post",    
-		        async: true,    
-		        url: "/repay/addBudget.do",    
-		        data: JSON.stringify(params),
-		        dataType: "json",   
-		        contentType: "application/json; charset=utf-8",   
-		        success: function(data){
-					layer.msg('添加成功!',{icon:1,time:1000});
-				},
-		        error: function(XmlHttpRequest, textStatus, errorThrown){
-					layer.msg('error!',{icon:1,time:1000});
-				}
-			});
-			var index = parent.layer.getFrameIndex(window.name);
-			parent.$('.btn-refresh').click();
-			parent.layer.close(index);
-
-	}
 })
+	function addBudget(){
+		var itemBudget = [];
+	 	var params={
+	 			"projectId":document.getElementById("projectId").value,
+		    	"independentFees":document.getElementById("independentFees").value,
+		    	"applyFees":document.getElementById("applyFees").value,
+		} 
+		for(var i = 0; i < j; i++){
+			var item = {
+					"itemName":document.getElementById("itemName"+i).value,
+					"itemBudgetCost":document.getElementById("item"+i).value,
+			}
+			itemBudget.push(item);
+    	}
+		params["itemBudget"]=itemBudget;
+		alert(JSON.stringify(params));
+	     $.ajax({    
+	        type: "post",    
+	        async: true,    
+	        url: "/repay/addBudget.do",    
+	        data: JSON.stringify(params),
+	        dataType: "json",   
+	        contentType: "application/json; charset=utf-8",   
+	        success: function(data){
+				layer.msg('添加成功!',{icon:1,time:1000});
+			},
+	        error: function(XmlHttpRequest, textStatus, errorThrown){
+				layer.msg('error!',{icon:1,time:1000});
+			}
+		});
+		var index = parent.layer.getFrameIndex(window.name);
+		parent.$('.btn-refresh').click();
+		parent.layer.close(index); 
+}
 </script> 
 <!--/请在上方写此页面业务相关的脚本-->
 </body>

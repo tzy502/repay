@@ -23,16 +23,16 @@
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>项目列表</title>
+<title>项目预算列表</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 项目管理 <span class="c-gray en">&gt;</span> 项目列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 项目预算管理 <span class="c-gray en">&gt;</span> 项目预算列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 	<div class="text-c">
 		<input type="text" class="input-text" style="width:250px" placeholder="输入用户名称" id="" name="">
-		<button type="submit" class="btn btn-success" id="searchItem" name="searchBudget" onclick = "searchItem();"><i class="Hui-iconfont">&#xe665;</i> 搜项目</button>
+		<button type="submit" class="btn btn-success" id="searchItem" name="searchBudget" onclick = "searchItem();"><i class="Hui-iconfont">&#xe665;</i> 搜预算项目</button>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a href="javascript:;" onclick="item_add('添加项目','item_add.jsp','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加项目</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a href="javascript:;" onclick="budget_add('添加预算项目','budget_add.jsp','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加项目预算</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
 	<table class="table table-border table-bordered table-bg">
 		<thead>
 			<tr>
@@ -47,7 +47,7 @@
 				<th width="100">操作</th>
 			</tr>
 		</thead>
-		<tbody id = 'tbody-allItem'>
+		<tbody id = 'tbody-allBudget'>
 		</tbody>
 	</table>
 </div>
@@ -76,23 +76,23 @@
 
 $(document).ready(function (){
 	$('body').on('click','#update',function(event){
-		layer_show('项目编辑','item_update.jsp?itemId='+this.title,'800','500');
+		layer_show('项目编辑','budget_update.jsp?budgetId='+this.title,'800','500');
 	}); 
 	$('body').on('click','#delete',function(event){
-		var itemId = this.title;
+		var budgetId = this.title;
 		layer.confirm('确认要删除吗？',function(){
 			var params={
-			    	"itemId":itemId,
+			    	"budgetId":budgetId,
 			}
 			$.ajax({
 				type: 'POST',
-				url: '/repay/deleteItem.do',
+				url: '/repay/deleteBudget.do',
 				data: JSON.stringify(params),
 				dataType: 'json',
 				contentType: "application/json; charset=utf-8",
 				success: function(data){
 					layer.msg('已删除!',{icon:1,time:1000});
-					window.location.href = 'item_list.jsp';
+					window.location.href = 'budget_list.jsp';
 					
 				},
 				error:function(data) {
@@ -106,7 +106,7 @@ $(document).ready(function (){
 	$.ajax({    
         type: "post",    
         async: true,    
-        url: "/repay/loadAllItem.do",  
+        url: "/repay/loadAllBudget.do",  
         dataType: "json", 
         contentType: "application/json; charset=utf-8",   
         error: function(data){  
@@ -129,24 +129,23 @@ $(document).ready(function (){
 					"<i class='Hui-iconfont'>&#xe6e2;</i>"+
 				"</a>"+
 				"</td></tr>";
-
         		}
         	
-        	$("#tbody-allItem").html(str);  
+        	$("#tbody-allBudget").html(str);  
         	 
         }     
     });
 
 })
 
-function searchItem(){
+function searchBudget(){
 	var params={
-	    	"searchItem":document.getElementById("searchItem").value,
+	    	"searchBudget":document.getElementById("searchBudget").value,
 	}
 	$.ajax({    
         type: "post",    
         async: true,    
-        url: "/repay/loadItem.do",  
+        url: "/repay/loadBudget.do",  
         data: JSON.stringify(params),
         dataType: "json", 
         contentType: "application/json; charset=utf-8",   
@@ -155,29 +154,30 @@ function searchItem(){
         } , 
         success: function(data) { 
         	var str = "";  
-    		for(var i = 0; i < data.length; i++){
+        	for(var i = 0; i < data.length; i++){
     			str += "<tr class='text-c'>"+
-				"<td>"+data[i].itemId+"</td>"+
-				"<td>"+data[i].itemName+"</td>"+
+				"<td>"+data[i].budgetId+"</td>"+
+				"<td>"+data[i].projectId+"</td>"+
+				"<td>"+data[i].budgetSum+"</td>"+
+				"<td>"+data[i].independentFees+"</td>"+
+				"<td>"+data[i].applyFees+"</td>"+
 				"<td class='td-manage'>"+
-				"<a style='text-decoration:none' id = 'update' href='javascript:;' title='"+data[i].itemId+"'>"+
+				"<a style='text-decoration:none' id = 'update' href='javascript:;' title='"+data[i].budgetId+"'>"+
 					"<i class='Hui-iconfont'>&#xe6df;</i>"+
 				"</a>"+
-				"<a style='text-decoration:none' id = 'delete' href='javascript:;' title='"+data[i].itemId+"'>"+
+				"<a style='text-decoration:none' id = 'delete' href='javascript:;' title='"+data[i].budgetId+"'>"+
 					"<i class='Hui-iconfont'>&#xe6e2;</i>"+
 				"</a>"+
 				"</td></tr>";
-
         		}
-        	
-        	$("#tbody-allItem").html(str);  
-        	 
-        }     
-    });
+        	$("#tbody-allBudget").html(str);  
+        }
+        }
+    );
 }
 
 /*项目-增加*/
-function item_add(title,url,w,h){
+function budget_add(title,url,w,h){
 	layer_show(title,url,w,h);
 	
 }

@@ -14,4 +14,5 @@ public interface IBudgetService {
 	public void DelBudget(int budgetId)throws BaseException;
 	public BeanBudget SearchBudget(int budgetId)throws BaseException;
 	public List<BeanBudget> LoadBudget()throws BaseException;	
+	public int SearchmaxId( int projectId,	 float budgetSum, float independentFees, float applyFees)throws BaseException;
 }

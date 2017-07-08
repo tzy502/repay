@@ -120,4 +120,31 @@ public class BudgetDao implements IBudget {
 		}
 	}
 
+	@Override
+	public int SearchmaxId(int projectId, float budgetSum, float independentFees, float applyFees) {
+		// TODO Auto-generated method stub
+		int id;
+		int result ;
+		result=-1;
+		Session session =    HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx=session.beginTransaction();
+		try {
+
+		org.hibernate.Query qry = session.createQuery("select max(budgetId) from BeanBudget"
+				+ "		 where projectId=? and budgetSum=? and independentFees=? and applyFees=?");
+		qry.setParameter(0, projectId);
+		qry.setParameter(1, projectId);
+		qry.setParameter(2, projectId);
+		qry.setParameter(3, projectId);
+		
+		java.util.List list = qry.list();
+		session.getTransaction().commit();	
+		result =(int)list.get(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}
+		return result;
+	}
+
 }

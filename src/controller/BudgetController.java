@@ -122,7 +122,7 @@ public class BudgetController {
 	}
 	@RequestMapping(value = "/updateBudget.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
-	public String updateBudget(@RequestBody String params) throws JSONException{
+	public String updateBudget(@RequestBody String params) throws JSONException, NumberFormatException, BaseException{
 		JSONObject jo = new JSONObject(params);
 		JSONArray json = new JSONArray((String)jo.getString("itemBudget"));
 		int budgetid =Integer.valueOf((String) jo.get("budgetid"));	
@@ -132,7 +132,10 @@ public class BudgetController {
 		BeanItemBudget bi=new BeanItemBudget();	
 		for(int i=0;i<json.length();i++){
 			 JSONObject jsonObj = json.getJSONObject(i);
-			 bi=ItemBudgetService.SearchItemBudget(itemBudgetId)
+			 bi=ItemBudgetService.SearchItemBudget(Integer.valueOf((String) jsonObj.get("itemBudgetId")));
+			 bi.setBudgetId(budgetid);
+			 bi.setItemBudgetCost("itemBudgetCost");
+			 
 		}
 		return jo.toString();
 	}

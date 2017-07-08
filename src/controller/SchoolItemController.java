@@ -20,7 +20,7 @@ import util.BaseException;
 public class SchoolItemController {
 	@Autowired
 	private ISchoolItemService ISchoolItem;
-	@RequestMapping(value = "/addschoolitem.do", produces = "application/json; charset=utf-8") 
+	@RequestMapping(value = "/addSchoolItem.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String addSchoolItem(@RequestBody String params) throws JSONException{
 		System.out.println(params);

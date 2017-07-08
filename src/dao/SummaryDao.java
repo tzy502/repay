@@ -35,7 +35,7 @@ public class SummaryDao implements ISummary {
 		Transaction tx=session.beginTransaction();
 		try {
 
-		org.hibernate.Query qry = session.createQuery("from BeanBudget where summaryId=?");
+		org.hibernate.Query qry = session.createQuery("from BeanSummary where summaryId=?");
 		qry.setParameter(0, SummaryId);
 		java.util.List list = qry.list();
 		session.getTransaction().commit();	
@@ -54,7 +54,7 @@ public class SummaryDao implements ISummary {
 		Session session =    HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx=session.beginTransaction();
 		try {
-			org.hibernate.Query qry = session.createQuery("from BeanBudget");
+			org.hibernate.Query qry = session.createQuery("from BeanSummary");
 			java.util.List list = qry.list();
 			session.getTransaction().commit();	
 			result =list;
@@ -72,7 +72,7 @@ public class SummaryDao implements ISummary {
 		Session session =    HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx=session.beginTransaction();
 		try {
-			org.hibernate.Query qry = session.createQuery("from BeanBudget");
+			org.hibernate.Query qry = session.createQuery("from BeanSummary");
 			java.util.List list = qry.list();
 			session.getTransaction().commit();	
 			result =list;

@@ -9,9 +9,9 @@ public interface IItemBudget {
 
 	public BeanItemBudget Searchitembudget(int itembudgetId);
 
-	public List<BeanItemBudget> loaditembudget(int itembudgetId);
+	public List<BeanItemBudget> loaditembudget();
 
-	public List<BeanItemBudget> loadAllitembudgetbybudgetid();
+	public List<BeanItemBudget> Searchitembudgetbybudgetid(int budgetId);
 
 	public void modifryitembudget(BeanItemBudget itembudget);
 

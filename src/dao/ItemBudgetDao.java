@@ -50,7 +50,7 @@ public class ItemBudgetDao implements IItemBudget {
 	}
 
 	@Override
-	public List<BeanItemBudget> loaditembudget(int itembudgetId) {
+	public List<BeanItemBudget> loaditembudget() {
 		// TODO Auto-generated method stub
 		List<BeanItemBudget> result =new ArrayList<BeanItemBudget>();
 		Session session =    HibernateUtil.getSessionFactory().getCurrentSession();
@@ -69,14 +69,16 @@ public class ItemBudgetDao implements IItemBudget {
 	}
 
 	@Override
-	public List<BeanItemBudget> loadAllitembudgetbybudgetid() {
+	public List<BeanItemBudget> Searchitembudgetbybudgetid(int budgetId) {
 		// TODO Auto-generated method stub
 		List<BeanItemBudget> result =new ArrayList<BeanItemBudget>();
 		Session session =    HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx=session.beginTransaction();
 		try {
-			org.hibernate.Query qry = session.createQuery("from BeanItemBudget where  ");
+			org.hibernate.Query qry = session.createQuery("from BeanItemBudget where budgetId=? ");
+			qry.setParameter(0, budgetId);
 			java.util.List list = qry.list();
+			
 			session.getTransaction().commit();	
 			result =list;
 	

@@ -71,7 +71,7 @@ public class BudgetController {
 		for(int i=0;i<result.size();i++){
 			JSONObject jo1 = new JSONObject(params);
 			jo1.put("itemBudgetId", result.get(i).getItemBudgetId());
-			jo1.put("itemId", result.get(i).getItemId());
+			jo1.put("itemName", result.get(i).getItemId());
 			jo1.put("itemBudgetCost", result.get(i).getItemBudgetCost());
 			json.put(jo1);
 		}
@@ -124,6 +124,16 @@ public class BudgetController {
 	@ResponseBody
 	public String updateBudget(@RequestBody String params) throws JSONException{
 		JSONObject jo = new JSONObject(params);
+		JSONArray json = new JSONArray((String)jo.getString("itemBudget"));
+		int budgetid =Integer.valueOf((String) jo.get("budgetid"));	
+		float applyFees=Float.parseFloat((String)jo.get("applyFees"));
+		float independentFees=Float.parseFloat((String)jo.get("independentFees"));
+		List<BeanItemBudget> result =new ArrayList<BeanItemBudget>();
+		BeanItemBudget bi=new BeanItemBudget();	
+		for(int i=0;i<json.length();i++){
+			 JSONObject jsonObj = json.getJSONObject(i);
+			 bi=ItemBudgetService.SearchItemBudget(itemBudgetId)
+		}
 		return jo.toString();
 	}
 		

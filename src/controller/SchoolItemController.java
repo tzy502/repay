@@ -52,7 +52,7 @@ public class SchoolItemController {
 		List<BeanSchoolItem> result=null;
 		
 		JSONArray json = new JSONArray();
-		JSONObject jo = new JSONObject();
+		
 		try {
 			result = ISchoolItem.LoadSchoolItem();
 		} catch (BaseException e) {
@@ -61,6 +61,7 @@ public class SchoolItemController {
 		}
 		System.out.println(result.size());
 		for(int i=0;i<result.size();i++){
+			JSONObject jo = new JSONObject();
 			jo.put("schoolItemId", result.get(i).getSchoolItemId());
 			jo.put("itemId",result.get(i).getItemId());
 			jo.put("schoolItemName", result.get(i).getSchoolItemName());

@@ -64,6 +64,7 @@ public class SchoolItemService implements ISchoolItemService {
 		// TODO Auto-generated method stub
 		System.out.println("service");
 		List<BeanSchoolItem> result =new ArrayList<BeanSchoolItem>();
+		
 		result=sid.loadAllschoolitem();
 		return result;
 	}

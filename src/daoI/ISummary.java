@@ -17,4 +17,5 @@ public interface ISummary {
 	//修改汇�?�单
 	public void DelSummary(BeanSummary Summary);
 	//删除汇�?�单
+	public int  SearchSummaryid(String userId ,String projectId);
 }

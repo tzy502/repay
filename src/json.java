@@ -6,7 +6,100 @@ public interface json {
  *
  * 17.7.8,14:14
  * 
- * budget:
+ 
+  summary:
+	loadAllSummary.do：
+	服务端发送：
+	json：{
+		"summaryId":
+		"userId":
+		"company":
+		"projectId":
+		"billCount":
+		"sum":
+		"workerId":
+		"userName":
+		"cardNumber":
+		"money":
+		"manager":
+		"applicationId":
+	}
+	
+	searchSummary.do
+	服务端接收：
+	json：{
+		"summaryId":
+	}
+	
+	服务端发送：
+	json：{
+		"summaryId":
+		"userId":
+		"company":
+		"projectId":
+		"billCount":
+		"sum":
+		"workerId":
+		"userName":
+		"cardNumber":
+		"money":
+		"manager":
+		"applicationId":
+	}
+	
+	addSummary.do
+	服务端接收：
+	json：{
+		"userId":
+		"company":
+		"projectId":
+		"billCount":
+		"workerId":
+		"workerName":
+		"cardNumber":
+		"money":
+		"manager":
+		"applicationId":
+		"itemCost":[
+			{
+				"itemCostName":
+				"itemCost":
+			}
+			{
+				"itemCostName":
+				"itemCost":
+			}
+		]
+	}
+	
+	updateSummary.do
+	服务端接收：
+	json：{
+		"summaryId":
+		"userId":
+		"company":
+		"projectId":
+		"billCount":
+		"workerId":
+		"workerName":
+		"cardNumber":
+		"money":
+		"manager":
+		"applicationId":
+		"itemCost":[
+			{	
+				"itemCostId":
+				"itemCost":
+			}
+			{
+				"itemCostId":
+				"itemCost":
+			}
+		]
+	}
+
+  
+  budget:
 	addBudget.do
 	服务端接收： 
 	json:{

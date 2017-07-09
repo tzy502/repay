@@ -112,4 +112,27 @@ public class SummaryDao implements ISummary {
 		}
 	}
 
+	@Override
+	public int SearchSummaryid(String userId, String projectId) {
+		// TODO Auto-generated method stub
+		int result ;
+		result=-1;
+		Session session =  HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx=session.beginTransaction();
+		try {
+		org.hibernate.Query qry = session.createQuery("select max(summaryId) from BeanSummary"
+				+ "		 where projectId=? and userId=?");
+		qry.setParameter(0, projectId);
+		qry.setParameter(1, userId);
+		java.util.List list = qry.list();
+		session.getTransaction().commit();	
+		result =(int)list.get(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}
+		System.out.println(result);
+		return result;
+	}
+
 }

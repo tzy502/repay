@@ -68,4 +68,13 @@ public class ItemCostService implements IItemCostService {
 		
 	}
 
+	@Override
+	public List<BeanItemCost> searchItemCostBySId(int summaryId) throws BaseException {
+		// TODO 自动生成的方法存根
+		List<BeanItemCost> result=new ArrayList<BeanItemCost>();
+		result=icd.loadItemcostBySId(summaryId);
+				
+		return result;
+	}
+
 }

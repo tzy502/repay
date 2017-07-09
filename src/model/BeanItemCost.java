@@ -9,7 +9,7 @@ import javax.persistence.Table;
 @Table(name = "itemcost")
 public class BeanItemCost {
 	private int itemCostId;
-	private int summary;//+id
+	private int summaryId;//+id
 	private int schoolItemId;//
 	private String itemCostName;
 	private float itemCost;
@@ -23,12 +23,12 @@ public class BeanItemCost {
 		this.itemCostId = itemCostId;
 	}
 	
-	@Column(name = "summary")
+	@Column(name = "summaryId")
 	public int getSummary() {
-		return summary;
+		return summaryId;
 	}
 	public void setSummary(int summary) {
-		this.summary = summary;
+		this.summaryId = summary;
 	}
 	
 	@Column(name = "schoolItemId")

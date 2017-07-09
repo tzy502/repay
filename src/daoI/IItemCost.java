@@ -16,5 +16,7 @@ public interface IItemCost {
 	public void modifryitemcost(BeanItemCost itemcost);
 
 	public void Delitemcost(BeanItemCost itemcost);
+	
+	public List<BeanItemCost> loadItemcostBySId(int summaryId);
 
 }

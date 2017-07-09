@@ -55,6 +55,8 @@
 				<ul>
 					<li><a data-href="auditor_project.jsp" data-title="待添加预算项目" href="javascript:void(0)">待添加预算项目</a></li>
 					<li><a data-href="auditor_budget.jsp" data-title="项目预算管理" href="javascript:void(0)">项目预算管理</a></li>
+					<li><a data-href="auditor_summary.jsp" data-title="汇总单审核" href="javascript:void(0)">汇总单审核</a></li>
+				
 				</ul>
 			</dd>
 		</dl>

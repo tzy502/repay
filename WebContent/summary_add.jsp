@@ -97,8 +97,10 @@ function GetRequest() {
 }   
 var Request = new Object(); 
 Request = GetRequest(); 
-var projectId;
-projectId = Request['projectId']; 
+var projectId,projectName, isBudget;
+projectId = Request['projectId'];
+projectName = Request['projectName'];
+isBudget = Request['isBudget'];
 $(document).ready(function (){
     $("#projectId").val(projectId);
 })

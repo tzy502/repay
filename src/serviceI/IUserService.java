@@ -13,7 +13,7 @@ public interface IUserService {
 	public void register(String userId, String password, String userName, String userJob, String userPhone)throws BaseException;
 	
 	//登陆
-	public String login(String userId, String password)throws BaseException;
+	public BeanUser login(String userId, String password)throws BaseException;
 	
 	//修改密码
 	public void changePassword(String userId, String oldPassword, String newPassword)throws BaseException;

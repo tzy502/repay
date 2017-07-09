@@ -39,12 +39,12 @@
 				<th scope="col" colspan="9">项目列表</th>
 			</tr>
 			<tr class="text-c">
+				<th width="40">ID</th>
 				<th width="40">项目编号</th>
-				<th width="40">项目名称</th>
-				<th width="40">状态</th>
-				<th width="40">查看项目</th>
-				<th width="40">创建报销单</th>
-				<th width="40">创建汇总单</th>
+				<th width="40">报销人</th>
+				<th width="40">审核人</th>
+				<th width="40">查看详情</th>
+				<th width="40"></th>
 				<th width="40">查看项目预算</th>
 				<th width="100">操作</th>
 			</tr>
@@ -284,11 +284,6 @@ function searchProject(){
         	 
         }     
     });
-}
-
-/*项目-增加*/
-function project_add(title,url,w,h){
-	layer_show(title,url,w,h);	
 }
 </script>
 </body>

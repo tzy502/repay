@@ -15,4 +15,5 @@ public interface ISummaryService {
 	public void delSummary(int summaryId)throws BaseException;
 	public BeanSummary searchSummary(int summaryId) throws BaseException;
 	public List<BeanSummary> loadSummary() throws BaseException;
+	public int Searchmaxnuk(String userId ,String projectId)throws BaseException;
 }

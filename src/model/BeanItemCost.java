@@ -9,8 +9,8 @@ import javax.persistence.Table;
 @Table(name = "itemcost")
 public class BeanItemCost {
 	private int itemCostId;
-	private int summary;
-	private int schoolItemId;
+	private int summary;//+id
+	private int schoolItemId;//
 	private String itemCostName;
 	private float itemCost;
 	

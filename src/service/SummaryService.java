@@ -82,4 +82,15 @@ public class SummaryService implements ISummaryService {
 		return result;
 	}
 
+	@Override
+	public int Searchmaxnuk(String userId ,String projectId) throws BaseException {
+		// TODO Auto-generated method stub
+		int result=1;
+		result=sd.SearchSummaryid(userId, projectId);
+		if(result==-1){
+			throw new BaseException("添加错误");
+		}
+		return result;
+	}
+
 }

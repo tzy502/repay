@@ -16,4 +16,6 @@ public interface ISchoolItem {
 	public void modifryschoolitem(BeanSchoolItem schoolitem);
 
 	public void Delschoolitem(BeanSchoolItem schoolitem);
+	
+
 }

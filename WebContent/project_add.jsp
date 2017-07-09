@@ -29,45 +29,41 @@
 <article class="page-container" id = 'form-item-add'>
 	<form class="form form-horizontal" >
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>项目名称：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="projectName" name="projectName">
-		</div>
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>项目计划类别：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="projectType" name="projectType">
-		</div>
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>项目计划类别代码：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="projectTypeId" name="projectTypeId">
-		</div>
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>技术管理领域：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="field" name="field">
-		</div>
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>技术管理领域代码：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="fieldId" name="fieldId">
-		</div>
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>项目技术来源：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="source" name="source">
-		</div>
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>项目技术来源代码：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="sourceId" name="sourceId">
-		</div>
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>开始时间：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="startData" name="startData">
-		</div>
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>结束时间：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="endData" name="endData">
-		</div>
+		<table class="table table-border table-bordered" id = 'project'>
+		<tbody id = 'tbody-project'>
+			<tr>
+				<th width = '20'>项目名称</th>
+				<td width = '80%' colspan='4'><input type="text" class="input-text" value="" placeholder="" id="projectName" name="projectName"></td>
+			</tr>
+			<tr>
+				<th width = '20%'>项目计划类别</th>
+				<td width = '40%' colspan='2'><input type="text" class="input-text" value="" placeholder="" id="projectType" name="projectType"></td>
+				<td width = '20%'>代码</td>
+				<td width = '20%'><input type="text" class="input-text" value="" placeholder="" id="projectTypeId" name="projectTypeId"></td>
+			</tr>
+			<tr>
+				<th width = '20%'>技术管理领域</th>
+				<td width = '40%' colspan='2'><input type="text" class="input-text" value="" placeholder="" id="field" name="field"></td>
+				<td width = '20%'>代码</td>
+				<td width = '20%'><input type="text" class="input-text" value="" placeholder="" id="fieldId" name="fieldId"></td>
+			</tr>	
+			<tr>
+				<th width = '20%'>项目技术来源</th>
+				<td width = '40%' colspan='2'><input type="text" class="input-text" value="" placeholder="" id="source" name="source"></td>
+				<td width = '20%'>代码</td>
+				<td width = '20%'><input type="text" class="input-text" value="" placeholder="" id="sourceId" name="sourceId"></td>
+			</tr>	
+			<tr>
+				<th width = '20%'>开始日期</th>
+				<td width = '20%' ><input type="text" class="input-text" value="" placeholder="" id="startData" name="startData"></td>
+				<td width = '20%' >完成日期</td>
+				<td width = '40%' colspan='2'><input type="text" class="input-text" value="" placeholder="" id="endData" name="endData"></td>
+			</tr>
+		</tbody>
+	</table>
 	</div>
 	<div class="row cl">
-		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+		<div class="col-xs-8 col-sm-9 col-xs-offset-2 col-sm-offset-2">
 			<input class="btn btn-primary radius" type="button" onclick = "addProject()" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
 		</div>
 	</div>
@@ -87,10 +83,27 @@
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/validate-methods.js"></script> 
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/messages_zh.js"></script> 
 <script type="text/javascript">
+function getCookie(Name){
+	var search = Name + "="//查询检索的值
+	   var returnvalue = "";//返回值
+	   if (document.cookie.length > 0) {
+	     sd = document.cookie.indexOf(search);
+	     if (sd!= -1) {
+	        sd += search.length;
+	        end = document.cookie.indexOf(";", sd);
+	        if (end == -1)
+	         end = document.cookie.length;
+	         //unescape() 函数可对通过 escape() 编码的字符串进行解码。
+	        returnvalue=unescape(document.cookie.substring(sd, end))
+	      }
+	   } 
+	   return returnvalue;
+}
+
 function addProject(){
-	layer.msg('添加!',{icon:1,time:1000});
+	layer.msg('添加!'+getCookie("userId"),{icon:1,time:1000});
 	var project={
-			"userId":"12356",
+			"userId":getCookie("userId"),
 	    	"projectName":document.getElementById("projectName").value,
 	    	"projectType":document.getElementById("projectType").value,
 	    	"projectTypeId":document.getElementById("projectTypeId").value,
@@ -101,7 +114,7 @@ function addProject(){
 	    	"startDate":document.getElementById("startData").value,
 	    	"endDate":document.getElementById("endData").value, 
 	}
-	    $.ajax({    
+	     $.ajax({    
 	        type: "post",    
 	        async: true,    
 	        url: "/repay/addProject.do",    
@@ -118,7 +131,7 @@ function addProject(){
 		var index = parent.layer.getFrameIndex(window.name);
 		parent.$('.btn-refresh').click();
 		parent.layer.close(index);
-
+ 
 }
 </script> 
 <!--/请在上方写此页面业务相关的脚本-->

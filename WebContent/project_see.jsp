@@ -62,11 +62,6 @@
 		</tbody>
 	</table>
 	</div>
-	<div class="row cl">
-		<div class="col-xs-8 col-sm-9 col-xs-offset-2 col-sm-offset-2">
-			<input class="btn btn-primary radius" type="button" onclick = "updateProject()" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
-		</div>
-	</div>
 	</form>
 </article>
 
@@ -99,51 +94,6 @@ var Request = new Object();
 Request = GetRequest(); 
 var projectId;
 projectId = Request['projectId']; 
-function updateProject(){
-	layer.msg('修改成功!',{icon:1,time:2000});
-	var project={
-			"projectId":projectId,
-	    	"projectName":document.getElementById("projectName").value,
-	    	"projectType":document.getElementById("projectType").value,
-	    	"projectTypeId":document.getElementById("projectTypeId").value,
-	    	"field":document.getElementById("field").value,
-	    	"fieldId":document.getElementById("fieldId").value,
-	    	"source":document.getElementById("source").value,
-	    	"sourceId":document.getElementById("sourceId").value,
-	    	"startDate":document.getElementById("startDate").value,
-	    	"endDate":document.getElementById("endDate").value, 
-	}
-	    $.ajax({    
-	        type: "post",    
-	        async: true,    
-	        url: "/repay/updateProject.do",    
-	        data: JSON.stringify(project),
-	        dataType: "json",   
-	        contentType: "application/json; charset=utf-8",   
-	        success: function(data){
-	        	if(data.msg == "succ"){
-	        		layer.confirm('修改成功',function(){
-	        			var index = parent.layer.getFrameIndex(window.name);
-	        			parent.$('.btn-refresh').click();
-	        			parent.layer.close(index); 
-	        		});
-	        	}
-	        	else{
-	        		layer.confirm(data.msg,function(){
-	        			var index = parent.layer.getFrameIndex(window.name);
-	        			parent.$('.btn-refresh').click();
-	        			parent.layer.close(index); 
-	        		});
-	        	}
-			},
-	        error: function(XmlHttpRequest, textStatus, errorThrown){
-				layer.msg('error!',{icon:1,time:1000});
-			}
-		});
-		
-
-}
-
 $(document).ready(function (){
 	var params = {
 			"projectId":projectId,

@@ -10,11 +10,11 @@ import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
 import util.HibernateUtil;
-import daoI.IBudget;
+import daoI.IBudgetDao;
 import model.BeanBudget;
 import model.BeanUser;
 @Repository
-public class BudgetDao implements IBudget {
+public class BudgetDao implements IBudgetDao {
 
 	@Override
 	public void addbudget(BeanBudget budget) {
@@ -141,6 +141,18 @@ public class BudgetDao implements IBudget {
 		}
 		System.out.println(result);
 		return result;
+	}
+
+	@Override
+	public BeanBudget SearchbudgetByPId(int projectId) {
+		// TODO 自动生成的方法存根
+		Session s = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx = s.beginTransaction();
+		String hql = "from BeanBudget where projectId = '" + projectId + "'";
+		Query qry = s.createQuery(hql);
+		Object budget = qry.uniqueResult();
+		tx.commit();
+		return (BeanBudget)budget;
 	}
 
 }

@@ -50,22 +50,15 @@
 <aside class="Hui-aside">
 	<div class="menu_dropdown bk_2">
 		<dl id="menu-user">
-			<dt><i class="Hui-iconfont">&#xe60d;</i> 我的项目<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe60d;</i> 项目预算管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="user_project.jsp" data-title="我的项目" href="javascript:void(0)">我的项目</a></li>
+					<li><a data-href="auditor_project.jsp" data-title="待添加预算项目" href="javascript:void(0)">待添加预算项目</a></li>
+					<li><a data-href="auditor_budget.jsp" data-title="项目预算管理" href="javascript:void(0)">项目预算管理</a></li>
 				</ul>
 			</dd>
 		</dl>
-		<dl id="menu-permission">
-			<dt><i class="Hui-iconfont">&#xe6e0;</i> 我的单据<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-			<dd>
-				<ul>
-					<li><a data-href="user_repay.jsp" data-title="报销单" href="javascript:void(0)">报销单</a></li>
-					<li><a data-href="user_summary.jsp" data-title="汇总单" href="javascript:void(0)">汇总单</a></li>
-				</ul>
-			</dd>
-		</dl>
+		
 </div>
 </aside>
 <div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>

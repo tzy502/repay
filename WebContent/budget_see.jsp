@@ -21,7 +21,7 @@
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>修改项目预算</title>
+<title>项目预算</title>
 <meta name="keywords" content="H-ui.admin 3.0,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
 <meta name="description" content="H-ui.admin 3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
@@ -40,7 +40,7 @@
 				<td width = '40%' colspan='2'>向省厅申请</td>
 			</tr>	
 			<tr>
-				<th width = '20%'></th>
+				<th width = '20%'><input type = 'hidden' id = 'budgetId'></th>
 				<td width = '40%' colspan='2'><input type='text' placeholder='' id = 'independentFees' class='input-text radius size-S'></td>
 				<td width = '40%' colspan='2'><input type='text' placeholder='' id = 'applyFees' class='input-text radius size-S'></td>
 			</tr>
@@ -58,11 +58,6 @@
 			</tr>	
 		</tbody>
 	</table>
-	<div class="row cl">
-		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-			<input class="btn btn-primary radius" type="button" onclick = "updateBudget()" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
-		</div>
-	</div>
 	</form>
 </article>
 
@@ -93,9 +88,8 @@ function GetRequest() {
 }   
 var Request = new Object(); 
 Request = GetRequest(); 
-var projectId,budgetId;
+var projectId;
 projectId = Request['projectId']; 
-budgetId = Request['budgetId'];
 
 $(document).ready(function (){
 	var params = {
@@ -122,84 +116,48 @@ $(document).ready(function (){
     });
 	
 	var params = {
-			"budgetId":budgetId,
+			"projectId":projectId,
 	}
+	var budgetId = 0;
 	$.ajax({    
         type: "post",        
-        url: "/repay/searchBudget.do", 
+        url: "/repay/searchBudgetByPId.do", 
         data:JSON.stringify(params),
         dataType: "json", 
         contentType: "application/json; charset=utf-8",   
         error: function(data){  
         	alert("出错了！！:"+data.msg);
         } , 
-        success: function(data) { 
+        success: function(data) { 	
+        	$("#budgetId").val(data.budgetId);
         	$("#independentFees").val(data.independentFees);
         	$("#applyFees").val(data.applyFees);
+        	var params = {
+        			"budgetId":document.getElementById("budgetId").value,
+        	}
+        	$.ajax({    
+                type: "post",        
+                url: "/repay/loadItemBudget.do",
+                data:JSON.stringify(params),
+                dataType: "json", 
+                contentType: "application/json; charset=utf-8",   
+                error: function(data){  
+                	alert("出错了！！:"+data.msg);
+                } , 
+                success: function(data) { 
+                	var str = "";  
+            		for(var i = 0; i < data.length; i++){
+            			j++;
+            			//alert("出错了！！:");
+            			str+="<tr><th width = '20%'>"+data[i].itemName+"</th>"+
+            			"<td width = '60%'>"+data[i].itemBudgetCost+"</td></tr>";
+                	}	
+                	$("#tbody-itemBudget").html(str);
+                }     
+            });
         }     
     });
-	
-	var params = {
-			"budgetId":budgetId,
-	}
-	$.ajax({    
-        type: "post",        
-        url: "/repay/loadItemBudget.do",
-        data:JSON.stringify(params),
-        dataType: "json", 
-        contentType: "application/json; charset=utf-8",   
-        error: function(data){  
-        	alert("出错了！！:"+data.msg);
-        } , 
-        success: function(data) { 
-        	var str = "";  
-    		for(var i = 0; i < data.length; i++){
-    			j++;
-    			//alert("出错了！！:");
-    			str+="<tr><th width = '20%'>"+data[i].itemName+"</th>"+
-    			"<input type='hidden' value ='"+data[i].itemBudgetId+"' id='itemBudgetId"+i+"' name = 'itemBudgetId"+i+"'>"+
-    			"<td width = '60%'><input type='text'  value = '"+data[i].itemBudgetCost+"' id='item"+i+"'  name = 'item"+i+"' class='input-text radius size-S'></td></tr>";
-        	}	
-        	$("#tbody-itemBudget").html(str);
-        }     
-    });
-	
-
 })
-	function updateBudget(){
-		var itemBudget = [];
-	 	var params={
-	 			"budgetId":budgetId,
-		    	"independentFees":document.getElementById("independentFees").value,
-		    	"applyFees":document.getElementById("applyFees").value,
-		} 
-		for(var i = 0; i < j; i++){
-			var item = {
-					"itemBudgetId":document.getElementById("itemBudgetId"+i).value,
-					"itemBudgetCost":document.getElementById("item"+i).value,
-			}
-			itemBudget.push(item);
-    	}
-		params["itemBudget"]=itemBudget;
-		alert(JSON.stringify(params));
-	     $.ajax({    
-	        type: "post",    
-	        async: true,    
-	        url: "/repay/updateBudget.do",    
-	        data: JSON.stringify(params),
-	        dataType: "json",   
-	        contentType: "application/json; charset=utf-8",   
-	        success: function(data){
-				layer.msg('修改成功!',{icon:1,time:1000});
-			},
-	        error: function(XmlHttpRequest, textStatus, errorThrown){
-				layer.msg('error!',{icon:1,time:1000});
-			}
-		});
-		var index = parent.layer.getFrameIndex(window.name);
-		parent.$('.btn-refresh').click();
-		parent.layer.close(index); 
-}
 </script> 
 <!--/请在上方写此页面业务相关的脚本-->
 </body>

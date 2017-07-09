@@ -33,12 +33,11 @@
 				<th width = '20'>单位（公章）</th>
 				<td width = '20%'><input type='text' placeholder='' id = 'company' class='input-text radius size-S'></td>
 				<td width = '20%'>经费项目代码</td>
-				<td width = '20%'><input type='text' placeholder='' id = 'projectId' class='input-text radius size-S'></td>
+				<td width = '10%'><input type='text' placeholder='' id = 'projectId' class='input-text radius size-S'></td>
 				<td width = '20%'>单据张数</td>
-				<td width = '20%'><input type='text' placeholder='' id = 'billCount' class='input-text radius size-S'></td>
+				<td width = '10%'><input type='text' placeholder='' id = 'billCount' class='input-text radius size-S'></td>
 			</tr>	
 	</table>
-	
 	
 	<table class="table table-border table-bordered" id = 'project'>
 		<tbody id = 'tbody-itemCost'>
@@ -49,25 +48,23 @@
 	<table class="table table-border table-bordered" id = 'budget'>
 		<tbody id = 'tbody-budget'>
 			<tr>
-				<th width = '20'>转卡信息</th>
-				<td width = '20%' >工号</td>
-				<td width = '20%' >姓名</td>
-				<td width = '40%' >建行卡号</td>
-				<td width = '20%' >转卡金额</td>
-			</tr>	
+				<th width = '15%' >工号</th>
+				<th width = '15%' >姓名</th>
+				<th width = '45%' >建行卡号</th>
+				<th width = '15%' >转卡金额</th>
+			</tr>
 			<tr>
-				<th width = '20%'></th>
-				<td width = '20%' colspan='2'><input type='text' placeholder='' id = 'workerId' class='input-text radius size-S'></td>
-				<td width = '20%' colspan='2'><input type='text' placeholder='' id = 'workerName' class='input-text radius size-S'></td>
-				<td width = '40%' colspan='2'><input type='text' placeholder='' id = 'cardNumber' class='input-text radius size-S'></td>
-				<td width = '20%' colspan='2'><input type='text' placeholder='' id = 'money' class='input-text radius size-S'></td>
+				<td width = '15%'><input type="text" id = 'workerId' class="input-text radius size-S"></td>	
+				<td width = '15%'><input type="text" id = 'userName' class="input-text radius size-S"></td>	
+				<td width = '45%'><input type="text" id = 'cardNumber' class="input-text radius size-S"></td>	
+				<td width = '15%'><input type="text" id = 'money' class="input-text radius size-S"></td>		
 			</tr>
 		</tbody>
 	</table>
 	
 	<div class="row cl">
 		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-			<input class="btn btn-primary radius" type="button" onclick = "addBudget()" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+			<input class="btn btn-primary radius" type="button" onclick = "addSummary()" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
 		</div>
 	</div>
 	</form>
@@ -103,32 +100,13 @@ Request = GetRequest();
 var projectId;
 projectId = Request['projectId']; 
 $(document).ready(function (){
-	var params = {
-			"projectId":projectId,
-	}
+    $("#projectId").val(projectId);
+})
+
+$(document).ready(function (){
 	$.ajax({    
         type: "post",        
-        url: "/repay/searchProject.do", 
-        data:JSON.stringify(params),
-        dataType: "json", 
-        contentType: "application/json; charset=utf-8",   
-        error: function(data){  
-        	alert("出错了！！:"+data.msg);
-        } , 
-        success: function(data) { 
-        	var str = "<tr><th width = '20'>项目名称</th><td width = '80%' colspan='4'>"+data.projectName+"</td></tr>"+
-        	"<tr><th width = '20%'>项目计划类别</th><td width = '40%' colspan='2'>"+data.projectType+"</td><td width = '20%'>代码</td><td width = '20%'>"+data.projectTypeId+"</td></tr>"+
-        	"<tr><th width = '20%'>技术管理领域</th><td width = '40%' colspan='2'>"+data.field+"</td><td width = '20%'>代码</td><td width = '20%'>"+data.fieldId+"</td></tr>"+
-        	"<tr><th width = '20%'>项目技术来源</th><td width = '40%' colspan='2'>"+data.source+"</td><td width = '20%'>代码</td><td width = '20%'>"+data.sourceId+"</td></tr>"+
-    		"<tr><th width = '20%'>开始日期</th><td width = '20%' >"+data.startData+"</td></td><td width = '20%' >完成日期</td><td width = '40%' colspan='2'>"+data.endData+"</td></td></tr>"+
-        	"<input type = 'hidden' value = '"+data.projectId+"' id = 'projectId'>";	
-        	$("#tbody-project").html(str);
-        }     
-    });
-	
-	$.ajax({    
-        type: "post",        
-        url: "/repay/loadAllItem.do",  
+        url: "/repay/loadAllSchoolItem.do",  
         dataType: "json", 
         contentType: "application/json; charset=utf-8",   
         error: function(data){  
@@ -139,33 +117,42 @@ $(document).ready(function (){
     		for(var i = 0; i < data.length; i++){
     			j++;
     			//alert("出错了！！:");
-    			str+="<tr><th width = '20%'>"+data[i].itemName+"</th>"+
-    			"<input type='hidden' value ='"+data[i].itemName+"' id='itemName"+i+"' name = 'itemName"+i+"'>"+
-    			"<td width = '60%'><input type='text'  id='item"+i+"'  name = 'item"+i+"' class='input-text radius size-S'></td></tr>";
+    			str+="<tr><th width = '20%'>"+data[i].schoolItemName+"</th>"+
+    			"<input type='hidden' value ='"+data[i].schoolItemName+"' id='schoolItemName"+i+"' name = 'schoolItemName"+i+"'>"+
+    			"<td width = '60%'><input type='text'  id='schoolItem"+i+"'  name = 'schoolItem"+i+"' class='input-text radius size-S'></td></tr>";
         	}	
-        	$("#tbody-itemBudget").html(str);
+        	$("#tbody-itemCost").html(str);
         }     
     });
 	
 
 })
-	function addBudget(){
-		var itemBudget = [];
-	 	var params={
-	 			"projectId":document.getElementById("projectId").value,
-		    	"independentFees":document.getElementById("independentFees").value,
-		    	"applyFees":document.getElementById("applyFees").value,
-		} 
+	function addSummary(){
+		var itemCost = [];
 		for(var i = 0; i < j; i++){
 			var item = {
-					"itemName":document.getElementById("itemName"+i).value,
-					"itemBudgetCost":document.getElementById("item"+i).value,
+					"itemCostName":document.getElementById("schoolItemName"+i).value,
+					"itemCost":document.getElementById("schoolItem"+i).value,
 			}
-			itemBudget.push(item);
+			itemCost.push(item);
     	}
-		params["itemBudget"]=itemBudget;
+	 	 var params={
+	 			"userId":"1",
+	 			"projectId":document.getElementById("projectId").value,
+		    	"billCount":document.getElementById("billCount").value,
+		    	
+		    	"company":document.getElementById("company").value,
+		    	"workerId":document.getElementById("workerId").value,
+		    	"userName":document.getElementById("userName").value,
+		    	"cardNumber":document.getElementById("cardNumber").value,
+		    	"money":document.getElementById("money").value,
+		    	"manager":"12356",
+		    	"applicationId":"12356",
+		} 
+		
+		params["itemCost"]=itemCost; 
 		alert(JSON.stringify(params));
-	     $.ajax({    
+		 /* $.ajax({    
 	        type: "post",    
 	        async: true,    
 	        url: "/repay/addBudget.do",    
@@ -181,7 +168,7 @@ $(document).ready(function (){
 		});
 		var index = parent.layer.getFrameIndex(window.name);
 		parent.$('.btn-refresh').click();
-		parent.layer.close(index); 
+		parent.layer.close(index);  */
 }
 </script> 
 <!--/请在上方写此页面业务相关的脚本-->

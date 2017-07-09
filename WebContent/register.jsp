@@ -41,17 +41,35 @@
         </div>
       </div>
       <div class="row cl">
+        <label class="form-label col-xs-4"><i class="Hui-iconfont">&#xe60d;</i></label>
+        <div class="formControls col-xs-4">
+          <input id="userName" name="userName" type="text" placeholder="姓名" class="input-text size-L">
+        </div>
+      </div>
+      <div class="row cl">
         <label class="form-label col-xs-4"><i class="Hui-iconfont">&#xe60e;</i></label>
         <div class="formControls col-xs-4">
           <input id="" name="password" type="password" placeholder="密码" class="input-text size-L">
+        </div>
+      </div>
+      <div class="row cl">
+        <label class="form-label col-xs-4"><i class="Hui-iconfont">&#xe60e;</i></label>
+        <div class="formControls col-xs-4">
+          <input id="" name="userJob" type="userJob" placeholder="职位" class="input-text size-L">
+        </div>
+      </div>
+      <div class="row cl">
+        <label class="form-label col-xs-4"><i class="Hui-iconfont">&#xe60e;</i></label>
+        <div class="formControls col-xs-4">
+          <input id="" name="userPhone" type="userPhone" placeholder="电话号码" class="input-text size-L">
         </div>
       </div>
 
 
       <div class="row cl">
         <div class="formControls col-xs-4 col-xs-offset-4">
-          <input name="" type="button"  onclick = 'login()' class="btn btn-success radius size-L" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
-          <input name="" type="button" onclick = 'register()' class="btn btn-success radius size-L" value="&nbsp;注&nbsp;&nbsp;&nbsp;&nbsp;册&nbsp;">
+         	<input name="" type="button" onclick = 'register()' class="btn btn-success radius size-L" value="&nbsp;注&nbsp;&nbsp;&nbsp;&nbsp;册&nbsp;">
+         	 <input name="" type="reset"   class="btn btn-default radius size-L" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
         </div>
       </div>
     </form>
@@ -71,39 +89,28 @@
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/validate-methods.js"></script> 
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/messages_zh.js"></script> 
 <script type="text/javascript">
-function login(){
-	var userId = document.getElementById("userId").value;
+function register(){
 	var params={
-	    	"userId":userId,
+	    	"userId":document.getElementById("userId").value,
 	    	"password":document.getElementById("password").value,
+	    	"userName":document.getElementById("userName").value,
+	    	"userJob":document.getElementById("userJob").value,
+	    	"userPhone":document.getElementById("userPhone").value,
 	}
 	     $.ajax({    
 	        type: "post",    
 	        async: true,    
-	        url: "/repay/login.do",    
+	        url: "/repay/register.do",    
 	        data: JSON.stringify(project),
 	        dataType: "json",   
 	        contentType: "application/json; charset=utf-8",   
 	        success: function(data){
-				layer.msg('登录成功!',{icon:1,time:1000});
-				document.cookie="userId="+data.userId;
-				if(data.role == "user"){
-					window.location.href = 'user_main.jsp';
-				}
-				else if(data.role == "admin"){
-					window.location.href = 'admin_main.jsp';
-				}
-				else{
-					window.location.href = 'auditor_main.jsp';
-				}
+				window.location.href = 'login.jsp';
 			},
 	        error: function(XmlHttpRequest, textStatus, errorThrown){
 				layer.msg('error!',{icon:1,time:1000});
 			}
 		});
-}
-function register(){
-		window.location.href = 'register.jsp';
 }
 </script> 
 <!--/请在上方写此页面业务相关的脚本-->

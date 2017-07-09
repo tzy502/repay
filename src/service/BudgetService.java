@@ -8,13 +8,15 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import dao.BudgetDao;
+import daoI.IBudgetDao;
 import model.BeanBudget;
 import serviceI.IBudgetService;
 import util.BaseException;
 @Service
 public class BudgetService implements IBudgetService {
 	@Resource
-	BudgetDao bd=new BudgetDao();
+	private IBudgetDao IBudgetDao;
+	
 	@Override
 	public void addBudget(int projectId, float budgetSum, float independentFees, float applyFees) throws BaseException {
 		// TODO Auto-generated method stub
@@ -26,27 +28,26 @@ public class BudgetService implements IBudgetService {
 		bb.setBudgetSum(budgetSum);
 		bb.setIndependentFees(independentFees);
 		bb.setApplyFees(applyFees);
-		bd.addbudget(bb);
+		IBudgetDao.addbudget(bb);
 	}
 
 	@Override
-	public void modifryBudget(int budgetId, int projectId, float budgetSum, float independentFees, float applyFees)
+	public void modifryBudget(int budgetId, float budgetSum, float independentFees, float applyFees)
 			throws BaseException {
 		// TODO Auto-generated method stub
-		BeanBudget bb=new BeanBudget();
-		bb.setBudgetId(budgetId);
-		bb.setProjectId(projectId);
+		
+		BeanBudget bb=IBudgetDao.Searchbudget(budgetId);
 		bb.setBudgetSum(budgetSum);
 		bb.setIndependentFees(independentFees);
 		bb.setApplyFees(applyFees);
-		bd.modifrybudget(bb);
+		IBudgetDao.modifrybudget(bb);
 
 	}
 
 	@Override
 	public void DelBudget(int budgetId) throws BaseException {
 		// TODO Auto-generated method stub
-		bd.Delbudget(SearchBudget(budgetId));
+		IBudgetDao.Delbudget(SearchBudget(budgetId));
 	}
 
 	@Override
@@ -54,7 +55,7 @@ public class BudgetService implements IBudgetService {
 		// TODO Auto-generated method stub
 		BeanBudget bb=new BeanBudget();
 		bb=null;
-		bb=bd.Searchbudget(budgetId);
+		bb=IBudgetDao.Searchbudget(budgetId);
 		if (bb==null){
 			throw new BaseException("查无数据");
 		}
@@ -67,7 +68,7 @@ public class BudgetService implements IBudgetService {
 		// TODO Auto-generated method stub
 		List<BeanBudget> result =new ArrayList<BeanBudget>();
 		result=null;
-		result=bd.loadAllbudget();
+		result=IBudgetDao.loadAllbudget();
 		return result;
 	}
 
@@ -75,11 +76,23 @@ public class BudgetService implements IBudgetService {
 	public int SearchmaxId(int projectId, float budgetSum, float independentFees, float applyFees) throws BaseException {
 		// TODO Auto-generated method stub
 		int result=-1;
-		result=bd.SearchmaxId(projectId, budgetSum, independentFees, applyFees);
+		result=IBudgetDao.SearchmaxId(projectId, budgetSum, independentFees, applyFees);
 		if(result==-1){
 			throw new BaseException("添加错误");
 		}
 		return result;
+	}
+
+	@Override
+	public BeanBudget searchBudgetByPId(int projectId) throws BaseException {
+		// TODO 自动生成的方法存根
+		BeanBudget bb=new BeanBudget();
+		bb=null;
+		bb=IBudgetDao.SearchbudgetByPId(projectId);
+		if (bb==null){
+			throw new BaseException("查无数据");
+		}
+		return bb;
 	}
 
 }

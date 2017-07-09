@@ -1,4 +1,3 @@
-
 public interface json {
 
 }
@@ -6,7 +5,228 @@ public interface json {
  *
  * 17.7.8,14:14
  * 
- 
+
+ repay:
+ 	loadAllrepay.do：
+ 		服务端发送：
+ 	json：{
+		"repayId":
+		"company":
+		"projectId":
+		"reason":
+		"annex":
+		"annexPath":
+		"checkDays":
+		"checkPlane":
+		"checkTrain":
+		"checkTOther":
+		"checkStay":
+		"checkFood":
+		"checkMi":
+		"checkOther":
+		"sum":
+		"approvalId":
+		"data":
+		"applicationId":
+		"workerId":
+		"userName":
+		"money":
+		"cardNumber":
+		"auditor":
+		"travel":[
+			{
+				"travelId":
+				"repayId":
+				"travelLocation":
+				"travelProvince":
+				"startData": 
+				"endData":
+				"days":
+				"plane":
+				"train":
+				"tasfficOther":
+				"stayFees":
+				"foodFees":
+				"miFess":
+				"other":
+			}
+		]
+		"traveluser":[
+		{
+			"travelUserId":
+			"repayId":
+			"userName":
+			"userJob":
+			}
+		]
+		
+	}
+	Searchrepay.do
+	服务端接收：
+	json：{
+		"repayId":
+	}
+	发送
+	json：{
+		"repayId":
+		"company":
+		"projectId":
+		"reason":
+		"annex":
+		"annexPath":
+		"checkDays":
+		"checkPlane":
+		"checkTrain":
+		"checkTOther":
+		"checkStay":
+		"checkFood":
+		"checkMi":
+		"checkOther":
+		"sum":
+		"approvalId":
+		"data":
+		"applicationId":
+		"workerId":
+		"userName":
+		"money":
+		"cardNumber":
+		"auditor":
+		"travel":[
+			{
+				"travelId":
+				"repayId":
+				"travelLocation":
+				"travelProvince":
+				"startData": 
+				"endData":
+				"days":
+				"plane":
+				"train":
+				"tasfficOther":
+				"stayFees":
+				"foodFees":
+				"miFess":
+				"other":
+			}
+		]
+		"traveluser":[
+		{
+			"travelUserId":
+			"repayId":
+			"userName":
+			"userJob":
+			}
+		]
+		
+	}
+
+	addrepay.do
+ 		服务端接受：
+ 	json：{
+		"company":
+		"projectId":
+		"reason":
+		"annex":
+		"annexPath":
+		"checkDays":
+		"checkPlane":
+		"checkTrain":
+		"checkTOther":
+		"checkStay":
+		"checkFood":
+		"checkMi":
+		"checkOther":
+		"sum":
+		"approvalId":
+		"data":
+		"applicationId":
+		"workerId":
+		"userName":
+		"money":
+		"cardNumber":
+		"auditor":
+		"travel":[
+			{
+				"repayId":
+				"travelLocation":
+				"travelProvince":
+				"startData": 
+				"endData":
+				"days":
+				"plane":
+				"train":
+				"tasfficOther":
+				"stayFees":
+				"foodFees":
+				"miFess":
+				"other":
+			}
+		]
+		"traveluser":[
+		{
+			"repayId":
+			"userName":
+			"userJob":
+			}
+		]
+		
+	}
+
+	updaterepay.do
+ 		服务端接受：
+ 	json：{
+		"repayId":
+		"company":
+		"projectId":
+		"reason":
+		"annex":
+		"annexPath":
+		"checkDays":
+		"checkPlane":
+		"checkTrain":
+		"checkTOther":
+		"checkStay":
+		"checkFood":
+		"checkMi":
+		"checkOther":
+		"sum":
+		"approvalId":
+		"data":
+		"applicationId":
+		"workerId":
+		"userName":
+		"money":
+		"cardNumber":
+		"auditor":
+		"travel":[
+			{
+				"travelId":
+				"repayId":
+				"travelLocation":
+				"travelProvince":
+				"startData": 
+				"endData":
+				"days":
+				"plane":
+				"train":
+				"tasfficOther":
+				"stayFees":
+				"foodFees":
+				"miFess":
+				"other":
+			}
+		]
+		"traveluser":[
+		{
+			"travelUserId":
+			"repayId":
+			"userName":
+			"userJob":
+			}
+		]
+		
+	}
+
   summary:
 	loadAllSummary.do：
 	服务端发送：
@@ -24,13 +244,13 @@ public interface json {
 		"manager":
 		"applicationId":
 	}
-	
+
 	searchSummary.do
 	服务端接收：
 	json：{
 		"summaryId":
 	}
-	
+
 	服务端发送：
 	json：{
 		"summaryId":
@@ -46,7 +266,7 @@ public interface json {
 		"manager":
 		"applicationId":
 	}
-	
+
 	addSummary.do
 	服务端接收：
 	json：{
@@ -71,7 +291,7 @@ public interface json {
 			}
 		]
 	}
-	
+
 	updateSummary.do
 	服务端接收：
 	json：{
@@ -98,7 +318,7 @@ public interface json {
 		]
 	}
 
-  
+
   budget:
 	addBudget.do
 	服务端接收： 
@@ -117,8 +337,8 @@ public interface json {
 				}
 		]
 	}
-	independentFees+applyFees=budgetSum;
-	
+	independentFees+applyFees=budgetSum":
+
 	searchBudget：
 	服务端接收：
 	json：{
@@ -144,7 +364,7 @@ public interface json {
 				}
 		]
 	}
-	
+
 	loadAllBudget:
 	服务端发送：
 	json：{
@@ -154,13 +374,13 @@ public interface json {
 		"applyFees":
 		"budgetSum":
 	}
-	
+
 	deleteBudget:
 	服务端接收：
 	json：{
 		"budgetId":
 	}
-	
+
 	updateBudget:
 	服务端接收：
 	json:{
@@ -178,25 +398,24 @@ public interface json {
 				}
 		]
 	}
-	
+
 	schoolitem：
 	addSchoolItem.do
 	json:{
 		"itemId":
 		"schoolItemName":
 	}
-	
+
 	updateSchoolItem.do
 	json:{
 		"schoolItemId":
 		"itemId":
 		"schoolItemName":
 	}
-	
+
 	deleteSchoolItem.do
 	json:{
 		"schoolItemId"：
 	}
  * 
  * */
- 

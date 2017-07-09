@@ -90,4 +90,12 @@ public class TravelService implements ITravelService {
 		return result;
 	}
 
+	@Override
+	public List<BeanTravel> searchTravelbyrepayid(int repayid) throws BaseException {
+		// TODO Auto-generated method stub
+		List<BeanTravel> result =new ArrayList<BeanTravel>();
+		result =td.SearchTravelbyrepayid(repayid);
+		return result;
+	}
+
 }

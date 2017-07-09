@@ -62,4 +62,12 @@ public class TravelUserService implements ITravelUserService {
 		return result;
 	}
 
+	@Override
+	public List<BeanTravelUser> searchTravelUserbyrepayid(int repayid) throws BaseException {
+		// TODO Auto-generated method stub
+		List<BeanTravelUser> result =new ArrayList<BeanTravelUser>();
+		result =tud.SearchTravelUserbyrepayid(repayid);
+		return result;
+	}
+
 }

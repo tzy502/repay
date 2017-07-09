@@ -113,7 +113,7 @@ $(document).ready(function (){
         	"<tr><th width = '20%'>项目计划类别</th><td width = '40%' colspan='2'>"+data.projectType+"</td><td width = '20%'>代码</td><td width = '20%'>"+data.projectTypeId+"</td></tr>"+
         	"<tr><th width = '20%'>技术管理领域</th><td width = '40%' colspan='2'>"+data.field+"</td><td width = '20%'>代码</td><td width = '20%'>"+data.fieldId+"</td></tr>"+
         	"<tr><th width = '20%'>项目技术来源</th><td width = '40%' colspan='2'>"+data.source+"</td><td width = '20%'>代码</td><td width = '20%'>"+data.sourceId+"</td></tr>"+
-    		"<tr><th width = '20%'>开始日期</th><td width = '20%' >"+data.startData+"</td></td><td width = '20%' >完成日期</td><td width = '40%' colspan='2'>"+data.endData+"</td></td></tr>"+
+    		"<tr><th width = '20%'>开始日期</th><td width = '20%' >"+data.startDate+"</td></td><td width = '20%' >完成日期</td><td width = '40%' colspan='2'>"+data.endDate+"</td></td></tr>"+
         	"<input type = 'hidden' value = '"+data.projectId+"' id = 'projectId'>";	
         	$("#tbody-project").html(str);
         }     
@@ -172,10 +172,28 @@ $(document).ready(function (){
 				layer.msg('error!',{icon:1,time:1000});
 			}
 		});
+	    var params={
+		 			"projectId":document.getElementById("projectId").value,
+			    	"isBusget":"1",
+		} 
+	    $.ajax({    
+		        type: "post",    
+		        async: true,    
+		        url: "/repay/applySuccProject.do",    
+		        data: JSON.stringify(params),
+		        dataType: "json",   
+		        contentType: "application/json; charset=utf-8",   
+		        success: function(data){
+
+				},
+		        error: function(XmlHttpRequest, textStatus, errorThrown){
+					layer.msg('error!',{icon:1,time:1000});
+				}
+		});
 		var index = parent.layer.getFrameIndex(window.name);
 		parent.$('.btn-refresh').click();
 		parent.layer.close(index); 
-}
+	}
 </script> 
 <!--/请在上方写此页面业务相关的脚本-->
 </body>

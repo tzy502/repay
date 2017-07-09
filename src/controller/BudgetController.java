@@ -76,12 +76,14 @@ public class BudgetController {
 		}
 		return json.toString();
 	}
+	
+	
 	@RequestMapping(value = "/searchBudget.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String searchBudget(@RequestBody String params) throws JSONException{
 		JSONArray json = new JSONArray();
 		JSONObject jo = new JSONObject(params);
-		int budgetid =Integer.valueOf((String) jo.get("budgetid"));
+		int budgetid =Integer.valueOf((String) jo.get("budgetId"));
 		List<BeanItemBudget> result=null;		
 		BeanBudget bb=new BeanBudget();
 		try {
@@ -143,7 +145,7 @@ public class BudgetController {
 	@ResponseBody
 	public String deleteBudget(@RequestBody String params) throws JSONException{
 		JSONObject jo = new JSONObject(params);
-		int budgetid =Integer.valueOf((String) jo.get("budgetid"));	
+		int budgetid =Integer.valueOf((String) jo.get("budgetId"));	
 		try {
 			BudgetService.DelBudget(budgetid);
 		} catch (BaseException e) {
@@ -152,24 +154,82 @@ public class BudgetController {
 		}
 		return jo.toString();
 	}
+	
+	/**
+	 * 修改预算
+	 * */
 	@RequestMapping(value = "/updateBudget.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String updateBudget(@RequestBody String params) throws JSONException, NumberFormatException, BaseException{
 		JSONObject jo = new JSONObject(params);
-		JSONArray json = new JSONArray((String)jo.getString("itemBudget"));
-		int budgetid =Integer.valueOf((String) jo.get("budgetid"));	
+		int budgetId =Integer.valueOf((String) jo.get("budgetId"));	
 		float applyFees=Float.parseFloat((String)jo.get("applyFees"));
 		float independentFees=Float.parseFloat((String)jo.get("independentFees"));
-		List<BeanItemBudget> result =new ArrayList<BeanItemBudget>();
-		BeanItemBudget bi=new BeanItemBudget();	
+		float budgetSum = applyFees + independentFees;
+		BudgetService.modifryBudget(budgetId, budgetSum, independentFees, applyFees);
+		JSONArray json = new JSONArray((String)jo.getString("itemBudget"));
 		for(int i=0;i<json.length();i++){
 			 JSONObject jsonObj = json.getJSONObject(i);
-			 bi=ItemBudgetService.SearchItemBudget(Integer.valueOf((String) jsonObj.get("itemBudgetId")));
-			 bi.setItemBudgetCost(Float.parseFloat((String)jsonObj.get("itemBudgetCost")));
-			 ItemBudgetService.modifryItemBudget(bi.getItemBudgetId(), bi.getBudgetId(), bi.getItemName(), bi.getItemBudgetCost());		 
+			 ItemBudgetService.modifryItemBudget(Integer.valueOf((String) jsonObj.get("itemBudgetId")),Float.parseFloat((String)jsonObj.get("itemBudgetCost")));		 
 		}
+		return jo.toString();
+	}
+	
+	/**
+	 * 根据预算单编号找出所有报销项
+	 * */
+	@RequestMapping(value = "/loadItemBudget.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String loadItemBudget(@RequestBody String params) throws JSONException{
+		JSONObject jo = new JSONObject(params);
+		int budgetId =Integer.valueOf((String) jo.get("budgetId"));	
 		
+		List<BeanItemBudget> bb=new  ArrayList<BeanItemBudget>();
+		try {
+			bb=ItemBudgetService.SearchItemBudgetbybudgetid(budgetId);
+		} catch (BaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			jo.put("msg", e);
+			return jo.toString();
+		}
+		JSONArray json = new JSONArray();
+		for(int i=0;i<bb.size();i++){
+			JSONObject jo1 = new JSONObject();
+			jo1.put("itemBudgetId", bb.get(i).getItemBudgetId());
+			jo1.put("budgetId", bb.get(i).getBudgetId());
+			jo1.put("itemName", bb.get(i).getItemName());
+			jo1.put("itemBudgetCost", bb.get(i).getItemBudgetCost());
+			json.put(jo1);
+		}
+		System.out.println(json.toString());
+		return json.toString();
+	}
+	
+	/**
+	 * 根据项目编号查找预算单
+	 * */
+	@RequestMapping(value = "/searchBudgetByPId.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String searchBudgetByPId(@RequestBody String params) throws JSONException{
+		JSONObject jo = new JSONObject(params);
+		int projectId =Integer.valueOf((String) jo.get("projectId"));	
+		BeanBudget bb=new BeanBudget();
+		try {
+			bb=BudgetService.searchBudgetByPId(projectId);
+		} catch (BaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			jo.put("msg", e);
+			return jo.toString();
+		}
+		jo.put("budgetId", bb.getBudgetId());
+		jo.put("projectId", bb.getProjectId());
+		jo.put("budgetSum", bb.getBudgetSum());
+		jo.put("independentFees", bb.getIndependentFees());
+		jo.put("applyFees", bb.getApplyFees());
+		System.out.println(jo.toString());
 		return jo.toString();
 	}
 		
-	}
+}

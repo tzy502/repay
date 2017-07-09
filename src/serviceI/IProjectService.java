@@ -10,11 +10,16 @@ import util.BaseException;
 @Component
 public interface IProjectService {
 	public void addProject(BeanProject project)throws BaseException;
-	public void modifryProject(int projectId,String projectName, String projectType, String projectTypeId, String field, 
-			String fieldId, String source,String sourceId, Date prostartDate, Date proendDate)throws BaseException;
+	
+	public void modifryProject(BeanProject project)throws BaseException;
+	
 	public void delProject(int projectId)throws BaseException;
+	
 	public BeanProject SearchProject(int projectId)throws BaseException;
+	
 	public List<BeanProject> loadAllProject()throws BaseException;
 	
 	public List<BeanProject> searchBudgetProject()throws BaseException;
+	
+	public List<BeanProject> searchUserProject(String userId)throws BaseException;
 }

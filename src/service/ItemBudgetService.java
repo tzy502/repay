@@ -26,13 +26,9 @@ public class ItemBudgetService implements IItemBudgetService {
 	}
 
 	@Override
-	public void modifryItemBudget(int itemBudgetId, int budgetId, String itemName, float itemBudgetCost)
-			throws BaseException {
+	public void modifryItemBudget(int itemBudgetId,  float itemBudgetCost ) throws BaseException {
 		// TODO Auto-generated method stub
-		BeanItemBudget bit=new BeanItemBudget();
-		bit.setItemBudgetId(itemBudgetId);
-		bit.setBudgetId(budgetId);
-		bit.setItemName(itemName);
+		BeanItemBudget bit=ibd.Searchitembudget(itemBudgetId);
 		bit.setItemBudgetCost(itemBudgetCost);
 		ibd.modifryitembudget(bit);
 	}

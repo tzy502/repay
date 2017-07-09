@@ -7,12 +7,12 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
-import daoI.IProject;
+import daoI.IProjectDao;
 import model.BeanProject;
 import model.BeanUser;
 import util.HibernateUtil;
 @Repository
-public class ProjectDao implements IProject{
+public class ProjectDao implements IProjectDao{
 	public ProjectDao(){
 	      System.out.println("ProjectDao Constructor...\n\n\n\n\n");
 	}
@@ -90,6 +90,19 @@ public class ProjectDao implements IProject{
 		Transaction tx = session.beginTransaction();
 		String hql = "from BeanProject ";
 		hql += " where isBudget = 0";
+		Query qry = session.createQuery(hql);
+		@SuppressWarnings("unchecked")
+		List<BeanProject> result = qry.list();
+		tx.commit();
+		return result;
+	}
+	@Override
+	public List<BeanProject> searchUserProject(String userId) {
+		// TODO 自动生成的方法存根
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		String hql = "from BeanProject ";
+		hql += " where userId = '"+userId+"'";
 		Query qry = session.createQuery(hql);
 		@SuppressWarnings("unchecked")
 		List<BeanProject> result = qry.list();

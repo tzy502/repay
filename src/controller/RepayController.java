@@ -53,13 +53,14 @@ public class RepayController {
 			jo.put("checkPlane", bb.get(i).getCheckPlane());
 			jo.put("checkTrain", bb.get(i).getCheckTrain());
 			jo.put("checkTOther", bb.get(i).getCheckTOther());
+			jo.put("checkStay", bb.get(i).getCheckStay());
+			jo.put("checkFood", bb.get(i).getCheckFood());
+			jo.put("checkMi", bb.get(i).getCheckMi());
+			jo.put("checkOther", bb.get(i).getCheckOther());
+			jo.put("sum", bb.get(i).getSum());	
 			
 		}
-		float checkStay;
-		float checkFood;
-		float checkMi;
-		float checkOther;
-		float sum;
+
 		String approvalId;
 		String data;
 		String applicationId;

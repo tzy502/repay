@@ -28,7 +28,15 @@ public class UserService implements IUserService{
 		// TODO 自动生成的方法存根
 		BeanUser user = new BeanUser();
 		user.setUserId(userId);
-		//user.setPassword(encoderByMd5(password));
+		try {
+			user.setPassword(encoderByMd5(password));
+		} catch (NoSuchAlgorithmException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
 		user.setPassword(password);
 		user.setUserJob(userJob);
 		user.setUserName(userName);
@@ -39,13 +47,13 @@ public class UserService implements IUserService{
 	
 	//登陆
 	@Override
-	public String login(String userId, String password) throws BaseException {
+	public BeanUser login(String userId, String password) throws BaseException {
 		// TODO 自动生成的方法存根
 		BeanUser user = IUserDao.SearchUser(userId);
 		if(!user.getPassword().equals(password)){
 			throw new BaseException("密码错误！");
 		}
-		return "true";
+		return user;
 	}
 	
 	//修改密码

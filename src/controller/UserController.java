@@ -21,32 +21,31 @@ public class UserController {
 	@Autowired
 	private IUserService IUserService;
 	
+	//登录
 	@RequestMapping(value = "/login.do") 
 	@ResponseBody
 	public String login(@RequestBody String params) throws JSONException{  
     	JSONObject json = new JSONObject(params);
     	String userId = (String) json.get("userId");
     	String password = (String) json.get("password");
-    	
-    	System.out.println("userId:"+userId);
-    	System.out.println("password:"+password);
     	JSONObject jo = new JSONObject();
-    	String flag = "false";
+    	BeanUser user = new BeanUser();
     	try {
-    		flag = IUserService.login(userId, password);
+    		user = IUserService.login(userId, password);
 		} catch (BaseException e) {
 			// TODO �Զ����ɵ� catch ��
 			jo.put("msg", e);
 			return jo.toString(); 
 		}
-    	jo.put("msg", flag);
+    	jo.put("userId", user.getUserId());
+    	jo.put("userName", user.getUserName());
 		return jo.toString(); 
     }
 	
 	//添加用户
 	@RequestMapping(value = "/addUser.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
-	public String register(@RequestBody String params) throws JSONException{
+	public String addUser(@RequestBody String params) throws JSONException{
 		System.out.println(params);
 		JSONObject json = new JSONObject(params);
     	String userId = (String) json.get("userId");
@@ -58,7 +57,7 @@ public class UserController {
     	String userPermissions = "";
     	JSONObject jo = new JSONObject();
     	try {
-    		IUserService.addUser(userId, password, userName, userJob, userPermissions, cardNumber, userPhone);
+    		IUserService.addUser(userId, password, userName, userJob, userPhone);
 		} catch (BaseException e) {
 			// TODO 自动生成的 catch 块
 			jo.put("msg", e.getMessage());
@@ -88,8 +87,6 @@ public class UserController {
 			jo.put("userId", users.get(i).getUserId());
 			jo.put("userName", users.get(i).getUserName());
 			jo.put("userJob", users.get(i).getUserJob());
-			jo.put("userPermissions", users.get(i).getUserPermissions());
-			jo.put("cardNumber", users.get(i).getCardNumber());
 			jo.put("userPhone", users.get(i).getUserPhone());
 			json.put(jo);
 		}
@@ -109,6 +106,30 @@ public class UserController {
     	JSONObject jo = new JSONObject();
     	try {
     		IUserService.delUser(userId);
+		} catch (BaseException e) {
+			// TODO 自动生成的 catch 块
+			jo.put("msg", e.getMessage());
+			return jo.toString();
+		}
+    	jo.put("msg", "succ");
+		return jo.toString();  
+	}
+	
+	/** 
+	 *	注册
+	 * */
+	@RequestMapping(value = "/register.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String register(@RequestBody String params) throws JSONException{
+		JSONObject json = new JSONObject(params);
+    	String userId = (String) json.get("userId");
+    	String userName = (String) json.get("userName");
+    	String userJob = (String) json.get("userJob");
+    	String userPhone = (String) json.get("userPhone");
+    	String password = (String) json.get("password");
+    	JSONObject jo = new JSONObject();
+    	try {
+    		IUserService.addUser(userId, password, userName, userJob, userPhone);
 		} catch (BaseException e) {
 			// TODO 自动生成的 catch 块
 			jo.put("msg", e.getMessage());

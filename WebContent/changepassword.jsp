@@ -30,28 +30,31 @@
 
   <div id="loginform" class="loginBox">
     <form class="form form-horizontal" action="index.html" method="post">
-		<div class="row cl">
-        <label class="form-label col-xs-6"><h1>报销系统</h1></label>
-        
-      </div>
       <div class="row cl">
-        <label class="form-label col-xs-4"><i class="Hui-iconfont">&#xe60d;</i></label>
+        <label class="form-label col-xs-4"><i class="Hui-iconfont">&#xe60e;</i></label>
         <div class="formControls col-xs-4">
-          <input id="userId" name="" type="text" placeholder="账号" class="input-text size-L">
+          <input id="oldPassword" name="oldPassword" type="password" placeholder="旧密码" class="input-text size-L">
         </div>
       </div>
       <div class="row cl">
         <label class="form-label col-xs-4"><i class="Hui-iconfont">&#xe60e;</i></label>
         <div class="formControls col-xs-4">
-          <input id="password" name="password" type="password" placeholder="密码" class="input-text size-L">
+          <input id="password1" name="password1" type="password" placeholder="新密码" class="input-text size-L">
+        </div>
+      </div>
+      <div class="row cl">
+        <label class="form-label col-xs-4"><i class="Hui-iconfont">&#xe60e;</i></label>
+        <div class="formControls col-xs-4">
+          <input id="password2" name="password2" type="password" placeholder="重复新密码" class="input-text size-L">
         </div>
       </div>
 
 
+
       <div class="row cl">
         <div class="formControls col-xs-4 col-xs-offset-4">
-          <input name="" type="button"  onclick = 'login()' class="btn btn-success radius size-L" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
-          <input name="" type="button" onclick = 'register()' class="btn btn-success radius size-L" value="&nbsp;注&nbsp;&nbsp;&nbsp;&nbsp;册&nbsp;">
+         	<input name="" type="button"  onclick = 'register()' class="btn btn-success radius size-L" value="&nbsp;注&nbsp;&nbsp;&nbsp;&nbsp;册&nbsp;">
+         	 <input name="" type="reset"   class="btn btn-default radius size-L" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
         </div>
       </div>
     </form>
@@ -71,40 +74,53 @@
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/validate-methods.js"></script> 
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/messages_zh.js"></script> 
 <script type="text/javascript">
-function login(){
-	var userId = document.getElementById("userId").value;
-	var params={
-	    	"userId":userId,
-	    	"password":document.getElementById("password").value,
+function getCookie(Name){
+	var search = Name + "="//查询检索的值
+	   var returnvalue = "";//返回值
+	   if (document.cookie.length > 0) {
+	     sd = document.cookie.indexOf(search);
+	     if (sd!= -1) {
+	        sd += search.length;
+	        end = document.cookie.indexOf(";", sd);
+	        if (end == -1)
+	         end = document.cookie.length;
+	         //unescape() 函数可对通过 escape() 编码的字符串进行解码。
+	        returnvalue=unescape(document.cookie.substring(sd, end))
+	      }
+	   } 
+	   return returnvalue;
+}
+function register(){
+	var password1 = document.getElementById("password1").value;
+	var password2 = document.getElementById("password2").value
+	if(password1  != password2){
+		layer.msg('两次新密码不一致!',{icon:2,time:1000});
+		return false;
 	}
+	var params={
+	    	"userId": getCookie("userId"),
+	    	"oldPassword":document.getElementById("oldPassword").value,
+	    	"newPassword":document.getElementById("password1").value,
+	}
+	
 	     $.ajax({    
 	        type: "post",    
 	        async: true,    
-	        url: "/repay/login.do",    
+	        url: "/repay/changePassword.do",    
 	        data: JSON.stringify(params),
 	        dataType: "json",   
 	        contentType: "application/json; charset=utf-8",   
 	        success: function(data){
-				layer.msg('登录成功!',{icon:1,time:1000});
-				document.cookie="userId="+userId;
-				window.location.href = 'user_main.jsp';
-				/* if(data.role == "user"){
-					window.location.href = 'user_main.jsp';
-				}
-				else if(data.role == "admin"){
-					window.location.href = 'admin_main.jsp';
-				}
-				else{
-					window.location.href = 'auditor_main.jsp';
-				} */
+	        	layer.msg('注册成功!',{icon:1,time:1000});
+				window.location.href = 'login.jsp';
 			},
 	        error: function(XmlHttpRequest, textStatus, errorThrown){
 				layer.msg('error!',{icon:1,time:1000});
 			}
 		});
-}
-function register(){
-		window.location.href = 'register.jsp';
+	var index = parent.layer.getFrameIndex(window.name);
+	parent.$('.btn-refresh').click();
+	parent.layer.close(index);
 }
 </script> 
 <!--/请在上方写此页面业务相关的脚本-->

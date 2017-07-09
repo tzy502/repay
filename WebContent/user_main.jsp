@@ -19,11 +19,12 @@
 <link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
 <link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
 <link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+<script  type="text/css" src="js/cookie.js" /></script>
 <!--[if IE 6]>
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>H-ui.admin 3.0</title>
+<title>报销系统</title>
 <meta name="keywords" content="H-ui.admin 3.0,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
 <meta name="description" content="H-ui.admin 3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
@@ -38,8 +39,8 @@
 						<a href="#" class="dropDown_A"><i class='Hui-iconfont'>&#xe60a;</i>user <i class="Hui-iconfont">&#xe6d5;</i></a>
 						<ul class="dropDown-menu menu radius box-shadow">
 							<li><a href="javascript:;" onClick="myselfinfo()"><i class='Hui-iconfont'>&#xe67f;</i>个人信息</a></li>
-							<li><a href="javascript:;" title= '修改密码' onclick="changePassword('修改密码','aa-adduser.html','800','500')"><i class='Hui-iconfont'>&#xe63f;</i>修改密码</a></li>
-							<li><a href="javascript:;" title= '注销' ><i class='Hui-iconfont'>&#xe726;</i>注销</a></li>
+							<li><a href="javascript:;" title= '修改密码' onclick="changePassword('修改密码','changepassword.jsp','700','300')"><i class='Hui-iconfont'>&#xe63f;</i>修改密码</a></li>
+							<li><a href="javascript:;" title= '注销' onclick = 'reset()'><i class='Hui-iconfont'>&#xe726;</i>注销</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -104,12 +105,33 @@
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="lib/jquery.contextmenu/jquery.contextmenu.r2.js"></script>
 <script type="text/javascript">
+function getCookie(Name){
+	var search = Name + "="//查询检索的值
+	   var returnvalue = "";//返回值
+	   if (document.cookie.length > 0) {
+	     sd = document.cookie.indexOf(search);
+	     if (sd!= -1) {
+	        sd += search.length;
+	        end = document.cookie.indexOf(";", sd);
+	        if (end == -1)
+	         end = document.cookie.length;
+	         //unescape() 函数可对通过 escape() 编码的字符串进行解码。
+	        returnvalue=unescape(document.cookie.substring(sd, end))
+	      }
+	   } 
+	   return returnvalue;
+}
+ $(document).ready(function (){
+	var userId = getCookie("userId");
+	
+}) 
 
 function changePassword(title,url,w,h){
 	layer_show(title,url,w,h);
-	
 }
-
+ function reset(){
+	 window.location.href = 'login.jsp';
+}
 $(function(){
 	/*$("#min_title_list li").contextMenu('Huiadminmenu', {
 		bindings: {

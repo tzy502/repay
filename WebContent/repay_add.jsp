@@ -208,9 +208,10 @@ function GetRequest() {
 }   
 var Request = new Object(); 
 Request = GetRequest(); 
-var projectId,projectName;
+var projectId,projectName, isBudget;
 projectId = Request['projectId'];
 projectName = Request['projectName'];
+isBudget = Request['isBudget'];
 $(document).ready(function (){
      $("#projectId").val(projectId);
 })
@@ -285,10 +286,10 @@ function addRepay(){
 	
 	params["itemTravel"]=itemTravel;
 	alert(JSON.stringify(params)); 
-     /* $.ajax({    
+      $.ajax({    
         type: "post",    
         async: true,    
-        url: "/repay/addBudget.do",    
+        url: "/repay/addRepay.do",    
         data: JSON.stringify(params),
         dataType: "json",   
         contentType: "application/json; charset=utf-8",   
@@ -299,9 +300,15 @@ function addRepay(){
 			layer.msg('error!',{icon:1,time:1000});
 		}
 	});
+    if(isBudget == 3){
+    	isBudget = 4;
+    }
+    else{
+    	isBudget = 2
+    }	
     var params={
 	 			"projectId":document.getElementById("projectId").value,
-		    	"isBusget":"1",
+		    	"isBusget":isBudget,
 	} 
     $.ajax({    
 	        type: "post",    
@@ -319,7 +326,7 @@ function addRepay(){
 	});
 	var index = parent.layer.getFrameIndex(window.name);
 	parent.$('.btn-refresh').click();
-	parent.layer.close(index);  */
+	parent.layer.close(index);  
 }
 </script> 
 <!--/请在上方写此页面业务相关的脚本-->

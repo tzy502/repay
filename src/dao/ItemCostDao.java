@@ -115,4 +115,23 @@ public class ItemCostDao implements IItemCost {
 		}
 	}
 
+	@Override
+	public List<BeanItemCost> loadItemcostBySId(int summaryId) {
+		// TODO 自动生成的方法存根
+		List<BeanItemCost> result =new ArrayList<BeanItemCost>();
+		Session session =    HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx=session.beginTransaction();
+		try {
+			org.hibernate.Query qry = session.createQuery("from BeanItemCost where summaryId = "+summaryId+"");
+			java.util.List list = qry.list();
+			session.getTransaction().commit();	
+			result =list;
+	
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}
+		return result;
+	}
+
 }

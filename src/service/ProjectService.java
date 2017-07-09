@@ -87,4 +87,12 @@ public class ProjectService implements IProjectService {
 		 return result;
 	}
 
+	@Override
+	public void updateProjectStatus(int projectId, int isBudget) throws BaseException {
+		// TODO 自动生成的方法存根
+		BeanProject bp=IProjectDao.searchProject(projectId);
+		bp.setIsBudget(isBudget);
+		IProjectDao.updateProject(bp);
+	}
+
 }

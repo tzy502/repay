@@ -174,7 +174,7 @@ $(document).ready(function (){
 		});
 	    var params={
 		 			"projectId":document.getElementById("projectId").value,
-			    	"isBusget":"1",
+			    	"isBudget":"1",
 		} 
 	    $.ajax({    
 		        type: "post",    

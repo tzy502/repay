@@ -22,4 +22,6 @@ public interface IProjectService {
 	public List<BeanProject> searchBudgetProject()throws BaseException;
 	
 	public List<BeanProject> searchUserProject(String userId)throws BaseException;
+	
+	public void updateProjectStatus(int projectId, int isBudget)throws BaseException;
 }

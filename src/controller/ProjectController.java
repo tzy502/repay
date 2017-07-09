@@ -261,12 +261,10 @@ public class ProjectController {
 	public String applySuccProject(@RequestBody String params) throws JSONException{
 		JSONObject json = new JSONObject(params);
 		String projectId = (String) json.get("projectId");
+		String isBudget = (String)json.get("isBudget");
 	    JSONObject jo = new JSONObject();
-	    BeanProject project = new BeanProject();
-	    project.setProjectId(Integer.valueOf(projectId));
-	    project.setIsBudget(1);
 	    try {
-	    	IProjectService.modifryProject(project);
+	    	IProjectService.updateProjectStatus(Integer.valueOf(projectId), Integer.valueOf(isBudget));
 		} catch (BaseException e) {
 			// TODO 自动生成的 catch 块
 			jo.put("msg", e.getMessage());

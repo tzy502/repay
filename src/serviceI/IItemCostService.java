@@ -13,4 +13,6 @@ public interface IItemCostService {
 	public void DelItemCost(int itemCostId)throws BaseException;
 	public BeanItemCost SearchItemCost(int itemCostId)throws BaseException;
 	public List<BeanItemCost> LoadItemCost()throws BaseException;
+	
+	public List<BeanItemCost> searchItemCostBySId(int summaryId)throws BaseException;
 }

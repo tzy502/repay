@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import model.BeanBudget;
 import model.BeanItemCost;
 import model.BeanSummary;
 import serviceI.IItemCostService;
@@ -24,6 +25,7 @@ public class SummaryController {
 	private ISummaryService SummaryService;
 	@Autowired
 	private IItemCostService ItemCostService;
+	
 	@RequestMapping(value = "/loadAllSummary.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String loadAllSummary() throws JSONException{
@@ -53,9 +55,12 @@ public class SummaryController {
 		}
 		return json.toString();
 	}
+	
+	
 	@RequestMapping(value = "/searchSummary.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String searchSummary(@RequestBody String params) throws JSONException{
+		System.out.println("controller");
 		JSONObject json = new JSONObject(params);
 		int summaryId=json.getInt("summaryId");
 		BeanSummary result =new BeanSummary();
@@ -80,6 +85,8 @@ public class SummaryController {
 		jo.put("applicationId", result.getApplicationId());
 		return jo.toString();
 	}
+	
+	
 	@RequestMapping(value = "/addSummary.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String addSummary(@RequestBody String params) throws JSONException{
@@ -161,5 +168,33 @@ public class SummaryController {
 		SummaryService.modifrySummary(summaryId, userId, company, projectId, billCount, sum, workerId, userName, money, cardNumber, manager, applicationId);
 		
 		return null;
+	}
+	
+	/**
+	 * 根据汇总单号查找预算单
+	 * */
+	@RequestMapping(value = "/searchItemCostBySId.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String searchItemCostBySId(@RequestBody String params) throws JSONException{
+		JSONObject j = new JSONObject(params);
+		int summaryId =Integer.valueOf((String) j.get("summaryId"));	
+		List<BeanItemCost> itemCost =null;
+		try {
+			itemCost=ItemCostService.searchItemCostBySId(summaryId);
+		} catch (BaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		JSONArray json = new JSONArray();
+		for(int i = 0; i < itemCost.size(); i++){
+			JSONObject jo = new JSONObject();
+			jo.put("item CostId", itemCost.get(i).getItemCostId());
+			jo.put("summaryId", itemCost.get(i).getSummary());
+			jo.put("itemCostName", itemCost.get(i).getItemCostName());
+			jo.put("itemCost", itemCost.get(i).getItemCost());
+			json.put(jo);
+		}
+		return json.toString();
 	}
 }

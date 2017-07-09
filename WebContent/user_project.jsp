@@ -74,7 +74,22 @@
 	h		弹出层高度（缺省调默认值）
 */
 
-
+function getCookie(Name){
+	var search = Name + "="//查询检索的值
+	   var returnvalue = "";//返回值
+	   if (document.cookie.length > 0) {
+	     sd = document.cookie.indexOf(search);
+	     if (sd!= -1) {
+	        sd += search.length;
+	        end = document.cookie.indexOf(";", sd);
+	        if (end == -1)
+	         end = document.cookie.length;
+	         //unescape() 函数可对通过 escape() 编码的字符串进行解码。
+	        returnvalue=unescape(document.cookie.substring(sd, end))
+	      }
+	   } 
+	   return returnvalue;
+}
 $(document).ready(function (){
 	$('body').on('click','#update',function(event){
 		layer_show('项目编辑','project_update.jsp?projectId='+this.title,'800','500');
@@ -119,7 +134,7 @@ $(document).ready(function (){
 	
 	//加载页面数据
 	var params={
-			    	"userId":"12356",
+			    	"userId":getCookie("userId"),
 			}
 	$.ajax({    
         type: "post",    

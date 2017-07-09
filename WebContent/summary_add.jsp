@@ -105,6 +105,23 @@ $(document).ready(function (){
     $("#projectId").val(projectId);
 })
 
+function getCookie(Name){
+	var search = Name + "="//查询检索的值
+	   var returnvalue = "";//返回值
+	   if (document.cookie.length > 0) {
+	     sd = document.cookie.indexOf(search);
+	     if (sd!= -1) {
+	        sd += search.length;
+	        end = document.cookie.indexOf(";", sd);
+	        if (end == -1)
+	         end = document.cookie.length;
+	         //unescape() 函数可对通过 escape() 编码的字符串进行解码。
+	        returnvalue=unescape(document.cookie.substring(sd, end))
+	      }
+	   } 
+	   return returnvalue;
+}
+
 $(document).ready(function (){
 	$.ajax({    
         type: "post",        
@@ -139,25 +156,24 @@ $(document).ready(function (){
 			itemCost.push(item);
     	}
 	 	 var params={
-	 			"userId":"1",
+	 			"userId":getCookie("userId"),
 	 			"projectId":document.getElementById("projectId").value,
 		    	"billCount":document.getElementById("billCount").value,
-		    	
 		    	"company":document.getElementById("company").value,
 		    	"workerId":document.getElementById("workerId").value,
-		    	"userName":document.getElementById("userName").value,
+		    	"workerName":document.getElementById("userName").value,
 		    	"cardNumber":document.getElementById("cardNumber").value,
 		    	"money":document.getElementById("money").value,
-		    	"manager":"12356",
-		    	"applicationId":"12356",
+		    	"manager":"",
+		    	"applicationId":"",
 		} 
 		
 		params["itemCost"]=itemCost; 
 		alert(JSON.stringify(params));
-		 /* $.ajax({    
+		  $.ajax({    
 	        type: "post",    
 	        async: true,    
-	        url: "/repay/addBudget.do",    
+	        url: "/repay/addSummary.do",    
 	        data: JSON.stringify(params),
 	        dataType: "json",   
 	        contentType: "application/json; charset=utf-8",   
@@ -168,9 +184,34 @@ $(document).ready(function (){
 				layer.msg('error!',{icon:1,time:1000});
 			}
 		});
+		  
+		  if(isBudget == 2){
+		    	isBudget = 4;
+		    }
+		    else{
+		    	isBudget = 3;
+		    }	
+		    var params={
+			 			"projectId":document.getElementById("projectId").value,
+				    	"isBudget":isBudget,
+			} 
+		    $.ajax({    
+			        type: "post",    
+			        async: true,    
+			        url: "/repay/applySuccProject.do",    
+			        data: JSON.stringify(params),
+			        dataType: "json",   
+			        contentType: "application/json; charset=utf-8",   
+			        success: function(data){
+
+					},
+			        error: function(XmlHttpRequest, textStatus, errorThrown){
+						layer.msg('error!',{icon:1,time:1000});
+					}
+			});
 		var index = parent.layer.getFrameIndex(window.name);
 		parent.$('.btn-refresh').click();
-		parent.layer.close(index);  */
+		parent.layer.close(index);  
 }
 </script> 
 <!--/请在上方写此页面业务相关的脚本-->

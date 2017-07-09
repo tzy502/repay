@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -8,6 +9,7 @@ import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
 import daoI.ITravelUserDao;
+import model.BeanTravel;
 import model.BeanTravelUser;
 import util.HibernateUtil;
 @Repository
@@ -84,6 +86,25 @@ public class TravelUserDao implements ITravelUserDao{
 			e.printStackTrace();
 			tx.rollback();
 		}
+	}
+
+	@Override
+	public List<BeanTravelUser> SearchTravelUserbyrepayid(int repayid) {
+		List<BeanTravelUser> result =new ArrayList<BeanTravelUser>();
+		Session session =    HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx=session.beginTransaction();
+		try {
+			org.hibernate.Query qry = session.createQuery("from BeanTravelUser where repayid=?");
+			qry.setParameter(0, repayid);
+			java.util.List list = qry.list();
+			session.getTransaction().commit();	
+			result =list;
+	
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}
+		return result;
 	}
 	
 }

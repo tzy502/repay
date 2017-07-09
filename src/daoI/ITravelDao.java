@@ -13,10 +13,10 @@ public interface ITravelDao {
 	
 	public List<BeanTravel> loadAllTravel();
 	//搜索交�?�地点表
+	public List<BeanTravel> SearchTravelbyrepayid(int repayid);
 	public int TravelmaxId();
 	public void modifryTravel(BeanTravel travel);
 	//修改交�?�地点表
-	
 	public void delTravel(BeanTravel travel);
 	//删除交�?�地点表
 }

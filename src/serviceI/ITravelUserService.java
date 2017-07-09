@@ -13,4 +13,5 @@ public interface ITravelUserService {
 	public void delTravelUser(int travelUserId)throws BaseException;
 	public BeanTravelUser searchTravelUser(int travelUserId) throws BaseException;
 	public List<BeanTravelUser> loadTravelUser() throws BaseException;
+	public List<BeanTravelUser> searchTravelUserbyrepayid(int repayid) throws BaseException;
 }

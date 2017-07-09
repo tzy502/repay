@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import model.BeanTravel;
+import model.BeanTravelUser;
 import util.BaseException;
 @Component
 public interface ITravelService {
@@ -18,4 +19,5 @@ public interface ITravelService {
 	public void delTravel(int travelId)throws BaseException;
 	public BeanTravel searchTravel(int travelId) throws BaseException;
 	public List<BeanTravel> loadTravel() throws BaseException;
+	public List<BeanTravel> searchTravelbyrepayid(int repayid) throws BaseException;
 }

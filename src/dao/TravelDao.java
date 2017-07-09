@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -8,6 +9,7 @@ import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
 import daoI.ITravelDao;
+import model.BeanBudget;
 import model.BeanTravel;
 import util.HibernateUtil;
 @Repository
@@ -96,6 +98,26 @@ public class TravelDao implements ITravelDao{
 		int maxid=list.get(0);
 		tx.commit();
 		return maxid;
+	}
+
+
+	@Override
+	public List<BeanTravel> SearchTravelbyrepayid(int repayid) {
+		List<BeanTravel> result =new ArrayList<BeanTravel>();
+		Session session =    HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx=session.beginTransaction();
+		try {
+			org.hibernate.Query qry = session.createQuery("from BeanTravel where repayid=?");
+			qry.setParameter(0, repayid);
+			java.util.List list = qry.list();
+			session.getTransaction().commit();	
+			result =list;
+	
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}
+		return result;
 	}
 
 }

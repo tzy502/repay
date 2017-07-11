@@ -7,6 +7,7 @@ import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
 import daoI.IUserDao;
+import model.BeanItemCost;
 import model.BeanUser;
 import util.HibernateUtil;
 
@@ -103,5 +104,44 @@ public class UserDao implements IUserDao{
 		user.setUserId("12");
 		user.setPassword("1235");
 		new UserDao().addUser(user);
+	}
+
+	@Override
+	public float exploreUserbudget(String userid) {
+		float result=-1;
+		Session session =    HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx=session.beginTransaction();
+		try {
+
+		org.hibernate.Query qry = session.createQuery("BeanBudget.budgetSum from BeanProject,BeanBudget,BeanSummary where BeanProject.userId=?");
+		qry.setParameter(0, userid);
+		java.util.List list = qry.list();
+		session.getTransaction().commit();	
+		result =(float)list.get(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}
+		return result;
+		// TODO Auto-generated method stub
+		
+	}
+	public float exploreUsersummary(String userid) {
+		float result=-1;
+		Session session =    HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx=session.beginTransaction();
+		try {
+
+		org.hibernate.Query qry = session.createQuery("BeanSummary.sum from BeanProject,BeanBudget,BeanSummary where BeanProject.userId=?");
+		qry.setParameter(0, userid);
+		java.util.List list = qry.list();
+		session.getTransaction().commit();	
+		result =(float)list.get(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}
+		return result;
+		
 	}
 }

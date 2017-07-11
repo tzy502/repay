@@ -1,5 +1,6 @@
 package service;
 
+import java.io.FileOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -7,6 +8,11 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.stereotype.Service;
 
 import Decoder.BASE64Encoder;
@@ -20,9 +26,9 @@ public class UserService implements IUserService{
 	@Resource
 	private IUserDao IUserDao;
 	public UserService(){
-	      System.out.println("UserService Constructor...\n\n\n\n\n\n");
+		System.out.println("UserService Constructor...\n\n\n\n\n\n");
 	}
-	 
+
 	@Override
 	public void register(String userId, String password, String userName, String userJob, String userPhone) throws BaseException {
 		// TODO 自动生成的方法存根
@@ -42,9 +48,9 @@ public class UserService implements IUserService{
 		user.setUserName(userName);
 		user.setUserPhone(userPhone);
 		IUserDao.addUser(user);
-		
+
 	}
-	
+
 	//登陆
 	@Override
 	public BeanUser login(String userId, String password) throws BaseException {
@@ -55,7 +61,7 @@ public class UserService implements IUserService{
 		}
 		return user;
 	}
-	
+
 	//修改密码
 	@Override
 	public void changePassword(String userId, String oldPassword, String newPassword) throws BaseException {
@@ -77,7 +83,7 @@ public class UserService implements IUserService{
 			e.printStackTrace();
 		}
 	}
-	
+
 	//重置密码
 	@Override
 	public void resetPassword(String userId) throws BaseException {
@@ -86,7 +92,7 @@ public class UserService implements IUserService{
 		user.setPassword("12345678");
 		IUserDao.addUser(user);
 	}
-	
+
 	//添加用户
 	@Override
 	public void addUser(String userId, String password, String userName, String userJob, String userPhone) throws BaseException {
@@ -109,7 +115,7 @@ public class UserService implements IUserService{
 			e.printStackTrace();
 		}
 	}
-	
+
 	//修改用户
 	@Override
 	public void updateUser(String userId, String password, String userName, String userJob, String userPhone) throws BaseException {
@@ -129,9 +135,9 @@ public class UserService implements IUserService{
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	//删除用户
 	@Override
 	public void delUser(String userId) throws BaseException {
@@ -139,28 +145,28 @@ public class UserService implements IUserService{
 		BeanUser user = IUserDao.SearchUser(userId);
 		IUserDao.delUser(user);
 	}
-	
+
 	//查询用户
 	@Override
 	public BeanUser searchUser(String userId) throws BaseException {
 		// TODO 自动生成的方法存根
 		return IUserDao.SearchUser(userId);
 	}
-	
+
 	//导出所有用户
 	@Override
 	public List<BeanUser> loadAllUser() throws BaseException {
 		// TODO 自动生成的方法存根
 		return IUserDao.loadAllUser();
 	}
-	
+
 	//模糊查询用户
 	@Override
 	public List<BeanUser> loadUser(String userName) throws BaseException {
 		// TODO 自动生成的方法存根
 		return IUserDao.loadUser(userName);
 	}
-	
+
 	//MD5加密
 	public static String encoderByMd5(String str) throws NoSuchAlgorithmException, UnsupportedEncodingException{
 		MessageDigest md5 = MessageDigest.getInstance("MD5");
@@ -168,12 +174,63 @@ public class UserService implements IUserService{
 		String newStr = base64en.encode(md5.digest(str.getBytes("utf-8")));
 		return newStr;
 	}
-	
+
 	//密码验证
 	public static boolean checkPassword(String newPassword, String oldPassword) throws NoSuchAlgorithmException, UnsupportedEncodingException{
 		if(encoderByMd5(newPassword).equals(oldPassword))
 			return true;
 		else
 			return false;
+	}
+
+	@Override
+	public void explore() throws BaseException {
+		// TODO Auto-generated method stub
+		List<BeanUser> user =IUserDao.loadAllUser();
+		// 第一步，创建一个webbook，对应一个Excel文件  
+		HSSFWorkbook wb = new HSSFWorkbook();  
+		// 第二步，在webbook中添加一个sheet,对应Excel文件中的sheet  
+		HSSFSheet sheet = wb.createSheet("比赛");  
+		// 第三步，在sheet中添加表头第0行,注意老版本poi对Excel的行数列数有限制short  
+		HSSFRow row = sheet.createRow((int) 0);  
+		// 第四步，创建单元格，并设置值表头 设置表头居中  
+		HSSFCellStyle style = wb.createCellStyle();  
+		style.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 创建一个居中格式  
+        HSSFCell cell = row.createCell((short) 0);  
+        cell.setCellValue("序号");  
+        cell.setCellStyle(style);  
+        cell = row.createCell((short) 1);  
+        cell.setCellValue("姓名");  
+        cell.setCellStyle(style);  
+        cell = row.createCell((short) 2);  
+        cell.setCellValue("已用");  
+        cell.setCellStyle(style);  
+        cell = row.createCell((short) 3);  
+        cell.setCellValue("剩余");  
+        cell.setCellStyle(style);  
+        cell = row.createCell((short) 4);  
+        cell.setCellValue("总共");  
+        cell.setCellStyle(style);  
+        for(int i=0;i<user.size();i++){
+        	 row = sheet.createRow((int) i + 1);
+        	 float summary=IUserDao.exploreUsersummary((user.get(i).getUserId()));
+        	 float budget=IUserDao.exploreUserbudget((user.get(i).getUserId()));
+        	 float Surplus=budget-summary;
+        	 row.createCell((short) 0).setCellValue((int)i+1); 
+        	 row.createCell((short) 0).setCellValue(user.get(i).getUserName()); 
+        	 row.createCell((short) 0).setCellValue(summary); 
+        	 row.createCell((short) 0).setCellValue(Surplus); 
+        	 row.createCell((short) 0).setCellValue(budget); 
+        }
+        try  
+        {  
+            FileOutputStream fout = new FileOutputStream("E:/explore.xls");  
+            wb.write(fout);  
+            fout.close();  
+        }  
+        catch (Exception e)  
+        {  
+            e.printStackTrace();  
+        }
 	}
 }

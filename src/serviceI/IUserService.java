@@ -38,5 +38,7 @@ public interface IUserService {
 	
 	//模糊查询用户
 	public List<BeanUser> loadUser(String userName)throws BaseException;
+	
+	public void explore()throws BaseException;
 }
 

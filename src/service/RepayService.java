@@ -110,7 +110,7 @@ public class RepayService implements IRepayService {
 	@Override
 	public int SearchRepaymax() throws BaseException {
 		// TODO Auto-generated method stub
-		return 0;
+		return rd.repaymaxId();
 	}
 
 }

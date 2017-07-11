@@ -53,8 +53,6 @@ public interface json {
 		]
 		"traveluser":[
 		{
-			"travelUserId":
-			"repayId":
 			"userName":
 			"userJob":
 			}
@@ -63,10 +61,6 @@ public interface json {
 	}
 	Searchrepay.do
 	服务端接收：
-	json：{
-		"repayId":
-	}
-	发送
 	json：{
 		"repayId":
 		"company":
@@ -140,7 +134,6 @@ public interface json {
 		"auditor":
 		"travel":[
 			{
-				"repayId":
 				"travelLocation":
 				"travelProvince":
 				"startData": 

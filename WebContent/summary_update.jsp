@@ -21,7 +21,7 @@
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>汇总单审核</title>
+<title>添加汇总单</title>
 <meta name="keywords" content="H-ui.admin 3.0,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
 <meta name="description" content="H-ui.admin 3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
@@ -64,7 +64,7 @@
 	
 	<div class="row cl">
 		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-			<input class="btn btn-primary radius" type="button" onclick = "application()" value="&nbsp;&nbsp;审核&nbsp;&nbsp;">
+			<input class="btn btn-primary radius" type="button" onclick = "updateSummary()" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
 		</div>
 	</div>
 	</form>
@@ -119,35 +119,35 @@ function getCookie(Name){
 }
 
 $(document).ready(function (){
-	var parmas = {
+	var params={
 			"summaryId":summaryId,
 	}
-	$.ajax({    
-        type: "post",        
-        url: "/repay/searchSummary.do",  
-        async: true,  
-        data:JSON.stringify(parmas),
-        dataType: "json", 
+    $.ajax({    
+        type: "post",    
+        async: true,    
+        url: "/repay/searchSummary.do",    
+        data: JSON.stringify(params),
+        dataType: "json",   
         contentType: "application/json; charset=utf-8",   
-        
-        error: function(data){  
-        	alert("出错了！！:"+data.msg);
-        } , 
-        success: function(data) { 
-         	$("#company").val(data.company);
-        	$("#projectId").val(data.projectId);
-        	$("#billCount").val(data.billCount);
-        	$("#workerId").val(data.workerId);
-        	$("#userName").val(data.userName);
-        	$("#cardNumber").val(data.cardNumber);
-        	$("#money").val(data.money); 
-        }     
-    });
+        success: function(data){
+        	 $("#company").val(data.company);
+        	 $("#projectId").val(data.projectId);
+        	 $("#billCount").val(data.billCount);
+        	 $("#workerId").val(data.workerId);
+        	 $("#userName").val(data.userName);
+        	 $("#cardNumber").val(data.cardNumber);
+        	 $("#money").val(data.money);
+		},
+        error: function(XmlHttpRequest, textStatus, errorThrown){
+			layer.msg('error!',{icon:1,time:1000});
+		}
+	});
+		
 	$.ajax({    
         type: "post",        
         url: "/repay/searchItemCostBySId.do",  
-        data:JSON.stringify(parmas),
         dataType: "json", 
+        data: JSON.stringify(params),
         contentType: "application/json; charset=utf-8",   
         error: function(data){  
         	alert("出错了！！:"+data.msg);
@@ -158,94 +158,28 @@ $(document).ready(function (){
     			j++;
     			//alert("出错了！！:");
     			str+="<tr><th width = '20%'>"+data[i].itemCostName+"</th>"+
+    			"<input type='hidden' value ='"+data[i].itemCostId+"' id='itemCostId"+i+"' name = 'itemCostId"+i+"'>"+
     			"<input type='hidden' value ='"+data[i].itemCostName+"' id='itemCostName"+i+"' name = 'itemCostName"+i+"'>"+
-    			"<td width = '60%'><input type='text'  id='itemCost"+i+"' value = '"+data[i].itemCost+"' name = 'itemCost"+i+"' class='input-text radius size-S'></td></tr>";
-        	}	
+    			"<td width = '60%'><input type='text'  value = '"+data[i].itemCost+"' id='itemCost"+i+"'  name = 'itemCost"+i+"' class='input-text radius size-S'></td></tr>";
+        		
+    		}	
         	$("#tbody-itemCost").html(str);
         }     
     });
+	
+
 })
-
-
-
-
-function application(){
-/* 	var params = {
-			"summaryId":summaryId,
-			"applicatio":getCookie("userId"),
-			"manager":getCookie("userId"),
-	}
-	$.ajax({    
-        type: "post",    
-        async: true,    
-        url: "/repay/summaryApplication.do",    
-        data: JSON.stringify(params),
-        dataType: "json",   
-        contentType: "application/json; charset=utf-8",   
-        success: function(data){
-			layer.msg('审核成功!',{icon:1,time:1000});
-		},
-        error: function(XmlHttpRequest, textStatus, errorThrown){
-			layer.msg('error!',{icon:1,time:1000});
-		}
-	});
-	
-	if(isBudget == 5){
-    	isBudget = 7;
-    }
-    else{
-    	isBudget = 6;
-    }	
-    var params={
-	 			"projectId":document.getElementById("projectId").value,
-		    	"isBudget":isBudget,
-	} 
-    $.ajax({    
-	        type: "post",    
-	        async: true,    
-	        url: "/repay/applySuccProject.do",    
-	        data: JSON.stringify(params),
-	        dataType: "json",   
-	        contentType: "application/json; charset=utf-8",   
-	        success: function(data){
-
-			},
-	        error: function(XmlHttpRequest, textStatus, errorThrown){
-				layer.msg('error!',{icon:1,time:1000});
-			}
-	});  */
-	
-	window.location.href = 'application_chart.jsp?summaryId='+summaryId+'&projectId='+document.getElementById("projectId").value;
-/* 	 var params={	
-	 		"projectId":document.getElementById("projectId").value,
-	 		"summaryId":summaryId,
-		} 
-	$.ajax({    
-        type: "post",    
-        async: true,    
-        url: "/repay/applicationSummary.do",    
-        data: JSON.stringify(params),
-        dataType: "json",   
-        contentType: "application/json; charset=utf-8",   
-        success: function(data){
-			layer.msg('添加成功!',{icon:1,time:1000});
-		},
-        error: function(XmlHttpRequest, textStatus, errorThrown){
-			layer.msg('error!',{icon:1,time:1000});
-		}
-	}); */
-}
-		
-/* 		
-		 var itemCost = [];
+	function updateSummary(){
+		var itemCost = [];
 		for(var i = 0; i < j; i++){
 			var item = {
-					"itemCostName":document.getElementById("schoolItemName"+i).value,
-					"itemCost":document.getElementById("schoolItem"+i).value,
+					"itemCostId":document.getElementById("itemCostId"+i).value,
+					"itemCost":document.getElementById("itemCost"+i).value,
 			}
 			itemCost.push(item);
     	}
 	 	 var params={
+	 			"summaryId":summaryId,
 	 			"userId":getCookie("userId"),
 	 			"projectId":document.getElementById("projectId").value,
 		    	"billCount":document.getElementById("billCount").value,
@@ -263,12 +197,12 @@ function application(){
 		  $.ajax({    
 	        type: "post",    
 	        async: true,    
-	        url: "/repay/addSummary.do",    
+	        url: "/repay/updateSummary.do",    
 	        data: JSON.stringify(params),
 	        dataType: "json",   
 	        contentType: "application/json; charset=utf-8",   
 	        success: function(data){
-				layer.msg('添加成功!',{icon:1,time:1000});
+				
 			},
 	        error: function(XmlHttpRequest, textStatus, errorThrown){
 				layer.msg('error!',{icon:1,time:1000});
@@ -277,10 +211,10 @@ function application(){
 		  
 		  if(isBudget == 2){
 		    	isBudget = 4;
-		    }
-		    else{
-		    	isBudget = 3;
-		    }	
+		   }
+		  else{
+		    isBudget = 3;
+		  }	
 		    var params={
 			 			"projectId":document.getElementById("projectId").value,
 				    	"isBudget":isBudget,
@@ -298,9 +232,11 @@ function application(){
 			        error: function(XmlHttpRequest, textStatus, errorThrown){
 						layer.msg('error!',{icon:1,time:1000});
 					}
-			}); */ 
-  
-
+			});
+		var index = parent.layer.getFrameIndex(window.name);
+		parent.$('.btn-refresh').click();
+		parent.layer.close(index);  
+}
 </script> 
 <!--/请在上方写此页面业务相关的脚本-->
 </body>

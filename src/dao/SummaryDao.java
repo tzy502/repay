@@ -154,4 +154,23 @@ public class SummaryDao implements ISummary {
 		return result;
 	}
 
+	@Override
+	public List<BeanSummary> loadAllSummary(String userId) {
+		// TODO 自动生成的方法存根
+		List<BeanSummary> result =new ArrayList<BeanSummary>();
+		Session session =    HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx=session.beginTransaction();
+		try {
+			org.hibernate.Query qry = session.createQuery("from BeanSummary where userId = '"+userId+"'");
+			java.util.List list = qry.list();
+			session.getTransaction().commit();	
+			result =list;
+	
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}
+		return result;
+	}
+
 }

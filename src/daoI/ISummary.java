@@ -20,4 +20,6 @@ public interface ISummary {
 	public int  SearchSummaryid(String userId ,String projectId);
 	
 	public List<BeanSummary> loadASummary();
+	
+	public List<BeanSummary> loadAllSummary(String userId);
 }

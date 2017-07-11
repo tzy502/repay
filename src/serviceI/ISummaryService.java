@@ -18,4 +18,6 @@ public interface ISummaryService {
 	public int Searchmaxnuk(String userId ,String projectId)throws BaseException;
 	
 	public List<BeanSummary> loadASummary() throws BaseException;
+	
+	public List<BeanSummary> loadAllSummaryByUId(String userId) throws BaseException;
 }

@@ -261,7 +261,7 @@ public class ProjectController {
 	public String applySuccProject(@RequestBody String params) throws JSONException{
 		JSONObject json = new JSONObject(params);
 		String projectId = (String) json.get("projectId");
-		String isBudget = (String)json.get("isBudget");
+		int isBudget = (int)json.get("isBudget");
 	    JSONObject jo = new JSONObject();
 	    try {
 	    	IProjectService.updateProjectStatus(Integer.valueOf(projectId), Integer.valueOf(isBudget));

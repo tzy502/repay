@@ -163,17 +163,15 @@ public class SummaryController {
 			BeanItemCost bic =new BeanItemCost();
 			int itemCostId=Integer.valueOf((String)jsonObj.get("itemCostId"));
 			bic=ItemCostService.SearchItemCost(itemCostId);
-			
-			
-			float itemCost=Float.parseFloat((String)jsonObj.get("itemCost"));
-			
-			
+			System.out.println(bic.getItemCostId());
+			float itemCost=Float.parseFloat((String)jsonObj.get("itemCost"));	
 			sum+=itemCost;
-			ItemCostService.modifryItemCost(bic.getItemCostId(), bic.getSummaryId(), 0, bic.getItemCostName(), bic.getItemCost());
+			ItemCostService.modifryItemCost(bic.getItemCostId(), bic.getSummaryId(),bic.getoItemId(),bic.getItemCostName(), itemCost);
 		}
 		SummaryService.modifrySummary(summaryId, userId, company, projectId, billCount, sum, workerId, userName, money, cardNumber, manager, applicationId);
-		
-		return null;
+		JSONObject j = new JSONObject();
+		j.put("msg", "succ");
+		return j.toString();
 	}
 	
 	/**
@@ -195,7 +193,7 @@ public class SummaryController {
 		JSONArray json = new JSONArray();
 		for(int i = 0; i < itemCost.size(); i++){
 			JSONObject jo = new JSONObject();
-			jo.put("item CostId", itemCost.get(i).getItemCostId());
+			jo.put("itemCostId", itemCost.get(i).getItemCostId());
 			jo.put("summaryId", itemCost.get(i).getSummaryId());
 			jo.put("itemCostName", itemCost.get(i).getItemCostName());
 			jo.put("itemCost", itemCost.get(i).getItemCost());
@@ -233,6 +231,59 @@ public class SummaryController {
 			json.put(jo);
 		}
 		return json.toString();
+	}
+	
+	//根据用户ID找出汇总单
+	@RequestMapping(value = "/loadAllSummaryByUId.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String loadAllSummaryByUId(@RequestBody String params) throws JSONException{
+		JSONObject j = new JSONObject(params);
+		String userId =(String) j.get("userId");	
+		List<BeanSummary> result=new ArrayList<BeanSummary>();
+		try {
+			result=SummaryService.loadAllSummaryByUId(userId);
+		} catch (BaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		JSONArray json = new JSONArray();
+		for(int i=0;i<result.size();i++){
+			JSONObject jo = new JSONObject();
+			jo.put("summaryId", result.get(i).getSummaryId());
+			jo.put("userId",result.get(i).getUserId() );
+			jo.put("company",result.get(i).getCompany() );
+			jo.put("projectId",result.get(i).getProjectId() );
+			jo.put("billCount",result.get(i).getBillCount() );
+			jo.put("sum",result.get(i).getSum() );
+			jo.put("workerId",result.get(i).getWorkerId() );
+			jo.put("userName",result.get(i).getUserName() );
+			jo.put("cardNumber",result.get(i).getCardNumber() );
+			jo.put("money", result.get(i).getMoney() );
+			jo.put("manager",result.get(i).getManager() );
+			jo.put("applicationId", result.get(i).getApplicationId());
+			jo.put("applicationDate", result.get(i).getApplicationDate());
+			json.put(jo);
+		}
+		System.out.println(json.toString());
+		return json.toString();
+	}
+	
+	/**
+	 * 删除汇总单
+	 * */
+	@RequestMapping(value = "/deleteSummary.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String deleteSummary(@RequestBody String params) throws JSONException{
+		JSONObject j = new JSONObject(params);
+		int summaryId =Integer.valueOf((String) j.get("summaryId"));	
+		try {
+			SummaryService.delSummary(summaryId);
+		} catch (BaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "succ";
 	}
 	
 }

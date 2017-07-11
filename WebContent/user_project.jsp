@@ -46,7 +46,8 @@
 				<th width="40">创建报销单</th>
 				<th width="40">创建汇总单</th>
 				<th width="40">查看项目预算</th>
-				<th width="100">操作</th>
+				<th width="40">编辑</th>
+				<th width="40">删除</th>
 			</tr>
 		</thead>
 		<tbody id = 'tbody-allProject'>
@@ -155,6 +156,9 @@ $(document).ready(function (){
 				if(data[i].isBudget == 0){
 					str+="<td>预算未创建</td>";
 				}
+				else if(data[i].isBudget == -1){
+					str+="<td>项目已关闭</td>";
+				}
 				else{
 					str+="<td>预算已创建</td>";
 				}
@@ -178,6 +182,38 @@ $(document).ready(function (){
 					str+="<td class='td-manage'><a style='text-decoration:none' id = 'budgetSee' href='javascript:;'   title='"+data[i].projectId+"'>"+
 						"<i class='Hui-iconfont'>&#xe695;</i>"+
 					"</a></td>";
+					str+="<td class='td-manage'>"+
+					"<a style='text-decoration:none' >"+
+					"<i class='Hui-iconfont'>&#xe6dd;</i>"+
+					"</a>"+
+					"</td>";
+					str+="<td class='td-manage'>"+
+					"<a style='text-decoration:none' >"+
+					"<i class='Hui-iconfont'>&#xe6dd;</i>"+
+					"</a>"+
+					"</td>";
+				}
+				else if(data[i].isBudget==-1){
+					str+="<td class='td-manage'>"+
+					"<a style='text-decoration:none' >"+
+					"<i class='Hui-iconfont'>&#xe6dd;</i>"+
+					"</a>"+
+					"</td>";
+					str+="<td class='td-manage'>"+
+					"<a style='text-decoration:none'>"+
+					"<i class='Hui-iconfont'>&#xe6dd;</i>"+	
+					"</a>"+
+					"</td>";
+					str+="<td class='td-manage'><a style='text-decoration:none'>"+
+					"<i class='Hui-iconfont'>&#xe6dd;</i>"+
+					"</a></td>";
+					str+="<td class='td-manage'><a style='text-decoration:none'>"+
+					"<i class='Hui-iconfont'>&#xe6dd;</i>"+
+					"</a></td>";
+					str+="<td class='td-manage'><a style='text-decoration:none'>"+
+					"<i class='Hui-iconfont'>&#xe6dd;</i>"+
+					"</a></td>";
+					
 				}
 				else if(data[i].isBudget==2){
 					str+="<td class='td-manage'>"+
@@ -193,6 +229,16 @@ $(document).ready(function (){
 					str+="<td class='td-manage'><a style='text-decoration:none' id = 'budgetSee' href='javascript:;'   title='"+data[i].projectId+"'>"+
 						"<i class='Hui-iconfont'>&#xe695;</i>"+
 					"</a></td>";
+					str+="<td class='td-manage'>"+
+					"<a style='text-decoration:none' >"+
+					"<i class='Hui-iconfont'>&#xe6dd;</i>"+
+					"</a>"+
+					"</td>";
+					str+="<td class='td-manage'>"+
+					"<a style='text-decoration:none' >"+
+					"<i class='Hui-iconfont'>&#xe6dd;</i>"+
+					"</a>"+
+					"</td>";
 				}
 				else if(data[i].isBudget==3){
 					str+="<td class='td-manage'>"+
@@ -207,7 +253,17 @@ $(document).ready(function (){
 					"</td>";
 					str+="<td class='td-manage'><a style='text-decoration:none' id = 'budgetSee' href='javascript:;'   title='"+data[i].projectId+"'>"+
 						"<i class='Hui-iconfont'>&#xe695;</i>"+
-					"</a></td>";				
+					"</a></td>";
+					str+="<td class='td-manage'>"+
+					"<a style='text-decoration:none' >"+
+					"<i class='Hui-iconfont'>&#xe6dd;</i>"+
+					"</a>"+
+					"</td>";
+					str+="<td class='td-manage'>"+
+					"<a style='text-decoration:none' >"+
+					"<i class='Hui-iconfont'>&#xe6dd;</i>"+
+					"</a>"+
+					"</td>";
 				}
 				else if(data[i].isBudget==4 || data[i].isBudget==5 || data[i].isBudget==6 || data[i].isBudget==7){
 					str+="<td class='td-manage'>"+
@@ -223,6 +279,16 @@ $(document).ready(function (){
 					str+="<td class='td-manage'><a style='text-decoration:none' id = 'budgetSee' href='javascript:;'   title='"+data[i].projectId+"'>"+
 						"<i class='Hui-iconfont'>&#xe695;</i>"+
 					"</a></td>";
+					str+="<td class='td-manage'>"+
+					"<a style='text-decoration:none' >"+
+					"<i class='Hui-iconfont'>&#xe6dd;</i>"+
+					"</a>"+
+					"</td>";
+					str+="<td class='td-manage'>"+
+					"<a style='text-decoration:none' >"+
+					"<i class='Hui-iconfont'>&#xe6dd;</i>"+
+					"</a>"+
+					"</td>";
 				}			
 				else{
 					str+="<td class='td-manage'>"+
@@ -238,15 +304,16 @@ $(document).ready(function (){
 					str+="<td class='td-manage'><a style='text-decoration:none'>"+
 					"<i class='Hui-iconfont'>&#xe6dd;</i>"+
 					"</a></td>";
+					str+="<td class='td-manage'>"+
+					"<a style='text-decoration:none' id = 'update' href='javascript:;' title='"+data[i].projectId+"'>"+
+						"<i class='Hui-iconfont'>&#xe6df;</i>"+
+					"</a></td>"+
+					"<td class='td-manage'><a style='text-decoration:none' id = 'delete' href='javascript:;' title='"+data[i].projectId+"'>"+
+						"<i class='Hui-iconfont'>&#xe6e2;</i>"+
+					"</a>"+
+					"</td></tr>";
 				}
-				str+="<td class='td-manage'>"+
-				"<a style='text-decoration:none' id = 'update' href='javascript:;' title='"+data[i].projectId+"'>"+
-					"<i class='Hui-iconfont'>&#xe6df;</i>"+
-				"</a>"+
-				"<a style='text-decoration:none' id = 'delete' href='javascript:;' title='"+data[i].projectId+"'>"+
-					"<i class='Hui-iconfont'>&#xe6e2;</i>"+
-				"</a>"+
-				"</td></tr>";
+				
 
         		}
         	

@@ -122,7 +122,6 @@ public interface json {
 		"reason":
 		"annex":
 		"annexPath":
-
 		"sum":
 		"approvalId":
 		"data":

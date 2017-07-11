@@ -210,7 +210,7 @@ public class SummaryController {
 	public String loadASummary() throws JSONException{
 		List<BeanSummary> result=new ArrayList<BeanSummary>();
 		try {
-			result=SummaryService.loadSummary();
+			result=SummaryService.loadASummary();
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

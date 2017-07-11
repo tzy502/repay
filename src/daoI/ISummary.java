@@ -18,4 +18,6 @@ public interface ISummary {
 	public void DelSummary(BeanSummary Summary);
 	//删除汇�?�单
 	public int  SearchSummaryid(String userId ,String projectId);
+	
+	public List<BeanSummary> loadASummary();
 }

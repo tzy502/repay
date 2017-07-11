@@ -22,5 +22,8 @@ public interface IUserDao {
 	
 	public void delUser(BeanUser user);
 	//删除用户
-	public void exploreUser(BeanUser user);
+
+	public float exploreUserbudget(String userid);
+	
+	public float exploreUsersummary(String userid);
 }

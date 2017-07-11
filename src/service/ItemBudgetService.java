@@ -16,11 +16,12 @@ public class ItemBudgetService implements IItemBudgetService {
 	@Resource
 	private ItemBudgetDao ibd;
 	@Override
-	public void addItemBudget(int budgetId, String itemName, float itemBudgetCost) throws BaseException {
+	public void addItemBudget(int budgetId, String itemName, int oItemId, float itemBudgetCost) throws BaseException {
 		// TODO Auto-generated method stub
 		BeanItemBudget bit=new BeanItemBudget();
 		bit.setBudgetId(budgetId);
 		bit.setItemName(itemName);
+		bit.setoItemId(oItemId);
 		bit.setItemBudgetCost(itemBudgetCost);
 		ibd.additembudget(bit);
 	}

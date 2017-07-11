@@ -40,40 +40,19 @@ public class BudgetController {
 		JSONArray jsonarrary = new JSONArray((String)json.getString("itemBudget"));
 		float budgetSum=independentFees+applyFees;
 		try {
-			BudgetService.addBudget(projectId, budgetSum, independentFees, applyFees);
+			 BudgetService.addBudget(projectId, budgetSum, independentFees, applyFees);
+			 int budgetId=BudgetService.SearchmaxId(projectId, budgetSum, independentFees, applyFees);
+			 for(int i=0;i<json.length();i++){
+				JSONObject jsonObj = jsonarrary.getJSONObject(i);
+				ItemBudgetService.addItemBudget(budgetId, (String)jsonObj.get("itemName"), Integer.valueOf((String)jsonObj.getString("oItemId")), Float.parseFloat((String)jsonObj.get("itemBudgetCost")));
+			}	 
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			json.put("msg", e);
 			return json.toString();
 		}
-		int budgetId;
-		try {
-			 budgetId=BudgetService.SearchmaxId(projectId, budgetSum, independentFees, applyFees);
-		} catch (BaseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			json.put("msg", e);
-			return json.toString();
-		}
-		System.out.println(jsonarrary.getJSONObject(0).get("itemBudgetCost").toString()+" budgetId:"+budgetId);
-		for(int i=0;i<json.length();i++){
-			JSONObject jsonObj = jsonarrary.getJSONObject(i);
-			try {
-				ItemBudgetService.addItemBudget(
-						budgetId, 
-						(String)jsonObj.get("itemName"), 
-						Float.parseFloat((String)jsonObj.get("itemBudgetCost")));
-			} catch (NumberFormatException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (BaseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				json.put("msg", e);
-				return json.toString();
-			}
-		}
+		
 		return json.toString();
 	}
 	

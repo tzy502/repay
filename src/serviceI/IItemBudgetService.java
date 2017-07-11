@@ -9,7 +9,7 @@ import model.BeanItemBudget;
 import util.BaseException;
 @Component
 public interface IItemBudgetService {
-	public void addItemBudget( int budgetId, String itemName, float itemBudgetCost)throws BaseException;
+	public void addItemBudget( int budgetId, String itemName, int oItemId, float itemBudgetCost)throws BaseException;
 	
 	public void modifryItemBudget(int itemBudgetId, float itemBudgetCost)throws BaseException;
 	

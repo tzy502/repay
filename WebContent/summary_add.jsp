@@ -137,9 +137,11 @@ $(document).ready(function (){
     			j++;
     			//alert("出错了！！:");
     			str+="<tr><th width = '20%'>"+data[i].schoolItemName+"</th>"+
+    			"<input type='hidden' value ='"+data[i].itemId+"' id='itemId"+i+"' name = 'itemId"+i+"'>"+
     			"<input type='hidden' value ='"+data[i].schoolItemName+"' id='schoolItemName"+i+"' name = 'schoolItemName"+i+"'>"+
     			"<td width = '60%'><input type='text'  id='schoolItem"+i+"'  name = 'schoolItem"+i+"' class='input-text radius size-S'></td></tr>";
-        	}	
+        		
+    		}	
         	$("#tbody-itemCost").html(str);
         }     
     });
@@ -150,6 +152,7 @@ $(document).ready(function (){
 		var itemCost = [];
 		for(var i = 0; i < j; i++){
 			var item = {
+					"oItemId":document.getElementById("itemId"+i).value,
 					"itemCostName":document.getElementById("schoolItemName"+i).value,
 					"itemCost":document.getElementById("schoolItem"+i).value,
 			}
@@ -187,10 +190,10 @@ $(document).ready(function (){
 		  
 		  if(isBudget == 2){
 		    	isBudget = 4;
-		    }
-		    else{
-		    	isBudget = 3;
-		    }	
+		   }
+		  else{
+		    isBudget = 3;
+		  }	
 		    var params={
 			 			"projectId":document.getElementById("projectId").value,
 				    	"isBudget":isBudget,

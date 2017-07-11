@@ -62,7 +62,7 @@ $(function () {
 			"summaryId":summaryId,
 			"projectId":projectId,
 	} 
-	var xData = [];  
+	var xData = ["12","2"];  
 	$.ajax({    
 	       type: "post",    
 	       async: true,    
@@ -73,16 +73,16 @@ $(function () {
 	       success: function(data){
 	    	   	
 	       		for(var k = 0; k < data.length; k++){
-	       			xData.push(data[k].itemName);
+	       			//xData.push(data[k].itemName);
 	       		}
-	       		alert(highcharts.xAxis.categories[0]);
-	       		//highcharts.xAxis.categories = xData;
+	       		alert(xData);
+	       		alert("12"+$('#container').highchsrts);
+	       		$('#container').highcharts.xAxis.categories = xData;
 			},
 	       error: function(XmlHttpRequest, textStatus, errorThrown){
 				layer.msg('error!',{icon:1,time:1000});
 			}
 		});
-	
     $('#container').highcharts({
         chart: {
             type: 'column'
@@ -94,7 +94,7 @@ $(function () {
             text: 'Source: WorldClimate.com'
         },
         xAxis: {
-            categories: ['fg','s']
+            categories: xData
         },
         yAxis: {
             min: 0,
@@ -126,6 +126,9 @@ $(function () {
 
         } ]
     });
+    
+    
+	
 
 });	
 function application(){	

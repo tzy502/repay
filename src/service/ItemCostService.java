@@ -55,7 +55,7 @@ public class ItemCostService implements IItemCostService {
 		if (bic==null){
 			throw new BaseException("查无数据");
 		}
-		return null;
+		return bic;
 	}
 
 	@Override

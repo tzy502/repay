@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -20,6 +22,7 @@ public class BeanSummary {
 	private String cardNumber;
 	private String manager; 
 	private String applicationId;
+	private Date applicationDate;
 	
 	@Id
 	@Column(name = "summaryId")
@@ -117,5 +120,13 @@ public class BeanSummary {
 	}
 	public void setCardNumber(String cardNumber) {
 		this.cardNumber = cardNumber;
+	}
+	
+	@Column(name = "applicationDate")
+	public Date getApplicationDate() {
+		return applicationDate;
+	}
+	public void setApplicationDate(Date applicationDate) {
+		this.applicationDate = applicationDate;
 	}
 }

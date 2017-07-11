@@ -169,10 +169,11 @@ $(document).ready(function (){
 
 
 
-	function application(){
+function application(){
 	var params = {
 			"summaryId":summaryId,
-			"isApplication":"1",
+			"applicatio":getCookie("userId"),
+			"manager":getCookie("userId"),
 	}
 	$.ajax({    
         type: "post",    
@@ -188,6 +189,32 @@ $(document).ready(function (){
 			layer.msg('error!',{icon:1,time:1000});
 		}
 	});
+	
+	if(isBudget == 5){
+    	isBudget = 7;
+    }
+    else{
+    	isBudget = 6;
+    }	
+    var params={
+	 			"projectId":document.getElementById("projectId").value,
+		    	"isBudget":isBudget,
+	} 
+    $.ajax({    
+	        type: "post",    
+	        async: true,    
+	        url: "/repay/applySuccProject.do",    
+	        data: JSON.stringify(params),
+	        dataType: "json",   
+	        contentType: "application/json; charset=utf-8",   
+	        success: function(data){
+
+			},
+	        error: function(XmlHttpRequest, textStatus, errorThrown){
+				layer.msg('error!',{icon:1,time:1000});
+			}
+	}); 
+	
 	//window.location.href = 'application_chart.jsp?summaryId='+summaryId+'&projectId='+document.getElementById("projectId").value;
 /* 	 var params={	
 	 		"projectId":document.getElementById("projectId").value,

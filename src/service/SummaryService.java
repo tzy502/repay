@@ -93,4 +93,12 @@ public class SummaryService implements ISummaryService {
 		return result;
 	}
 
+	@Override
+	public List<BeanSummary> loadASummary() throws BaseException {
+		// TODO 自动生成的方法存根
+		List<BeanSummary> result=new ArrayList<BeanSummary>();
+		result=sd.loadASummary();
+		return result;
+	}
+
 }

@@ -226,34 +226,27 @@ public class RepayController {
 			checkOther=checkOther+Float.parseFloat(jsonbt.getString("other"));
 			btlist.add(bt);
 		}
+		DateFormat fmt =new SimpleDateFormat("yyyy-MM-dd");
+		sum=checkPlane+checkTrain+checkTOther+checkStay+checkFood+checkMi+checkOther;
 		String company=jsonobject.getString("company");
 		String projectId=jsonobject.getString("projectId");
-		String reason;
-		int annex;
-		String annexPath;
-		String approvalId;
-		String data;
-		String applicationId;
-		String workerId;
-		String userName;
-		float money;
-		String cardNumber;
-		String auditor;
-
-			 
-			"reason" 
-			"annex" 
-			"annexPath" 
-
-			"sum" 
-			"approvalId" 
-			"data" 
-			"applicationId" 
-			"workerId" 
-			"userName" 
-			"money" 
-			"cardNumber" 
-			"auditor" 
+		String reason=jsonobject.getString("reason");
+		int annex=Integer.valueOf(jsonobject.getString("annex"));
+		String annexPath=jsonobject.getString("annexPath");
+		String approvalId=jsonobject.getString("approvalId");
+		String data=fmt.format(jsonobject.getString("data"));
+		String applicationId=jsonobject.getString("applicationId" );
+		String workerId=jsonobject.getString("workerId" );
+		String userName=jsonobject.getString("userName");
+		float money=Float.parseFloat(jsonobject.getString("money" ));
+		String cardNumber=jsonobject.getString("cardNumber" );
+		String auditor=jsonobject.getString("auditor");
+		try {
+			RepayService.addRepay(company, projectId, reason, annex, annexPath, checkDays, checkPlane, checkTrain, checkTOther, checkStay, checkFood, checkMi, checkOther, sum, approvalId, data, applicationId, workerId, userName, money, cardNumber, auditor);
+		} catch (BaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 }

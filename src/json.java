@@ -128,14 +128,7 @@ public interface json {
 		"reason":
 		"annex":
 		"annexPath":
-		"checkDays":
-		"checkPlane":
-		"checkTrain":
-		"checkTOther":
-		"checkStay":
-		"checkFood":
-		"checkMi":
-		"checkOther":
+
 		"sum":
 		"approvalId":
 		"data":
@@ -181,14 +174,7 @@ public interface json {
 		"reason":
 		"annex":
 		"annexPath":
-		"checkDays":
-		"checkPlane":
-		"checkTrain":
-		"checkTOther":
-		"checkStay":
-		"checkFood":
-		"checkMi":
-		"checkOther":
+	
 		"sum":
 		"approvalId":
 		"data":
@@ -206,7 +192,7 @@ public interface json {
 				"travelProvince":
 				"startData": 
 				"endData":
-				"days":
+
 				"plane":
 				"train":
 				"tasfficOther":

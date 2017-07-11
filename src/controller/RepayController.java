@@ -197,6 +197,102 @@ public class RepayController {
 		for(int i=0;i<jsarraybt.length();i++){
 			JSONObject jsonbt = jsarraybt.getJSONObject(i);
 			BeanTravel bt=new BeanTravel();
+			bt.setRepayId(Integer.valueOf(jsonobject.getString("travelId")));	
+			bt.setRepayId(Integer.valueOf(jsonobject.getString("repayId")));
+			bt.setTravelLocation(jsonbt.getString("travelLocation"));
+			bt.setTravelProvince(jsonbt.getString("travelProvince"));
+			DateFormat fmt =new SimpleDateFormat("yyyy-MM-dd");
+			Date date=fmt.parse(jsonbt.getString("startData"));
+			bt.setStartData(date);
+			Date enddate=fmt.parse(jsonbt.getString("endData"));
+			bt.setEndData(enddate);
+			long start=date.getTime();
+			long end=enddate.getTime();	
+			int days=(int)((start-end)/(1000 * 60 * 60 * 24)); 
+			bt.setDays(days);		
+			bt.setPlane(Float.parseFloat(jsonbt.getString("plane")));
+			bt.setTrain(Float.parseFloat(jsonbt.getString("train")));
+			bt.setTasfficOther(Float.parseFloat(jsonbt.getString("tasfficOther")));
+			bt.setStayFees(Float.parseFloat(jsonbt.getString("stayFees")));
+			bt.setFoodFees(Float.parseFloat(jsonbt.getString("foodFees")));
+			bt.setMiFess(Float.parseFloat(jsonbt.getString("miFess")));
+			bt.setOther(Float.parseFloat(jsonbt.getString("other")));
+			checkDays=checkDays+days;
+			checkPlane=checkPlane+Float.parseFloat(jsonbt.getString("plane"));
+			checkTrain=checkTrain+(Float.parseFloat(jsonbt.getString("train")));
+			checkTOther=checkTOther+Float.parseFloat(jsonbt.getString("tasfficOther"));
+			checkStay=checkStay+Float.parseFloat(jsonbt.getString("stayFees"));
+			checkFood=checkFood+Float.parseFloat(jsonbt.getString("foodFees"));
+			checkMi=checkMi+Float.parseFloat(jsonbt.getString("miFess"));
+			checkOther=checkOther+Float.parseFloat(jsonbt.getString("other"));
+			try {
+				TravelService.modifryTravel(bt.getTravelId(),bt.getRepayId(), btlist.get(i).getTravelLocation(), btlist.get(i).getTravelProvince(),
+						btlist.get(i).getStartData(), btlist.get(i).getEndData(), btlist.get(i).getDays(), btlist.get(i).getPlane(),
+						btlist.get(i).getTrain(), btlist.get(i).getTasfficOther(), btlist.get(i).getStayFees(),
+						btlist.get(i).getFoodFees(), btlist.get(i).getMiFess(), btlist.get(i).getOther());
+			} catch (BaseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		}
+		DateFormat fmt =new SimpleDateFormat("yyyy-MM-dd");
+		sum=checkPlane+checkTrain+checkTOther+checkStay+checkFood+checkMi+checkOther;
+		String company=jsonobject.getString("company");
+		String projectId=jsonobject.getString("projectId");
+		String reason=jsonobject.getString("reason");
+		int annex=Integer.valueOf(jsonobject.getString("annex"));
+		String annexPath=jsonobject.getString("annexPath");
+		String approvalId=jsonobject.getString("approvalId");
+		String data=fmt.format(jsonobject.getString("data"));
+		String applicationId=jsonobject.getString("applicationId" );
+		String workerId=jsonobject.getString("workerId" );
+		String userName=jsonobject.getString("userName");
+		float money=Float.parseFloat(jsonobject.getString("money" ));
+		String cardNumber=jsonobject.getString("cardNumber" );
+		String auditor=jsonobject.getString("auditor");
+		int repayid=Integer.valueOf(jsonobject.getString("repayId"));
+		try {
+			RepayService.mordifyRepay(repayid, company, projectId, reason, annex, annexPath, checkDays, checkPlane, checkTrain, checkTOther, checkStay, checkFood, checkMi, checkOther, sum, approvalId, data, applicationId, workerId, userName, money, cardNumber, auditor);
+		
+		
+		} catch (BaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			for(int i=0;i<jsarraybtu.length();i++){
+				btulist=null;
+				JSONObject jsonbtu = jsarraybt.getJSONObject(i);
+				BeanTravelUser btu=new BeanTravelUser();
+				TravelUserService.modifryTravelUser(Integer.valueOf(jsonbtu.getString("travelUserId")), repayid, jsonbtu.getString("userName"), jsonbtu.getString("userJob"));
+			}
+		} catch (BaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "ok";
+	}@RequestMapping( value = "/updaterepay.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String updaterepay(@RequestBody String params) throws JSONException, ParseException{	
+		JSONObject jsonobject = new JSONObject(params);
+		JSONArray jsarraybt = jsonobject.getJSONArray("travel");
+		JSONArray jsarraybtu = new JSONArray("traveluser");
+		List<BeanTravel> btlist=new ArrayList<BeanTravel>();
+		List<BeanTravelUser> btulist=new ArrayList<BeanTravelUser>();
+		float checkDays = 0;
+		float checkPlane = 0;
+		float checkTrain = 0;
+		float checkTOther = 0;
+		float checkStay = 0;
+		float checkFood = 0;
+		float checkMi = 0;
+		float checkOther = 0;
+		float sum=0;
+		for(int i=0;i<jsarraybt.length();i++){
+			JSONObject jsonbt = jsarraybt.getJSONObject(i);
+			BeanTravel bt=new BeanTravel();
 			bt.setRepayId(Integer.valueOf((String)jsonbt.get("repayId")));
 			bt.setTravelLocation(jsonbt.getString("travelLocation"));
 			bt.setTravelProvince(jsonbt.getString("travelProvince"));
@@ -247,6 +343,28 @@ public class RepayController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		int Repayid;
+		try {
+			Repayid = RepayService.SearchRepaymax();
+			for(int i=0;i<btlist.size();i++){
+				btlist.get(i).setRepayId(Repayid);
+				TravelService.addTravel(Repayid, btlist.get(i).getTravelLocation(), btlist.get(i).getTravelProvince(),
+						btlist.get(i).getStartData(), btlist.get(i).getEndData(), btlist.get(i).getDays(), btlist.get(i).getPlane(),
+						btlist.get(i).getTrain(), btlist.get(i).getTasfficOther(), btlist.get(i).getStayFees(),
+						btlist.get(i).getFoodFees(), btlist.get(i).getMiFess(), btlist.get(i).getOther());
+			}
+			for(int i=0;i<jsarraybtu.length();i++){
+				btulist=null;
+				JSONObject jsonbtu = jsarraybt.getJSONObject(i);
+				BeanTravelUser btu=new BeanTravelUser();
+				btu.setRepayId(Repayid);			
+				TravelUserService.addTravelUser(Repayid, jsonbtu.getString("userName"), jsonbtu.getString("userJob"));
+			}
+		} catch (BaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "1";
 	}
 }

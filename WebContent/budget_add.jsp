@@ -134,6 +134,7 @@ $(document).ready(function (){
     			//alert("出错了！！:");
     			str+="<tr><th width = '20%'>"+data[i].itemName+"</th>"+
     			"<input type='hidden' value ='"+data[i].itemName+"' id='itemName"+i+"' name = 'itemName"+i+"'>"+
+    			"<input type='hidden' value ='"+data[i].itemId+"' id='itemId"+i+"' name = 'itemId"+i+"'>"+
     			"<td width = '60%'><input type='text'  id='item"+i+"'  name = 'item"+i+"' class='input-text radius size-S'></td></tr>";
         	}	
         	$("#tbody-itemBudget").html(str);
@@ -151,6 +152,7 @@ $(document).ready(function (){
 		} 
 		for(var i = 0; i < j; i++){
 			var item = {
+					"oItemId":document.getElementById("itemId"+i).value,
 					"itemName":document.getElementById("itemName"+i).value,
 					"itemBudgetCost":document.getElementById("item"+i).value,
 			}

@@ -14,13 +14,13 @@ import util.BaseException;
 @Service
 public class ItemCostService implements IItemCostService {
 	@Resource
-	ItemCostDao icd=new ItemCostDao();
+	private ItemCostDao icd;
 	@Override
 	public void addItemCost(int summary, int schoolItemId, String itemCostName, float itemCost) throws BaseException {
 		// TODO Auto-generated method stub
 		BeanItemCost bic=new BeanItemCost();
-		bic.setSummary(summary);
-		bic.setSchoolItemId(schoolItemId);
+		bic.setSummaryId(summary);
+		bic.setoItemId(schoolItemId);
 		bic.setItemCostName(itemCostName);
 		bic.setItemCost(itemCost);
 		icd.additemcost(bic);
@@ -31,8 +31,8 @@ public class ItemCostService implements IItemCostService {
 			throws BaseException {
 		// TODO Auto-generated method stub
 		BeanItemCost bic=new BeanItemCost();
-		bic.setSummary(summary);
-		bic.setSchoolItemId(schoolItemId);
+		bic.setSummaryId(summary);
+		bic.setoItemId(schoolItemId);
 		bic.setItemCostName(itemCostName);
 		bic.setItemCost(itemCost);
 		bic.setItemCostId(itemCostId);
@@ -75,6 +75,12 @@ public class ItemCostService implements IItemCostService {
 		result=icd.loadItemcostBySId(summaryId);
 				
 		return result;
+	}
+
+	@Override
+	public float searchSumGB(int summaryId, int oItemId) throws BaseException {
+		// TODO 自动生成的方法存根
+		return (float)icd.searchSumGB(summaryId, oItemId);
 	}
 
 }

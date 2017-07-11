@@ -3,6 +3,7 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import daoI.IItemCost;
 import model.BeanBudget;
 import model.BeanItemCost;
+import model.BeanUser;
 import util.HibernateUtil;
 @Repository
 public class ItemCostDao implements IItemCost {
@@ -132,6 +134,21 @@ public class ItemCostDao implements IItemCost {
 			tx.rollback();
 		}
 		return result;
+	}
+
+	@Override
+	public double searchSumGB(int summaryId, int oItemId) {
+		// TODO 自动生成的方法存根
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		String hql = "select sum(itemCost) from BeanItemCost where summaryId = "+summaryId+" and oItemId = "+oItemId+" group by oItemId";
+		Query qry = session.createQuery(hql);
+		Object result = qry.uniqueResult();
+		tx.commit();
+		if(result != null)
+			return (double) result;
+		else
+			return 0;
 	}
 
 }

@@ -18,5 +18,7 @@ public interface IItemCost {
 	public void Delitemcost(BeanItemCost itemcost);
 	
 	public List<BeanItemCost> loadItemcostBySId(int summaryId);
+	
+	public double searchSumGB(int summaryId, int oItemId);
 
 }

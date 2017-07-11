@@ -33,37 +33,26 @@ public class ApplicationController {
 	private IItemCostService IItemCostService;
 	
 	//审核
-	@RequestMapping(value = "/applicationSummary.do") 
+	@RequestMapping(value = "/applicationSummary.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String applicationSummary(@RequestBody String params) throws JSONException{  
     	JSONObject js = new JSONObject(params);
     	String projectId = (String) js.get("projectId");
     	String summaryId = (String) js.get("summaryId");
-    	JSONObject jo = new JSONObject();
-    	BeanBudget budget;
+    	JSONArray json = new JSONArray();
 		try {
-			budget = IBudgetService.searchBudgetByPId(Integer.valueOf(projectId));
+			BeanBudget budget = IBudgetService.searchBudgetByPId(Integer.valueOf(projectId));
 			List<BeanItemBudget> itemBudget = IItemBudgetService.SearchItemBudgetbybudgetid(budget.getBudgetId());
-	    	List<BeanItemCost> itemCost = IItemCostService.searchItemCostBySId(Integer.valueOf(summaryId));
-	    	
-	    	
-	    	JSONArray json = new JSONArray();
+	    	//List<BeanItemCost> itemCost = IItemCostService.searchItemCostBySId(Integer.valueOf(summaryId));	
 			for(int i=0;i<itemBudget.size();i++){
 				JSONObject jo1 = new JSONObject();
 				jo1.put("budgetId", itemBudget.get(i).getBudgetId());
 				jo1.put("itemName", itemBudget.get(i).getItemName());
 				jo1.put("itemBudgetCost", itemBudget.get(i).getItemBudgetCost());
-				for(int j = 0; j < itemCost.size(); j++){
-					if(itemCost.get(i).getSchoolItemId() == itemBudget.get(i).getItemId()){
-						jo1.put("itemCost", "");	
-					}
-								
-				}
-				
+				float sum = IItemCostService.searchSumGB(Integer.valueOf(summaryId), itemBudget.get(i).getoItemId());
+				jo1.put("itemCost", sum);
 				json.put(jo1);
-			}
-			
-			
+			}	
 		} catch (NumberFormatException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
@@ -71,7 +60,8 @@ public class ApplicationController {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
-		return jo.toString(); 
+		System.out.println(json.toString());
+		return json.toString(); 
     }
 	
 	

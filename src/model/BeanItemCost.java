@@ -10,7 +10,7 @@ import javax.persistence.Table;
 public class BeanItemCost {
 	private int itemCostId;
 	private int summaryId;//+id
-	private int schoolItemId;//
+	private int oItemId;//
 	private String itemCostName;
 	private float itemCost;
 	
@@ -21,22 +21,6 @@ public class BeanItemCost {
 	}
 	public void setItemCostId(int itemCostId) {
 		this.itemCostId = itemCostId;
-	}
-	
-	@Column(name = "summaryId")
-	public int getSummary() {
-		return summaryId;
-	}
-	public void setSummary(int summary) {
-		this.summaryId = summary;
-	}
-	
-	@Column(name = "schoolItemId")
-	public int getSchoolItemId() {
-		return schoolItemId;
-	}
-	public void setSchoolItemId(int schoolItemId) {
-		this.schoolItemId = schoolItemId;
 	}
 	
 	@Column(name = "itemCostName")
@@ -53,5 +37,21 @@ public class BeanItemCost {
 	}
 	public void setItemCost(float itemCost) {
 		this.itemCost = itemCost;
+	}
+	
+	@Column(name = "summaryId")
+	public int getSummaryId() {
+		return summaryId;
+	}
+	public void setSummaryId(int summaryId) {
+		this.summaryId = summaryId;
+	}
+	
+	@Column(name = "oItemId")
+	public int getoItemId() {
+		return oItemId;
+	}
+	public void setoItemId(int oItemId) {
+		this.oItemId = oItemId;
 	}
 }

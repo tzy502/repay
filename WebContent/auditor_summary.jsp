@@ -105,11 +105,12 @@ $(document).ready(function (){
 		});
 	}); 
 	
+	
 	//加载页面数据
 	$.ajax({    
         type: "post",    
         async: true,    
-        url: "/repay/loadAllSummary.do",  
+        url: "/repay/loadASummary.do",  
         dataType: "json", 
         contentType: "application/json; charset=utf-8",   
         error: function(data){  

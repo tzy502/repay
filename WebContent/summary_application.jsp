@@ -170,7 +170,45 @@ $(document).ready(function (){
 
 
 	function application(){
-		window.location.href = 'application_chart.jsp';
+	var params = {
+			"summaryId":summaryId,
+			"isApplication":"1",
+	}
+	$.ajax({    
+        type: "post",    
+        async: true,    
+        url: "/repay/summaryApplication.do",    
+        data: JSON.stringify(params),
+        dataType: "json",   
+        contentType: "application/json; charset=utf-8",   
+        success: function(data){
+			layer.msg('审核成功!',{icon:1,time:1000});
+		},
+        error: function(XmlHttpRequest, textStatus, errorThrown){
+			layer.msg('error!',{icon:1,time:1000});
+		}
+	});
+	//window.location.href = 'application_chart.jsp?summaryId='+summaryId+'&projectId='+document.getElementById("projectId").value;
+/* 	 var params={	
+	 		"projectId":document.getElementById("projectId").value,
+	 		"summaryId":summaryId,
+		} 
+	$.ajax({    
+        type: "post",    
+        async: true,    
+        url: "/repay/applicationSummary.do",    
+        data: JSON.stringify(params),
+        dataType: "json",   
+        contentType: "application/json; charset=utf-8",   
+        success: function(data){
+			layer.msg('添加成功!',{icon:1,time:1000});
+		},
+        error: function(XmlHttpRequest, textStatus, errorThrown){
+			layer.msg('error!',{icon:1,time:1000});
+		}
+	}); */
+}
+		
 /* 		
 		 var itemCost = [];
 		for(var i = 0; i < j; i++){
@@ -235,7 +273,7 @@ $(document).ready(function (){
 					}
 			}); */ 
   
-}
+
 </script> 
 <!--/请在上方写此页面业务相关的脚本-->
 </body>

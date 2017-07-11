@@ -104,17 +104,21 @@ public class SummaryController {
 		String manager=(String)jo.get("manager"); 
 		String applicationId=(String)jo.get("applicationId");
 		json=jo.getJSONArray("itemCost");
+		
 		List<BeanItemCost> result =new ArrayList<BeanItemCost>();
 		for(int i=0;i<json.length();i++){
 			JSONObject jsonObj = json.getJSONObject(i);
 			BeanItemCost bic =new BeanItemCost();
+			String oItemId = (String)jsonObj.get("oItemId");
 			String itemCostName=(String)jsonObj.get("itemCostName");
 			float itemCost=Float.parseFloat((String)jsonObj.get("itemCost"));
+			bic.setoItemId(Integer.valueOf(oItemId));
 			bic.setItemCostName(itemCostName);
 			bic.setItemCost(itemCost);
 			sum+=itemCost;
 			result.add(bic);
-		}	
+		}
+		
 		try {
 			SummaryService.addSummary(userId, company, projectId, billCount, sum, workerId, userName, money, cardNumber, manager, applicationId);
 		} catch (BaseException e) {
@@ -124,8 +128,8 @@ public class SummaryController {
 		try {
 			int summaryid=SummaryService.Searchmaxnuk(userId, projectId);
 			for(int i=0;i<result.size();i++){
-				result.get(i).setSummary(summaryid);
-				ItemCostService.addItemCost(result.get(i).getSummary(), 0, result.get(i).getItemCostName(), result.get(i).getItemCost());
+				result.get(i).setSummaryId(summaryid);
+				ItemCostService.addItemCost(result.get(i).getSummaryId(), result.get(i).getoItemId(), result.get(i).getItemCostName(), result.get(i).getItemCost());
 			}
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
@@ -133,6 +137,8 @@ public class SummaryController {
 		}
 		return "1";
 	}
+	
+	
 	@RequestMapping(value = "/updateSummary.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String updateSummary(@RequestBody String params) throws JSONException, BaseException{
@@ -163,7 +169,7 @@ public class SummaryController {
 			
 			
 			sum+=itemCost;
-			ItemCostService.modifryItemCost(bic.getItemCostId(), bic.getSummary(), 0, bic.getItemCostName(), bic.getItemCost());
+			ItemCostService.modifryItemCost(bic.getItemCostId(), bic.getSummaryId(), 0, bic.getItemCostName(), bic.getItemCost());
 		}
 		SummaryService.modifrySummary(summaryId, userId, company, projectId, billCount, sum, workerId, userName, money, cardNumber, manager, applicationId);
 		
@@ -190,11 +196,43 @@ public class SummaryController {
 		for(int i = 0; i < itemCost.size(); i++){
 			JSONObject jo = new JSONObject();
 			jo.put("item CostId", itemCost.get(i).getItemCostId());
-			jo.put("summaryId", itemCost.get(i).getSummary());
+			jo.put("summaryId", itemCost.get(i).getSummaryId());
 			jo.put("itemCostName", itemCost.get(i).getItemCostName());
 			jo.put("itemCost", itemCost.get(i).getItemCost());
 			json.put(jo);
 		}
 		return json.toString();
 	}
+	
+	//找出待审核的汇总单
+	@RequestMapping(value = "/loadASummary.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String loadASummary() throws JSONException{
+		List<BeanSummary> result=new ArrayList<BeanSummary>();
+		try {
+			result=SummaryService.loadSummary();
+		} catch (BaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		JSONArray json = new JSONArray();
+		for(int i=0;i<result.size();i++){
+			JSONObject jo = new JSONObject();
+			jo.put("summaryId", result.get(i).getSummaryId());
+			jo.put("userId",result.get(i).getUserId() );
+			jo.put("company",result.get(i).getCompany() );
+			jo.put("projectId",result.get(i).getProjectId() );
+			jo.put("billCount",result.get(i).getBillCount() );
+			jo.put("sum",result.get(i).getSum() );
+			jo.put("workerId",result.get(i).getWorkerId() );
+			jo.put("userName",result.get(i).getUserName() );
+			jo.put("cardNumber",result.get(i).getCardNumber() );
+			jo.put("money", result.get(i).getMoney() );
+			jo.put("manager",result.get(i).getManager() );
+			jo.put("applicationId", result.get(i).getApplicationId());
+			json.put(jo);
+		}
+		return json.toString();
+	}
+	
 }

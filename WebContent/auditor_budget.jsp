@@ -44,7 +44,8 @@
 				<th width="40">总计</th>
 				<th width="40">自筹和配套</th>
 				<th width="40">向省厅申请</th>
-				<th width="100">操作</th>
+				<th width="40">查看项目预算</th>
+				<th width="100">修改</th>
 			</tr>
 		</thead>
 		<tbody id = 'tbody-allBudget'>
@@ -78,6 +79,9 @@ $(document).ready(function (){
 	$('body').on('click','#update',function(event){
 		layer_show('修改项目预算','budget_update.jsp?'+this.title,'800','500');
 	}); 
+	$('body').on('click','#budgetSee',function(event){
+		layer_show('查看预算','budget_see.jsp?projectId='+this.title,'800','500');
+	}); 
 	//加载页面数据
 	$.ajax({    
         type: "post",    
@@ -97,6 +101,11 @@ $(document).ready(function (){
 				"<td>"+data[i].budgetSum+"</td>"+
 				"<td>"+data[i].independentFees+"</td>"+
 				"<td>"+data[i].applyFees+"</td>"+
+				"<td class='td-manage'>"+
+				"<a style='text-decoration:none' id = 'budgetSee' href='javascript:;' title='"+data[i].projectId+"'>"+
+					"<i class='Hui-iconfont'>&#xe695;</i>"+
+				"</a>"+
+				"</td>"+
 				"<td class='td-manage'>"+
 				"<a style='text-decoration:none' id = 'update' href='javascript:;' title='budgetId="+data[i].budgetId+"&projectId="+data[i].projectId+"'>"+
 					"<i class='Hui-iconfont'>&#xe6df;</i>"+

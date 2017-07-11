@@ -55,9 +55,9 @@
 			</tr>	
 			<tr>
 				<th width = '20%'>开始日期</th>
-				<td width = '20%' ><input type="text" class="input-text" value="" placeholder="" id="startData" name="startData"></td>
+				<td width = '20%' ><input type="text" onfocus="WdatePicker()" id="startData" class="input-text Wdate" style="width:120px;"></td>
 				<td width = '20%' >完成日期</td>
-				<td width = '40%' colspan='2'><input type="text" class="input-text" value="" placeholder="" id="endData" name="endData"></td>
+				<td width = '40%' colspan='2'><input type="text" onfocus="WdatePicker()" id="endData" class="input-text Wdate" style="width:120px;"></td>
 			</tr>
 		</tbody>
 	</table>

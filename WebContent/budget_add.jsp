@@ -159,7 +159,7 @@ $(document).ready(function (){
 			itemBudget.push(item);
     	}
 		params["itemBudget"]=itemBudget;
-		alert(JSON.stringify(params));
+		//alert(JSON.stringify(params));
 	     $.ajax({    
 	        type: "post",    
 	        async: true,    

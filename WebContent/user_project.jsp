@@ -96,8 +96,6 @@ $(document).ready(function (){
 		layer_show('项目编辑','project_update.jsp?projectId='+this.title,'800','500');
 	}); 
 	$('body').on('click','#budgetSee',function(event){
-		alert("123");
-		alert(this.value);
 		layer_show('查看预算','budget_see.jsp?projectId='+this.title,'800','500');
 	}); 
 	$('body').on('click','#projectSee',function(event){

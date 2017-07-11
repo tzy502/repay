@@ -22,4 +22,5 @@ public interface IUserDao {
 	
 	public void delUser(BeanUser user);
 	//删除用户
+	public void exploreUser(BeanUser user);
 }

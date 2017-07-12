@@ -154,14 +154,30 @@ public class UserController {
 	//上传
 	@RequestMapping("uploadPicture.do")
 	@ResponseBody
+	//@RequestParam ("summaryId")String summaryId,
 	public void uploads(@RequestParam ("file") MultipartFile fileUpload,HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException{
 		 String filename = new String( fileUpload.getOriginalFilename() .getBytes("iso8859-1") , "utf-8");  
 		System.out.println(filename);
 		String fileExtName = filename.substring(filename.lastIndexOf("."));
 		System.out.println(fileExtName);
-		String tempPath
+		String filePath="D:/java/workspaceforj2ee/repay/WebContent/WEB-INF/upload";
+		String filenewname="fuck"+fileExtName;
 	    try {
-	    	
+			OutputStream out = new FileOutputStream(new File(filePath, filenewname));
+			InputStream in = fileUpload.getInputStream();  
+			int length = 0;
+			try {    
+				byte[] buf = fileUpload.getBytes();//文件二进制
+				while ((length = in.read(buf)) != -1) {
+					out.write(buf, 0, length);
+				}
+				out.flush();
+				in.close();
+				out.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	        //userUploadPictureService.uploads(files, destDir, request,response);
 	    } catch (Exception e) {
 	        e.printStackTrace();

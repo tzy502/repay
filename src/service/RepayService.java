@@ -113,4 +113,12 @@ public class RepayService implements IRepayService {
 		return rd.repaymaxId();
 	}
 
+	@Override
+	public List<BeanRepay> loadARepay() throws BaseException {
+		// TODO Auto-generated method stub
+		List<BeanRepay> result =new ArrayList<BeanRepay>();
+		result =rd.loadARepay();
+		return result;
+	}
+
 }

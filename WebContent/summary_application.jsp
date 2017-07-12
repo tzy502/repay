@@ -170,9 +170,9 @@ $(document).ready(function (){
 
 
 function application(){
-/* 	var params = {
+ 	var params = {
 			"summaryId":summaryId,
-			"applicatio":getCookie("userId"),
+			"applicationId":getCookie("userId"),
 			"manager":getCookie("userId"),
 	}
 	$.ajax({    
@@ -190,6 +190,25 @@ function application(){
 		}
 	});
 	
+ 	var isBudget;
+ 	var params = {
+ 			"projectId":document.getElementById("projectId").value,
+	}
+	$.ajax({    
+        type: "post",    
+        async: true,    
+        url: "/repay/searchProject.do",    
+        data: JSON.stringify(params),
+        dataType: "json",   
+        contentType: "application/json; charset=utf-8",   
+        success: function(data){
+			isBudget = data.isBudget;
+		},
+        error: function(XmlHttpRequest, textStatus, errorThrown){
+			layer.msg('error!',{icon:1,time:1000});
+		}
+	});
+ 	
 	if(isBudget == 5){
     	isBudget = 7;
     }
@@ -213,9 +232,9 @@ function application(){
 	        error: function(XmlHttpRequest, textStatus, errorThrown){
 				layer.msg('error!',{icon:1,time:1000});
 			}
-	});  */
+	});  
 	
-	window.location.href = 'application_chart.jsp?summaryId='+summaryId+'&projectId='+document.getElementById("projectId").value;
+	//window.location.href = 'application_chart.jsp?summaryId='+summaryId+'&projectId='+document.getElementById("projectId").value;
 /* 	 var params={	
 	 		"projectId":document.getElementById("projectId").value,
 	 		"summaryId":summaryId,

@@ -43,6 +43,7 @@
 				<th width="40">单位</th>
 				<th width="40">项目经费代码</th>
 				<th width="40">出差事由</th>
+				<th width="40">查看</th>
 				<th width="40">状态</th>
 				<th width="40">修改</th>
 				<th width="40">删除</th>
@@ -77,6 +78,9 @@
 $(document).ready(function (){
 	$('body').on('click','#update',function(event){
 		layer_show('项目编辑','repay_update.jsp?repayId='+this.title,'800','500');
+	}); 
+	$('body').on('click','#repaySee',function(event){
+		layer_show('查看','repay_see.jsp?repayId='+this.title,'800','500');
 	}); 
 	$('body').on('click','#delete',function(event){
 		var repayId = this.title;
@@ -124,6 +128,9 @@ $(document).ready(function (){
 				"<td>"+data[i].company+"</td>"+
 				"<td>"+data[i].projectId+"</td>"+
 				"<td>"+data[i].reason+"</td>";
+				str+="<td class='td-manage'><a style='text-decoration:none' id = 'repaySee' href='javascript:;'   title='"+data[i].repayId+"'>"+
+				"<i class='Hui-iconfont'>&#xe695;</i>"+
+				"</a></td>";
 				if(data[i].applicationId == null || data[i].applicationId == ''){
 					str += "<td>未审核</td>";
 					str+="<td class='td-manage'>"+

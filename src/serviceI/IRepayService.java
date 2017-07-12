@@ -19,5 +19,8 @@ public interface IRepayService {
 	public void delRepay(int repayId)throws BaseException;
 	public BeanRepay SearchRepay(int repayId)throws BaseException;
 	public List<BeanRepay> loadAllRepay()throws BaseException;
+	
+	public List<BeanRepay> loadARepay()throws BaseException;
+	
 	public int  SearchRepaymax()throws BaseException;
 }

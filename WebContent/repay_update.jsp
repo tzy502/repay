@@ -35,21 +35,8 @@
 				<td width = '15%'><input type="text" id = 'company' class="input-text radius size-S"></td>
 				<td width = '70%'>
 					<table class="table table-border table-bordered" id = "name">
-						<tbody>
-							<tr>
-								<th width = '2%'><input class="btn btn-primary size-S radius" type="button" value="添加" onclick="AddColumn()"></th>
-								<th width = '10%'>姓名</th>
-								<td width = '8%'><input type="text" placeholder="姓名" class="input-text radius size-S"></td>
-								<td width = '8%'><input type="text" placeholder="姓名" class="input-text radius size-S"></td>
-								<td width = '8%'><input type="text" placeholder="姓名" class="input-text radius size-S"></td>
-							</tr>
-							<tr>
-								<th></th>
-								<th width = '10%'>职称</th>
-								<td width = '8%'><input type="text" placeholder="姓名" class="input-text radius size-S"></td>
-								<td width = '8%'><input type="text" placeholder="姓名" class="input-text radius size-S"></td><td width = '8%'>
-								<input type="text" placeholder="姓名" class="input-text radius size-S"></td>
-							</tr>
+						<tbody id = 'tbody-travelUser'>
+							
 							
 						</tbody>
 					</table>
@@ -78,8 +65,7 @@
 	<table class="table table-border table-bordered" Id = 'travel'>
 		<thead>
 			<tr>
-				<th width = '2%'><input class="btn btn-primary size-S radius" type="button" value="添加" onclick="AddRow()"></th>
-				<th width = '5%'>出差地点
+				<th width = '10%'>出差地点
 					<div class="row cl">
 					<div class="formControls col-xs-8 col-sm-9 skin-minimal">
 						<div class="radio-box">
@@ -127,24 +113,8 @@
 				<th width = '5%'>其他</th>
 			</tr>
 		</thead>
-		<tbody>
-			<tr>
-				<th></th>
-				<td width = '5%'><input type="text" id = 'travelLocation0' class="input-text radius size-S"></td>	
-				<td width = '5%'>
-					<input type="text" onfocus="WdatePicker()" id="startData0" class="input-text Wdate" style="width:120px;">
-					——
-					<input type="text" onfocus="WdatePicker()" id="endData0" class="input-text Wdate" style="width:120px;">
-				</td>	
-				<td width = '5%'><input type="text" id = 'days0' class="input-text radius size-S"></td>	
-				<td width = '5%'><input type="text" id = 'plane0' class="input-text radius size-S"></td>	
-				<td width = '5%'><input type="text" id = 'train0' class="input-text radius size-S"></td>	
-				<td width = '5%'><input type="text" id = 'tasfficOther0' class="input-text radius size-S"></td>	
-				<td width = '5%'><input type="text" id = 'stayFees0' class="input-text radius size-S"></td>	
-				<td width = '5%'><input type="text" id = 'foodFees0' class="input-text radius size-S"></td>	
-				<td width = '5%'><input type="text" id = 'miFess0' class="input-text radius size-S"></td>	
-				<td width = '5%'><input type="text" id = 'other0' class="input-text radius size-S"></td>	
-			</tr>
+		<tbody id= 'tbody-travel'>
+			
 
 		</tbody>
 	</table>
@@ -175,7 +145,7 @@
 	</table>
 	<div class="row cl">
 		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-			<input class="btn btn-primary radius" type="button" onclick = 'addRepay()' value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+			<input class="btn btn-primary radius" type="button" onclick = 'updateRepay()' value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
 		</div>
 	</div>
 	</form>
@@ -211,6 +181,8 @@ Request = GetRequest();
 var repayId;
 repayId = Request['repayId'];
 
+var j = 0;
+var k = 0;
 $(document).ready(function (){
 	var params = {
 			"repayId":repayId,
@@ -233,55 +205,52 @@ $(document).ready(function (){
 	        	 $("#cardNumber").val(data.cardNumber);
 	        	 $("#money").val(data.money);
 	        	 var travel = data.travel;
-	        	 alert(travel[0].train);
+	        	 var travelUser = data.traveluser;
+	        	// alert(travel[0].plane);
+	        	 var str = "";
+	        	 for(var i = 0; i < travel.length; i++){
+	        		 j++;
+	        		 str+= "<tr>"+
+	     				"<td width = '10%'><input type='text' id = 'travelLocation"+i+"' value = '"+travel[i].travelLocation+"' class='input-text radius size-S'></td>	"+
+	    				"<td width = '5%'>"+
+	    				"<input type='text' onfocus='WdatePicker()' id='startData"+i+"' value = '"+travel[i].startData+"' class='input-text Wdate' style='width:120px;''>"+
+	    				"——"+
+	    				"<input type='text' onfocus='WdatePicker()' id='endData"+i+"' value = '"+travel[i].endData+"' class='input-text Wdate' style='width:120px;'>"+
+	    				"</td>"+
+	    				"<td width = '5%'><input type='text' id = 'days"+i+"' value = '" +travel[i].days+"' class='input-text radius size-S'></td>"+
+	    				"<td width = '5%'><input type='text' id = 'plane"+i+"' value ='"+travel[i].plane+"' class='input-text radius size-S'></td>"+
+	    				"<td width = '5%'><input type='text' id = 'train"+i+"' value ='"+travel[i].train+"' class='input-text radius size-S'></td>"+
+	    				"<td width = '5%'><input type='text' id = 'tasfficOther"+i+"' value= '"+travel[i].tasfficOther+"' class='input-text radius size-S'></td>	"+
+	    				"<td width = '5%'><input type='text' id = 'stayFees"+i+"' value ='"+travel[i].stayFees+"' class='input-text radius size-S'></td>	"+
+	    				"<td width = '5%'><input type='text' id = 'foodFees"+i+"' value= '"+travel[i].foodFees+"' class='input-text radius size-S'></td>	"+
+	    				"<td width = '5%'><input type='text' id = 'miFess"+i+"' value ='"+travel[i].miFess+"' class='input-text radius size-S'></td>	"+
+	    				"<td width = '5%'><input type='text' id = 'other"+i+"' value ='"+travel[i].other+"' class='input-text radius size-S'></td>"+
+	    			"</tr>";
+	    			
+	        	 }
+	        	 $("#tbody-travel").html(str);
+	        	 var str = "";
+	        	 str+="<tr><th width = '10%'>姓名</th>";
+	        	 for(var i = 0 ; i < travelUser.length; i++){
+	        		 k++;
+	        		 str+="<td width = '8%'><input type='text' id = 'travelUserName"+i+"'  value = '"+travelUser[i].userName+"' class='input-text radius size-S'></td>";
+	        	 }
+	        	 str+="</tr><tr><th width = '10%'>职称</th>";
+	        	 for(var i = 0 ; i < travelUser.length; i++){
+	        		 str+="<td width = '8%'><input type='text' id = 'userJob"+i+"'  value = '"+travelUser[i].userJob+"' class='input-text radius size-S'></td>";
+	        	 }
+	        	 $("#tbody-travelUser").html(str);      	 
+	     	 
 	        	 
 			},
 	        error: function(XmlHttpRequest, textStatus, errorThrown){
 				layer.msg('error!',{icon:1,time:1000});
 			}
 		});
-
-     $("#projectId").val(projectId);
      
 })
-var obj = document.getElementById( "name" );	//获取表格的ID
-var obj2 = document.getElementById( "travel" );	//获取表格的ID
-//增加行
-var index = 0;
-function AddRow(  ){
-	index++;
-	var rowCount = obj2.rows.length;
-	var cellCount = obj2.rows[0].cells.length;
-	var tRow = obj2.insertRow( rowCount );
-	tRow.insertCell(0).innerHTML = "<td width = '5%'></td>";
-	tRow.insertCell(1).innerHTML = "<td width = '5%'><input type='text' id='travelLocation"+index+"' class='input-text radius size-S'></td>";
-	tRow.insertCell(2).innerHTML = "<td width = '5%'><input type='text' onfocus='WdatePicker()' id='startData"+index+"' class='input-text Wdate' style='width:120px;'>"+
-	"——<input type='text' onfocus='WdatePicker()' id='endData"+index+"' class='input-text Wdate' style='width:120px;'>"+
-	"</td>";
-	tRow.insertCell(3).innerHTML = "<td width = '5%'><input type='text' id = 'days"+index+"' class='input-text radius size-S'></td>";
-	tRow.insertCell(4).innerHTML = "<td width = '5%'><input type='text' id = 'plane"+index+"' class='input-text radius size-S'></td>";
-	tRow.insertCell(5).innerHTML = "<td width = '5%'><input type='text' id = 'train"+index+"' class='input-text radius size-S'></td>";
-	tRow.insertCell(6).innerHTML = "<td width = '5%'><input type='text' id = 'tasfficOther"+index+"' class='input-text radius size-S'></td>";
-	tRow.insertCell(7).innerHTML = "<td width = '5%'><input type='text' id = 'stayFees"+index+"' class='input-text radius size-S'></td>";
-	tRow.insertCell(8).innerHTML = "<td width = '5%'><input type='text' id = 'foodFees"+index+"' class='input-text radius size-S'></td>";
-	tRow.insertCell(9).innerHTML = "<td width = '5%'><input type='text' id = 'miFess"+index+"' class='input-text radius size-S'></td>";
-	tRow.insertCell(10).innerHTML = "<td width = '5%'><input type='text' id = 'other"+index+"' class='input-text radius size-S'></td>";
-}
 
-//增加列
-function AddColumn(  )
-{
-	var rowCount = obj.rows.length;
-	var cellCount = obj.rows[0].cells.length;
-	var tRow = obj.rows[0];
-	var tCell = tRow.insertCell( cellCount );
-	tCell.innerHTML = "<td width = '5%'><input type='text' placeholder='单位（公章）' class='input-text radius size-S'></td>";
-	var tRow = obj.rows[1];
-	var tCell = tRow.insertCell( cellCount );
-	tCell.innerHTML = "<td width = '5%'><input type='text' placeholder='单位（公章）' class='input-text radius size-S'></td>";
-}
-
-function addRepay(){
+function updateRepay(){
 	var itemTravel = [];
 	var travelUser = [];
 	for(var i = 0; i <= index; i++){

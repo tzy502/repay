@@ -1,7 +1,16 @@
 package controller;
 
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -10,7 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import model.BeanUser;
 import serviceI.IUserService;
@@ -57,7 +68,7 @@ public class UserController {
     	String userPermissions = "";
     	JSONObject jo = new JSONObject();
     	try {
-    		IUserService.addUser(userId, password, userName, userJob, userPhone);
+    		IUserService.addUser(userId, password,2, userName, userJob, userPhone);
 		} catch (BaseException e) {
 			// TODO 自动生成的 catch 块
 			jo.put("msg", e.getMessage());
@@ -129,7 +140,7 @@ public class UserController {
     	String password = (String) json.get("password");
     	JSONObject jo = new JSONObject();
     	try {
-    		IUserService.addUser(userId, password, userName, userJob, userPhone);
+    		IUserService.addUser(userId, password, 2,userName, userJob, userPhone);
 		} catch (BaseException e) {
 			// TODO 自动生成的 catch 块
 			jo.put("msg", e.getMessage());
@@ -138,4 +149,23 @@ public class UserController {
     	jo.put("msg", "succ");
 		return jo.toString();  
 	}
+	
+	
+	//上传
+	@RequestMapping("uploadPicture.do")
+	@ResponseBody
+	public void uploads(@RequestParam ("file") MultipartFile fileUpload,HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException{
+		 String filename = new String( fileUpload.getOriginalFilename() .getBytes("iso8859-1") , "utf-8");  
+		System.out.println(filename);
+		String fileExtName = filename.substring(filename.lastIndexOf("."));
+		System.out.println(fileExtName);
+		String tempPath
+	    try {
+	    	
+	        //userUploadPictureService.uploads(files, destDir, request,response);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
 }
+

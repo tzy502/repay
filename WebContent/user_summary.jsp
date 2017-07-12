@@ -43,6 +43,7 @@
 				<th width="40">单位（公章）</th>
 				<th width="40">经费项目代码</th>
 				<th width="40">合计人民币</th>
+				<th width="40">查看</th>
 				<th width="40">状态</th>
 				<th width="40">修改</th>
 				<th width="40">删除</th>
@@ -94,10 +95,13 @@ $(document).ready(function (){
 	$('body').on('click','#update',function(event){
 		layer_show('项目编辑','summary_update.jsp?summaryId='+this.title,'800','500');
 	}); 
+	$('body').on('click','#summarySee',function(event){
+		layer_show('项目编辑','summary_see.jsp?summaryId='+this.title,'800','500');
+	}); 
 	$('body').on('click','#delete',function(event){
 		var ss = this.title;
 		var st = ss.split(";");
-		alert(st[0]);
+		//alert(st[0]);
 		layer.confirm('确认要删除吗？',function(){
 			var params={
 			    	"summaryId":st[0],
@@ -164,6 +168,10 @@ $(document).ready(function (){
 				"<td>"+data[i].company+"</td>"+
 				"<td>"+data[i].projectId+"</td>"+
 				"<td>"+data[i].sum+"</td>";
+				str+="<td class='td-manage'><a style='text-decoration:none' id = 'summarySee' href='javascript:;' title='"+data[i].summaryId+"'>"+
+				"<i class='Hui-iconfont'>&#xe695;</i>"+
+				"</a>"+
+				"</td>";
 				if(data[i].applicationId == '' || data[i].applicationId == null){
 					str+="<td>"+"未审核"+"</td>";
 					str+="<td class='td-manage'>"+

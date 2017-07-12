@@ -286,4 +286,28 @@ public class SummaryController {
 		return "succ";
 	}
 	
+	@RequestMapping(value = "/summaryApplication.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String summaryApplication(@RequestBody String params) throws JSONException{  
+    	JSONObject js = new JSONObject(params);
+    	String summaryId = (String) js.get("summaryId");
+    	String applicationId = (String) js.get("applicationId");
+    	String manager = (String) js.get("manager");
+    	JSONArray json = new JSONArray();
+		try {
+			BeanSummary summary = SummaryService.searchSummary(Integer.valueOf(summaryId));
+			SummaryService.modifrySummary(Integer.valueOf(summaryId), summary.getUserId(), summary.getCardNumber(), summary.getProjectId(), summary.getBillCount(), summary.getSum(), summary.getWorkerId(), summary.getUserName(), summary.getMoney(), summary.getCardNumber(), manager, applicationId);
+			
+		} catch (NumberFormatException e1) {
+			// TODO 自动生成的 catch 块
+			e1.printStackTrace();
+		} catch (BaseException e1) {
+			// TODO 自动生成的 catch 块
+			e1.printStackTrace();
+		}
+		
+		return json.toString(); 
+    }
+	
+	
 }

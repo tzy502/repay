@@ -62,7 +62,17 @@
 			</tr>
 		</tbody>
 	</table>
-<div class="row cl">
+
+	
+	<div class="row cl">
+		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+			<input class="btn btn-primary radius" type="button" onclick = "addSummary()" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">	
+		</div>
+	</div>
+	
+	</form>
+	<form>
+		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">单据上传：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<div class="uploader-list-container"> 
@@ -72,6 +82,7 @@
 							<p>或将照片拖到这里</p>
 						</div>
 					</div>
+					
 					<div class="statusBar" style="display:none;">
 						<div class="progress"> <span class="text">0%</span> <span class="percentage"></span> </div>
 						<div class="info"></div>
@@ -83,12 +94,6 @@
 				</div>
 			</div>
 		</div>
-	
-	<div class="row cl">
-		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-			<input class="btn btn-primary radius" type="button" onclick = "addSummary()" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
-		</div>
-	</div>
 	</form>
 </article>
 
@@ -196,7 +201,7 @@ $(document).ready(function (){
 		} 
 		
 		params["itemCost"]=itemCost; 
-		alert(JSON.stringify(params));
+	//	alert(JSON.stringify(params));
 		  $.ajax({    
 	        type: "post",    
 	        async: true,    
@@ -263,8 +268,8 @@ $(function(){
 		auto: true,
 		swf: 'lib/webuploader/0.1.5/Uploader.swf',
 	
-		// 文件接收服务端。
-		server: 'lib/webuploader/0.1.5/server/fileupload.php',
+		// 文件接收服务端
+		server: 'http://localhost:8010/repay/uploadPicture.do',
 	
 		// 选择文件的按钮。可选。
 		// 内部根据当前运行是创建，可能是input元素，也可能是flash.
@@ -508,7 +513,7 @@ $(function(){
             swf: 'lib/webuploader/0.1.5/Uploader.swf',
             chunked: false,
             chunkSize: 512 * 1024,
-            server: 'lib/webuploader/0.1.5/server/fileupload.php',
+            server: 'http://localhost:8010/repay/uploadPicture.do',
             // runtimeOrder: 'flash',
 
             // accept: {

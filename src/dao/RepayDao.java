@@ -124,4 +124,23 @@ public class RepayDao implements IRepay {
 		tx.commit();
 		return maxid;
 	}
+
+	@Override
+	public List<BeanRepay> loadARepay() {
+		// TODO Auto-generated method stub
+		List<BeanRepay> result =new ArrayList<BeanRepay>();
+		Session session =    HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx=session.beginTransaction();
+		try {
+			org.hibernate.Query qry = session.createQuery("from BeanRepay where applicationId = ''");
+			java.util.List list = qry.list();
+			session.getTransaction().commit();	
+			result =list;
+	
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}
+		return result;
+	}
 }

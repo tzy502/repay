@@ -113,7 +113,7 @@ public class UserDao implements IUserDao{
 		Transaction tx=session.beginTransaction();
 		try {
 
-		org.hibernate.Query qry = session.createQuery("BeanBudget.budgetSum from BeanProject,BeanBudget,BeanSummary where BeanProject.userId=?");
+		org.hibernate.Query qry = session.createQuery("select sum(BeanBudget.budgetSum) from BeanProject,BeanBudget where BeanProject.userId=?");
 		qry.setParameter(0, userid);
 		java.util.List list = qry.list();
 		session.getTransaction().commit();	
@@ -132,7 +132,7 @@ public class UserDao implements IUserDao{
 		Transaction tx=session.beginTransaction();
 		try {
 
-		org.hibernate.Query qry = session.createQuery("BeanSummary.sum from BeanProject,BeanBudget,BeanSummary where BeanProject.userId=?");
+		org.hibernate.Query qry = session.createQuery("select sum(BeanSummary.sum) from BeanProject,BeanSummary where BeanProject.userId=?");
 		qry.setParameter(0, userid);
 		java.util.List list = qry.list();
 		session.getTransaction().commit();	

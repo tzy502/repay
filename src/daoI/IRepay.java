@@ -18,4 +18,7 @@ public interface IRepay {
 	public void DelRepay(BeanRepay Repay);
 	//删除报销�?
 	public int repaymaxId();
+	
+	//导出待审核的报销单
+	public List<BeanRepay> loadARepay();
 }

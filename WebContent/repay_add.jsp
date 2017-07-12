@@ -298,7 +298,7 @@ function addRepay(){
  	params["traveluser"]=travelUser;
  	 
 	alert(JSON.stringify(params)); 
-       $.ajax({    
+    $.ajax({    
         type: "post",    
         async: true,    
         url: "/repay/addRepay.do",    
@@ -311,14 +311,17 @@ function addRepay(){
         error: function(XmlHttpRequest, textStatus, errorThrown){
 			layer.msg('error!',{icon:1,time:1000});
 		}
-	});
-    /*if(isBudget == 3){
+	});  
+       
+       
+    
+    if(isBudget == 3){
     	isBudget = 4;
     }
     else{
     	isBudget = 2
     }	
-    var params={
+    var param={
 	 			"projectId":document.getElementById("projectId").value,
 		    	"isBudget":isBudget,
 	} 
@@ -326,19 +329,19 @@ function addRepay(){
 	        type: "post",    
 	        async: true,    
 	        url: "/repay/applySuccProject.do",    
-	        data: JSON.stringify(params),
+	        data: JSON.stringify(param),
 	        dataType: "json",   
 	        contentType: "application/json; charset=utf-8",   
 	        success: function(data){
-
+	        	var index = parent.layer.getFrameIndex(window.name);
+	        	parent.$('.btn-refresh').click();
+	        	parent.layer.close(index); 
 			},
 	        error: function(XmlHttpRequest, textStatus, errorThrown){
 				layer.msg('error!',{icon:1,time:1000});
 			}
 	});
-	var index = parent.layer.getFrameIndex(window.name);
-	parent.$('.btn-refresh').click();
-	parent.layer.close(index);   */
+	 
 }
 </script> 
 <!--/请在上方写此页面业务相关的脚本-->

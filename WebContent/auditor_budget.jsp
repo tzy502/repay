@@ -77,8 +77,34 @@
 
 $(document).ready(function (){
 	$('body').on('click','#update',function(event){
-		layer_show('修改项目预算','budget_update.jsp?'+this.title,'800','500');
+		var ss = this.title;
+		var st = ss.split(";");
+		var params = {
+				"projectId":st[1],
+		}
+		$.ajax({    
+	        type: "post",    
+	        async: true,    
+	        url: "/repay/searchProject.do",  
+	        data: JSON.stringify(params),
+	        dataType: "json", 
+	        contentType: "application/json; charset=utf-8",   
+	        error: function(data){  
+	        	alert("出错了！！:"+data.msg);
+	        } , 
+	        success: function(data) { 
+	        	alert(data.isBudget)
+	        	if(data.isBudget == 1){
+	        		layer_show('修改项目预算','budget_update.jsp?'+st[0],'800','500');
+	        	}
+	        	else{
+	        		layer.msg('报销单已创建，无法修改!',{icon:2,time:1000});
+	        	}	 
+	        } 
+			
+		}); 
 	}); 
+	
 	$('body').on('click','#budgetSee',function(event){
 		layer_show('查看预算','budget_see.jsp?projectId='+this.title,'800','500');
 	}); 
@@ -105,9 +131,9 @@ $(document).ready(function (){
 				"<a style='text-decoration:none' id = 'budgetSee' href='javascript:;' title='"+data[i].projectId+"'>"+
 					"<i class='Hui-iconfont'>&#xe695;</i>"+
 				"</a>"+
-				"</td>"+
-				"<td class='td-manage'>"+
-				"<a style='text-decoration:none' id = 'update' href='javascript:;' title='budgetId="+data[i].budgetId+"&projectId="+data[i].projectId+"'>"+
+				"</td>";
+				str+="<td class='td-manage'>"+
+				"<a style='text-decoration:none' id = 'update' href='javascript:;' title='budgetId="+data[i].budgetId+"&projectId="+data[i].projectId+";"+data[i].projectId+"'>"+
 					"<i class='Hui-iconfont'>&#xe6df;</i>"+
 				"</a>"+
 				"</td></tr>";

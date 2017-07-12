@@ -44,7 +44,6 @@
 				<th width="40">经费项目代码</th>
 				<th width="40">总经费</th>
 				<th width="40">审核</th>
-				<th width="100">操作</th>
 			</tr>
 		</thead>
 		<tbody id = 'tbody-allItem'>
@@ -128,14 +127,6 @@ $(document).ready(function (){
 				"<td class='td-manage'>"+
 				"<a style='text-decoration:none' id = 'application' href='javascript:;' title='"+data[i].summaryId+"'>"+
 					"<i class='Hui-iconfont'>&#xe6df;</i>"+
-				"</a>"+
-				"</td>"+
-				"<td class='td-manage'>"+
-				"<a style='text-decoration:none' id = 'update' href='javascript:;' title='"+data[i].summaryId+"'>"+
-					"<i class='Hui-iconfont'>&#xe6df;</i>"+
-				"</a>"+
-				"<a style='text-decoration:none' id = 'delete' href='javascript:;' title='"+data[i].summaryId+"'>"+
-					"<i class='Hui-iconfont'>&#xe6e2;</i>"+
 				"</a>"+
 				"</td></tr>";
     			j++;

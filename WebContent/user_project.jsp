@@ -263,7 +263,58 @@ $(document).ready(function (){
 					"</a>"+
 					"</td>";
 				}
-				else if(data[i].isBudget==4 || data[i].isBudget==5 || data[i].isBudget==6 || data[i].isBudget==7){
+		/* 		
+				else if(){
+					str+="<td class='td-manage'>"+
+					"<a style='text-decoration:none'>"+
+						"<i class='Hui-iconfont'>&#xe6dd;</i>"+
+					"</a>"+
+					"</td>";
+					str+="<td class='td-manage'>"+
+					"<a style='text-decoration:none' id = 'addSummary' href='javascript:;' title='projectId="+data[i].projectId+"&projectName="+data[i].projectName+"&isBudget="+data[i].isBudget+"'"+
+						"<i class='Hui-iconfont'>&#xe604;</i>"+
+					"</a>"+
+					"</td>";
+					str+="<td class='td-manage'><a style='text-decoration:none' id = 'budgetSee' href='javascript:;'   title='"+data[i].projectId+"'>"+
+						"<i class='Hui-iconfont'>&#xe695;</i>"+
+					"</a></td>";
+					str+="<td class='td-manage'>"+
+					"<a style='text-decoration:none' >"+
+					"<i class='Hui-iconfont'>&#xe6dd;</i>"+
+					"</a>"+
+					"</td>";
+					str+="<td class='td-manage'>"+
+					"<a style='text-decoration:none' >"+
+					"<i class='Hui-iconfont'>&#xe6dd;</i>"+
+					"</a>"+
+					"</td>";
+				}
+				else if(data[i].isBudget==6){
+					str+="<td class='td-manage'>"+
+					"<a style='text-decoration:none' id = 'addRepay' href='javascript:;' title='projectId="+data[i].projectId+"&projectName="+data[i].projectName+"&isBudget="+data[i].isBudget+"'>"+
+						"<i class='Hui-iconfont'>&#xe604;</i>"+
+					"</a>"+
+					"</td>";
+					str+="<td class='td-manage'>"+
+					"<a style='text-decoration:none'>"+
+						"<i class='Hui-iconfont'>&#xe6dd;</i>"+
+					"</a>"+
+					"</td>";
+					str+="<td class='td-manage'><a style='text-decoration:none' id = 'budgetSee' href='javascript:;'   title='"+data[i].projectId+"'>"+
+						"<i class='Hui-iconfont'>&#xe695;</i>"+
+					"</a></td>";
+					str+="<td class='td-manage'>"+
+					"<a style='text-decoration:none' >"+
+					"<i class='Hui-iconfont'>&#xe6dd;</i>"+
+					"</a>"+
+					"</td>";
+					str+="<td class='td-manage'>"+
+					"<a style='text-decoration:none' >"+
+					"<i class='Hui-iconfont'>&#xe6dd;</i>"+
+					"</a>"+
+					"</td>";
+				} */
+				else if(data[i].isBudget==4 ||  data[i].isBudget==5 || data[i].isBudget==6||  data[i].isBudget==7){
 					str+="<td class='td-manage'>"+
 					"<a style='text-decoration:none'>"+
 						"<i class='Hui-iconfont'>&#xe6dd;</i>"+

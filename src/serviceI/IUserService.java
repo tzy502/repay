@@ -22,7 +22,7 @@ public interface IUserService {
 	public void resetPassword(String userId)throws BaseException;
 	
 	//添加用户
-	public void addUser(String userId, String password, String userName, String userJob, String userPhone)throws BaseException;
+	public void addUser(String userId, String password,int roleid, String userName, String userJob, String userPhone)throws BaseException;
 	
 	//修改用户信息
 	public void updateUser(String userId, String password, String userName, String userJob, String userPhone)throws BaseException;

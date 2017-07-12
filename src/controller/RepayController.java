@@ -28,6 +28,8 @@ public class RepayController {
 	private ITravelUserService TravelUserService;
 	@Autowired
 	private IRepayService RepayService;
+	
+	
 	@RequestMapping( value = "/loadAllRepay.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String loadAllrepay() throws JSONException{	
@@ -39,6 +41,87 @@ public class RepayController {
 		List<BeanTravelUser> btu=new ArrayList<BeanTravelUser>();
 		try {
 			bb=RepayService.loadAllRepay();
+			bt=TravelService.loadTravel();
+			btu=TravelUserService.loadTravelUser();	
+		} catch (BaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		for(int i=0;i<bb.size();i++){
+			JSONObject jo = new JSONObject();
+			jo.put("repayId", bb.get(i).getRepayId());
+			jo.put("company", bb.get(i).getCompany());
+			jo.put("projectId", bb.get(i).getProjectId());
+			jo.put("reason", bb.get(i).getReason());
+			jo.put("annex", bb.get(i).getAnnex());
+			jo.put("annexPath", bb.get(i).getAnnexPath());
+			jo.put("checkDays", bb.get(i).getCheckDays());
+			jo.put("checkPlane", bb.get(i).getCheckPlane());
+			jo.put("checkTrain", bb.get(i).getCheckTrain());
+			jo.put("checkTOther", bb.get(i).getCheckTOther());
+			jo.put("checkStay", bb.get(i).getCheckStay());
+			jo.put("checkFood", bb.get(i).getCheckFood());
+			jo.put("checkMi", bb.get(i).getCheckMi());
+			jo.put("checkOther", bb.get(i).getCheckOther());
+			jo.put("sum", bb.get(i).getSum());	
+			jo.put("approvalId",bb.get(i).getApprovalId());
+			jo.put("data", bb.get(i).getData());
+			jo.put("applicationId", bb.get(i).getApplicationId());
+			jo.put("workerId", bb.get(i).getWorkerId());
+			jo.put("userName", bb.get(i).getUserName());
+			jo.put("money", bb.get(i).getMoney());
+			jo.put("cardNumber", bb.get(i).getCardNumber());
+			jo.put("auditor", bb.get(i).getAuditor());
+			for(int j=0;j<bt.size();j++){
+				JSONObject jobt = new JSONObject();
+				jobt.put("travelId", bt.get(j).getTravelId());
+				jobt.put("repayId", bt.get(j).getRepayId());
+				jobt.put("travelLocation", bt.get(j).getTravelLocation());
+				jobt.put("travelProvince" , bt.get(j).getTravelProvince());
+				
+				SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");  
+				String startData=sdf.format(bt.get(j).getStartData());
+				jobt.put("startData",  startData);
+				String endData=sdf.format(bt.get(j).getEndData());
+				jobt.put("endData", endData);
+				jobt.put("days", bt.get(j).getDays() );
+				jobt.put("plane" , bt.get(j).getPlane() );
+				jobt.put("train", bt.get(j).getTrain() );
+				jobt.put("tasfficOther" , bt.get(j).getTasfficOther() );
+				jobt.put("stayFees" , bt.get(j).getStayFees() );
+				jobt.put("foodFees" , bt.get(j).getFoodFees() );
+				jobt.put("miFess", bt.get(j).getMiFess() );
+				jobt.put("other", bt.get(j).getOther() ); 
+				jsarraybt.put(jobt);				 
+			}
+			jo.put("travel", jsarraybt);
+			for(int k=0;k<btu.size();k++){
+				JSONObject jobtu = new JSONObject();
+				jobtu.put("travelUserId", btu.get(k).getTravelUserId() );
+				jobtu.put("repayId", btu.get(k).getRepayId() );
+				jobtu.put("userName", btu.get(k).getUserName() );
+				jobtu.put("userJob", btu.get(k).getUserJob() );
+				jsarraybtu.put(jobtu);
+			}
+			jo.put("traveluser", jsarraybtu);
+			json.put(jo);
+		}
+		return json.toString();
+	}
+	
+	//导出所有等待审核的报销单
+	@RequestMapping( value = "/loadARepay.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String loadARepay() throws JSONException{	
+		JSONArray json = new JSONArray();
+		JSONArray jsarraybt = new JSONArray();
+		JSONArray jsarraybtu = new JSONArray();
+		List<BeanRepay> bb=new ArrayList<BeanRepay>();
+		List<BeanTravel> bt=new ArrayList<BeanTravel>();
+		List<BeanTravelUser> btu=new ArrayList<BeanTravelUser>();
+		try {
+			bb=RepayService.loadARepay();
 			bt=TravelService.loadTravel();
 			btu=TravelUserService.loadTravelUser();	
 		} catch (BaseException e) {
@@ -103,6 +186,8 @@ public class RepayController {
 		}
 		return json.toString();
 	}
+	
+	
 	@RequestMapping( value = "/searchRepay.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String Searchrepay(@RequestBody String params) throws JSONException{	
@@ -153,13 +238,16 @@ public class RepayController {
 			jobt.put("repayId", bt.get(j).getRepayId());
 			jobt.put("travelLocation", bt.get(j).getTravelLocation());
 			jobt.put("travelProvince" , bt.get(j).getTravelProvince());
-			jobt.put("startData", bt.get(j).getStartData() );
-			jobt.put("endData", bt.get(j).getEndData() );
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");  
+			String startData=sdf.format(bt.get(j).getStartData());
+			jobt.put("startData",  startData);
+			String endData=sdf.format(bt.get(j).getEndData());
+			jobt.put("endData", endData);
 			jobt.put("days", bt.get(j).getDays() );
 			jobt.put("plane" , bt.get(j).getPlane() );
 			jobt.put("train", bt.get(j).getTrain() );
 			jobt.put("tasfficOther" , bt.get(j).getTasfficOther() );
-			jobt.put("stayFees" , bt.get(j).getStartData() );
+			jobt.put("stayFees" , bt.get(j).getStayFees());
 			jobt.put("foodFees" , bt.get(j).getFoodFees() );
 			jobt.put("miFess", bt.get(j).getMiFess() );
 			jobt.put("other", bt.get(j).getOther() ); 
@@ -298,6 +386,7 @@ public class RepayController {
 		float checkMi = 0;
 		float checkOther = 0;
 		float sum=0;
+		System.out.println(jsarraybt.length()+"form control");
 		for(int i=0;i<jsarraybt.length();i++){
 			JSONObject jsonbt = jsarraybt.getJSONObject(i);
 			BeanTravel bt=new BeanTravel();
@@ -329,6 +418,7 @@ public class RepayController {
 			checkMi=checkMi+Float.parseFloat(jsonbt.getString("miFess"));
 			checkOther=checkOther+Float.parseFloat(jsonbt.getString("other"));
 			btlist.add(bt);
+			System.out.println(btlist.size()+"form control");
 		}
 		DateFormat fmt =new SimpleDateFormat("yyyy-MM-dd");
 		sum=checkPlane+checkTrain+checkTOther+checkStay+checkFood+checkMi+checkOther;
@@ -354,6 +444,7 @@ public class RepayController {
 		
 		try {
 			int Repayid = RepayService.SearchRepaymax();
+			
 			for(int i=0;i<btlist.size();i++){
 				TravelService.addTravel(Repayid, btlist.get(i).getTravelLocation(), btlist.get(i).getTravelProvince(),
 						btlist.get(i).getStartData(), btlist.get(i).getEndData(), btlist.get(i).getDays(), btlist.get(i).getPlane(),
@@ -386,4 +477,33 @@ public class RepayController {
 
 		return "1";
 	}
+	
+	//审核
+	@RequestMapping(value = "/repayApplication.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String repayApplication(@RequestBody String params) throws JSONException{  
+    	JSONObject js = new JSONObject(params);
+    	String repayId = (String) js.get("repayId");
+    	String applicationId = (String) js.get("applicationId");
+    	JSONObject json = new JSONObject();
+
+		try {
+			BeanRepay repay = RepayService.SearchRepay(Integer.valueOf(repayId));
+			RepayService.mordifyRepay(Integer.valueOf(repayId), repay.getCompany(), repay.getProjectId(), repay.getReason(), 
+					repay.getAnnex(), repay.getAnnexPath(), repay.getCheckDays(), repay.getCheckPlane(), repay.getCheckTrain(), 
+					repay.getCheckTOther(), repay.getCheckStay(), repay.getCheckFood(), repay.getCheckMi(), repay.getCheckOther(), 
+					repay.getSum(), repay.getApprovalId(), repay.getData(), applicationId, repay.getWorkerId(), repay.getUserName(), 
+					repay.getMoney(), repay.getCardNumber(), repay.getAuditor());
+			
+		} catch (NumberFormatException e1) {
+			// TODO 自动生成的 catch 块
+			e1.printStackTrace();
+		} catch (BaseException e1) {
+			// TODO 自动生成的 catch 块
+			e1.printStackTrace();
+		}
+		json.put("msg","succ");
+		
+		return json.toString(); 
+    }
 }

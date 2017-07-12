@@ -95,13 +95,13 @@ public class UserService implements IUserService{
 
 	//添加用户
 	@Override
-	public void addUser(String userId, String password, String userName, String userJob, String userPhone) throws BaseException {
+	public void addUser(String userId, String password,int roleid, String userName, String userJob, String userPhone) throws BaseException {
 		// TODO 自动生成的方法存根
 		BeanUser user = new BeanUser();
 		try {
 			user.setUserId(userId);
 			user.setPassword(encoderByMd5(password));
-
+			user.setRoleId(roleid);
 			user.setUserJob(userJob);
 			user.setUserName(userName);
 

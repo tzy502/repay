@@ -208,12 +208,41 @@ function GetRequest() {
 }   
 var Request = new Object(); 
 Request = GetRequest(); 
-var projectId,projectName, isBudget;
-projectId = Request['projectId'];
-projectName = Request['projectName'];
-isBudget = Request['isBudget'];
+var repayId;
+repayId = Request['repayId'];
+
 $(document).ready(function (){
+	var params = {
+			"repayId":repayId,
+	}
+	 $.ajax({    
+	        type: "post",    
+	        async: true,    
+	        url: "/repay/searchRepay.do",    
+	        data: JSON.stringify(params),
+	        dataType: "json",   
+	        contentType: "application/json; charset=utf-8",   
+	        success: function(data){
+	        	 alert(data);
+	        	 $("#company").val(data.company);
+	        	 $("#projectId").val(data.projectId);
+	        	 $("#reason").val(data.reason);
+	        	 $("#annex").val(data.annex);
+	        	 $("#workerId").val(data.workerId);
+	        	 $("#userName").val(data.userName);
+	        	 $("#cardNumber").val(data.cardNumber);
+	        	 $("#money").val(data.money);
+	        	 var travel = data.travel;
+	        	 alert(travel[0].train);
+	        	 
+			},
+	        error: function(XmlHttpRequest, textStatus, errorThrown){
+				layer.msg('error!',{icon:1,time:1000});
+			}
+		});
+
      $("#projectId").val(projectId);
+     
 })
 var obj = document.getElementById( "name" );	//获取表格的ID
 var obj2 = document.getElementById( "travel" );	//获取表格的ID

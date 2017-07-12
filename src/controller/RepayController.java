@@ -28,7 +28,7 @@ public class RepayController {
 	private ITravelUserService TravelUserService;
 	@Autowired
 	private IRepayService RepayService;
-	@RequestMapping( value = "/loadAllrepay.do", produces = "application/json; charset=utf-8") 
+	@RequestMapping( value = "/loadAllRepay.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String loadAllrepay() throws JSONException{	
 		JSONArray json = new JSONArray();
@@ -103,7 +103,7 @@ public class RepayController {
 		}
 		return json.toString();
 	}
-	@RequestMapping( value = "/Searchrepay.do", produces = "application/json; charset=utf-8") 
+	@RequestMapping( value = "/searchRepay.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String Searchrepay(@RequestBody String params) throws JSONException{	
 		JSONArray json = new JSONArray();
@@ -166,6 +166,7 @@ public class RepayController {
 			jsarraybt.put(jobt);				 
 		}
 		jo.put("travel", jsarraybt);
+		
 		for(int k=0;k<btu.size();k++){
 			JSONObject jobtu = new JSONObject();
 			jobtu.put("travelUserId", btu.get(k).getTravelUserId() );
@@ -175,14 +176,18 @@ public class RepayController {
 			jsarraybtu.put(jobtu);
 		}
 		jo.put("traveluser", jsarraybtu);
+		System.out.println(jo.toString());
 		return jo.toString();
 	}
-	@RequestMapping( value = "/addrepay.do", produces = "application/json; charset=utf-8") 
+	
+	
+	
+	@RequestMapping( value = "/updateRepay.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
-	public String addrepay(@RequestBody String params) throws JSONException, ParseException{	
+	public String updaterepay(@RequestBody String params) throws JSONException, ParseException{	
 		JSONObject jsonobject = new JSONObject(params);
 		JSONArray jsarraybt = jsonobject.getJSONArray("travel");
-		JSONArray jsarraybtu = new JSONArray("traveluser");
+		JSONArray jsarraybtu = jsonobject.getJSONArray("traveluser");
 		List<BeanTravel> btlist=new ArrayList<BeanTravel>();
 		List<BeanTravelUser> btulist=new ArrayList<BeanTravelUser>();
 		float checkDays = 0;
@@ -197,7 +202,7 @@ public class RepayController {
 		for(int i=0;i<jsarraybt.length();i++){
 			JSONObject jsonbt = jsarraybt.getJSONObject(i);
 			BeanTravel bt=new BeanTravel();
-			bt.setRepayId(Integer.valueOf(jsonobject.getString("travelId")));	
+			bt.setTravelId((Integer.valueOf(jsonobject.getString("travelId"))));	
 			bt.setRepayId(Integer.valueOf(jsonobject.getString("repayId")));
 			bt.setTravelLocation(jsonbt.getString("travelLocation"));
 			bt.setTravelProvince(jsonbt.getString("travelProvince"));
@@ -273,14 +278,17 @@ public class RepayController {
 		}
 
 		return "ok";
-	}@RequestMapping( value = "/updaterepay.do", produces = "application/json; charset=utf-8") 
+	}
+	
+	
+	@RequestMapping( value = "/addRepay.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
-	public String updaterepay(@RequestBody String params) throws JSONException, ParseException{	
+	public String addrepay(@RequestBody String params) throws JSONException, ParseException{	
 		JSONObject jsonobject = new JSONObject(params);
 		JSONArray jsarraybt = jsonobject.getJSONArray("travel");
-		JSONArray jsarraybtu = new JSONArray("traveluser");
+		JSONArray jsarraybtu = jsonobject.getJSONArray("traveluser");
 		List<BeanTravel> btlist=new ArrayList<BeanTravel>();
-		List<BeanTravelUser> btulist=new ArrayList<BeanTravelUser>();
+
 		float checkDays = 0;
 		float checkPlane = 0;
 		float checkTrain = 0;
@@ -293,7 +301,7 @@ public class RepayController {
 		for(int i=0;i<jsarraybt.length();i++){
 			JSONObject jsonbt = jsarraybt.getJSONObject(i);
 			BeanTravel bt=new BeanTravel();
-			bt.setRepayId(Integer.valueOf((String)jsonbt.get("repayId")));
+//			bt.setRepayId(Integer.valueOf((String)jsonbt.get("repayId")));
 			bt.setTravelLocation(jsonbt.getString("travelLocation"));
 			bt.setTravelProvince(jsonbt.getString("travelProvince"));
 			DateFormat fmt =new SimpleDateFormat("yyyy-MM-dd");
@@ -303,7 +311,7 @@ public class RepayController {
 			bt.setEndData(enddate);
 			long start=date.getTime();
 			long end=enddate.getTime();	
-			int days=(int)((start-end)/(1000 * 60 * 60 * 24)); 
+			int days=(int)((end-start)/(1000 * 60 * 60 * 24)); 
 			bt.setDays(days);		
 			bt.setPlane(Float.parseFloat(jsonbt.getString("plane")));
 			bt.setTrain(Float.parseFloat(jsonbt.getString("train")));
@@ -330,36 +338,47 @@ public class RepayController {
 		int annex=Integer.valueOf(jsonobject.getString("annex"));
 		String annexPath=jsonobject.getString("annexPath");
 		String approvalId=jsonobject.getString("approvalId");
-		String data=fmt.format(jsonobject.getString("data"));
 		String applicationId=jsonobject.getString("applicationId" );
 		String workerId=jsonobject.getString("workerId" );
 		String userName=jsonobject.getString("userName");
 		float money=Float.parseFloat(jsonobject.getString("money" ));
 		String cardNumber=jsonobject.getString("cardNumber" );
 		String auditor=jsonobject.getString("auditor");
+		String data=fmt.format(new Date());
 		try {
 			RepayService.addRepay(company, projectId, reason, annex, annexPath, checkDays, checkPlane, checkTrain, checkTOther, checkStay, checkFood, checkMi, checkOther, sum, approvalId, data, applicationId, workerId, userName, money, cardNumber, auditor);
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		int Repayid;
+		
 		try {
-			Repayid = RepayService.SearchRepaymax();
+			int Repayid = RepayService.SearchRepaymax();
 			for(int i=0;i<btlist.size();i++){
-				btlist.get(i).setRepayId(Repayid);
 				TravelService.addTravel(Repayid, btlist.get(i).getTravelLocation(), btlist.get(i).getTravelProvince(),
 						btlist.get(i).getStartData(), btlist.get(i).getEndData(), btlist.get(i).getDays(), btlist.get(i).getPlane(),
 						btlist.get(i).getTrain(), btlist.get(i).getTasfficOther(), btlist.get(i).getStayFees(),
 						btlist.get(i).getFoodFees(), btlist.get(i).getMiFess(), btlist.get(i).getOther());
 			}
 			for(int i=0;i<jsarraybtu.length();i++){
-				btulist=null;
-				JSONObject jsonbtu = jsarraybt.getJSONObject(i);
-				BeanTravelUser btu=new BeanTravelUser();
-				btu.setRepayId(Repayid);			
+				JSONObject jsonbtu = jsarraybtu.getJSONObject(i);		
 				TravelUserService.addTravelUser(Repayid, jsonbtu.getString("userName"), jsonbtu.getString("userJob"));
 			}
+		} catch (BaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "1";
+	}
+	
+	@RequestMapping( value = "/deleteRepay.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String deleterepay(@RequestBody String params) throws JSONException{	
+		JSONObject jsonobject = new JSONObject(params);
+		int repayId =Integer.valueOf((String)jsonobject.get("repayId"));
+		try {
+			RepayService.delRepay(repayId);
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

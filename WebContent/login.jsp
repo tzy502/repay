@@ -87,16 +87,16 @@ function login(){
 	        success: function(data){
 				layer.msg('登录成功!',{icon:1,time:1000});
 				document.cookie="userId="+userId;
-				window.location.href = 'user_main.jsp';
-				/* if(data.role == "user"){
+				//window.location.href = 'user_main.jsp';
+				 if(userId == "user1"){
 					window.location.href = 'user_main.jsp';
 				}
-				else if(data.role == "admin"){
+				else if(data.userName == "admin"){
 					window.location.href = 'admin_main.jsp';
 				}
 				else{
 					window.location.href = 'auditor_main.jsp';
-				} */
+				} 
 			},
 	        error: function(XmlHttpRequest, textStatus, errorThrown){
 				layer.msg('error!',{icon:1,time:1000});

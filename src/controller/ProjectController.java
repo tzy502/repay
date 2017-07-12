@@ -259,6 +259,7 @@ public class ProjectController {
 	@RequestMapping(value = "/applySuccProject.do", produces = "application/json; charset=utf-8") 
 	@ResponseBody
 	public String applySuccProject(@RequestBody String params) throws JSONException{
+		System.out.println(params);
 		JSONObject json = new JSONObject(params);
 		String projectId = (String) json.get("projectId");
 		int isBudget = (int)json.get("isBudget");

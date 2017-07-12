@@ -159,7 +159,7 @@ $(document).ready(function (){
 			itemBudget.push(item);
     	}
 		params["itemBudget"]=itemBudget;
-		alert(JSON.stringify(params));
+		//alert(JSON.stringify(params));
 	     $.ajax({    
 	        type: "post",    
 	        async: true,    
@@ -174,15 +174,15 @@ $(document).ready(function (){
 				layer.msg('error!',{icon:1,time:1000});
 			}
 		});
-	    var params={
+	    var param={
 		 			"projectId":document.getElementById("projectId").value,
-			    	"isBudget":"1",
+			    	"isBudget":1,
 		} 
 	    $.ajax({    
 		        type: "post",    
 		        async: true,    
 		        url: "/repay/applySuccProject.do",    
-		        data: JSON.stringify(params),
+		        data: JSON.stringify(param),
 		        dataType: "json",   
 		        contentType: "application/json; charset=utf-8",   
 		        success: function(data){

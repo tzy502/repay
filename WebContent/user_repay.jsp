@@ -40,13 +40,12 @@
 			</tr>
 			<tr class="text-c">
 				<th width="40">ID</th>
-				<th width="40">项目编号</th>
-				<th width="40">报销人</th>
-				<th width="40">审核人</th>
-				<th width="40">查看详情</th>
-				<th width="40"></th>
-				<th width="40">查看项目预算</th>
-				<th width="100">操作</th>
+				<th width="40">单位</th>
+				<th width="40">项目经费代码</th>
+				<th width="40">出差事由</th>
+				<th width="40">状态</th>
+				<th width="40">修改</th>
+				<th width="40">删除</th>
 			</tr>
 		</thead>
 		<tbody id = 'tbody-allProject'>
@@ -77,37 +76,23 @@
 
 $(document).ready(function (){
 	$('body').on('click','#update',function(event){
-		layer_show('项目编辑','project_update.jsp?projectId='+this.title,'800','500');
+		layer_show('项目编辑','repay_update.jsp?repayId='+this.title,'800','500');
 	}); 
-	$('body').on('click','#budgetSee',function(event){
-		alert("123");
-		alert(this.value);
-		layer_show('查看预算','budget_see.jsp?projectId='+this.title,'800','500');
-	}); 
-	$('body').on('click','#projectSee',function(event){
-		layer_show('查看项目','project_see.jsp?projectId='+this.title,'800','400');
-	});
-	$('body').on('click','#addRepay',function(event){
-		layer_show('创建报销单','repay_add.jsp?'+this.title,'800','500');
-	});
-	$('body').on('click','#addSummary',function(event){
-		layer_show('创建汇总单','summary_add.jsp?'+this.title,'800','500');
-	});
 	$('body').on('click','#delete',function(event){
-		var projectId = this.title;
+		var repayId = this.title;
 		layer.confirm('确认要删除吗？',function(){
 			var params={
-			    	"projectId":projectId,
+			    	"repayId":repayId,
 			}
 			$.ajax({
 				type: 'POST',
-				url: '/repay/deleteProject.do',
+				url: '/repay/deleteRepay.do',
 				data: JSON.stringify(params),
 				dataType: 'json',
 				contentType: "application/json; charset=utf-8",
 				success: function(data){
 					layer.msg('已删除!',{icon:1,time:1000});
-					window.location.href = 'user_project.jsp';
+					window.location.href = 'user_repay.jsp';
 					
 				},
 				error:function(data) {
@@ -124,8 +109,8 @@ $(document).ready(function (){
 	$.ajax({    
         type: "post",    
         async: true,    
-        url: "/repay/searchUserProject.do",  
-        data: JSON.stringify(params),
+        url: "/repay/loadAllRepay.do",  
+        //data: JSON.stringify(params),
         dataType: "json", 
         contentType: "application/json; charset=utf-8",   
         error: function(data){  
@@ -136,107 +121,44 @@ $(document).ready(function (){
     		for(var i = 0; i < data.length; i++){
     			str += "<tr class='text-c'>"+
 				"<td>"+(i+1)+"</td>"+
-				"<td>"+data[i].projectName+"</td>";
-				if(data[i].isBudget == 0){
-					str+="<td>预算未创建</td>";
+				"<td>"+data[i].company+"</td>"+
+				"<td>"+data[i].projectId+"</td>"+
+				"<td>"+data[i].reason+"</td>";
+				if(data[i].applicationId == null || data[i].applicationId == ''){
+					str += "<td>未审核</td>";
+					str+="<td class='td-manage'>"+
+					"<a style='text-decoration:none' id = 'update' href='javascript:;' title='"+data[i].repayId+"'"+
+						"<i class='Hui-iconfont'>&#xe6df;</i>"+
+					"</a>"+
+					"</td>";
+					str+="<td class='td-manage'><a style='text-decoration:none' id = 'delete' href='javascript:;'   title='"+data[i].repayId+"'>"+
+						"<i class='Hui-iconfont'>&#xe6e2;</i>"+
+					"</a></td>";
+				}
+				else if(data[i].applicationId == '-1'){
+					str += "<td>审核未通过</td>";
+					str+="<td class='td-manage'>"+
+					"<a style='text-decoration:none' id = 'update' href='javascript:;' title='"+data[i].repayId+"'"+
+						"<i class='Hui-iconfont'>&#xe6df;</i>"+
+					"</a>"+
+					"</td>";
+					str+="<td class='td-manage'><a style='text-decoration:none' id = 'delete' href='javascript:;'   title='"+data[i].repayId+"'>"+
+						"<i class='Hui-iconfont'>&#xe6e2;</i>"+
+					"</a></td>";
 				}
 				else{
-					str+="<td>预算已创建</td>";
-				}
-				str+="<td class='td-manage'>"+
-				"<a style='text-decoration:none' id = 'projectSee' href='javascript:;' title='"+data[i].projectId+"'>"+
-					"<i class='Hui-iconfont'>&#xe695;</i>"+
-				"</a>"+
-				"</td>";
-				
-				if(data[i].isBudget==1){
+					str += "<td>审核通过</td>";
 					str+="<td class='td-manage'>"+
-					"<a style='text-decoration:none' id = 'addRepay' href='javascript:;' title='projectId="+data[i].projectId+"&projectName="+data[i].projectName+"&isBudget="+data[i].isBudget+"'>"+
-						"<i class='Hui-iconfont'>&#xe604;</i>"+
-					"</a>"+
-					"</td>";
-					str+="<td class='td-manage'>"+
-					"<a style='text-decoration:none' id = 'addSummary' href='javascript:;' title='projectId="+data[i].projectId+"&projectName="+data[i].projectName+"&isBudget="+data[i].isBudget+"'>"+
-						"<i class='Hui-iconfont'>&#xe604;</i>"+
-					"</a>"+
-					"</td>";
-					str+="<td class='td-manage'><a style='text-decoration:none' id = 'budgetSee' href='javascript:;'   title='"+data[i].projectId+"'>"+
-						"<i class='Hui-iconfont'>&#xe695;</i>"+
-					"</a></td>";
-				}
-				else if(data[i].isBudget==2){
-					str+="<td class='td-manage'>"+
-					"<a style='text-decoration:none'>"+
+					"<a style='text-decoration:none' "+
 						"<i class='Hui-iconfont'>&#xe6dd;</i>"+
-					"</a>"+
-					"</td>";
-					str+="<td class='td-manage'>"+
-					"<a style='text-decoration:none' id = 'addSummary' href='javascript:;' title='projectId="+data[i].projectId+"&projectName="+data[i].projectName+"&isBudget="+data[i].isBudget+"'"+
-						"<i class='Hui-iconfont'>&#xe604;</i>"+
-					"</a>"+
-					"</td>";
-					str+="<td class='td-manage'><a style='text-decoration:none' id = 'budgetSee' href='javascript:;'   title='"+data[i].projectId+"'>"+
-						"<i class='Hui-iconfont'>&#xe695;</i>"+
-					"</a></td>";
-				}
-				else if(data[i].isBudget==3){
-					str+="<td class='td-manage'>"+
-					"<a style='text-decoration:none' id = 'addRepay' href='javascript:;' title='projectId="+data[i].projectId+"&projectName="+data[i].projectName+"&isBudget="+data[i].isBudget+"'>"+
-						"<i class='Hui-iconfont'>&#xe604;</i>"+
-					"</a>"+
-					"</td>";
-					str+="<td class='td-manage'>"+
-					"<a style='text-decoration:none'>"+
-						"<i class='Hui-iconfont'>&#xe6dd;</i>"+
-					"</a>"+
-					"</td>";
-					str+="<td class='td-manage'><a style='text-decoration:none' id = 'budgetSee' href='javascript:;'   title='"+data[i].projectId+"'>"+
-						"<i class='Hui-iconfont'>&#xe695;</i>"+
-					"</a></td>";				
-				}
-				else if(data[i].isBudget==4 || data[i].isBudget==5 || data[i].isBudget==6 || data[i].isBudget==7){
-					str+="<td class='td-manage'>"+
-					"<a style='text-decoration:none'>"+
-						"<i class='Hui-iconfont'>&#xe6dd;</i>"+
-					"</a>"+
-					"</td>";
-					str+="<td class='td-manage'>"+
-					"<a style='text-decoration:none'>"+
-						"<i class='Hui-iconfont'>&#xe6dd;</i>"+
-					"</a>"+
-					"</td>";
-					str+="<td class='td-manage'><a style='text-decoration:none' id = 'budgetSee' href='javascript:;'   title='"+data[i].projectId+"'>"+
-						"<i class='Hui-iconfont'>&#xe695;</i>"+
-					"</a></td>";
-				}			
-				else{
-					str+="<td class='td-manage'>"+
-					"<a style='text-decoration:none' >"+
-					"<i class='Hui-iconfont'>&#xe6dd;</i>"+
-					"</a>"+
-					"</td>";
-					str+="<td class='td-manage'>"+
-					"<a style='text-decoration:none'>"+
-					"<i class='Hui-iconfont'>&#xe6dd;</i>"+	
 					"</a>"+
 					"</td>";
 					str+="<td class='td-manage'><a style='text-decoration:none'>"+
-					"<i class='Hui-iconfont'>&#xe6dd;</i>"+
+						"<i class='Hui-iconfont'>&#xe6dd;</i>"+
 					"</a></td>";
 				}
-				str+="<td class='td-manage'>"+
-				"<a style='text-decoration:none' id = 'update' href='javascript:;' title='"+data[i].projectId+"'>"+
-					"<i class='Hui-iconfont'>&#xe6df;</i>"+
-				"</a>"+
-				"<a style='text-decoration:none' id = 'delete' href='javascript:;' title='"+data[i].projectId+"'>"+
-					"<i class='Hui-iconfont'>&#xe6e2;</i>"+
-				"</a>"+
-				"</td></tr>";
-
-        		}
-        	
         	$("#tbody-allProject").html(str);  
-        	 
+    	} 
         }     
     });
 

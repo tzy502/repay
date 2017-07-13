@@ -64,6 +64,7 @@
 	
 	<div class="row cl">
 		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+		<input class="btn btn-primary radius" type="button" onclick = "chart()" value="&nbsp;&nbsp;查看图表&nbsp;&nbsp;">
 			<input class="btn btn-primary radius" type="button" onclick = "application()" value="&nbsp;&nbsp;审核&nbsp;&nbsp;">
 		</div>
 	</div>
@@ -227,7 +228,9 @@ function application(){
 	        dataType: "json",   
 	        contentType: "application/json; charset=utf-8",   
 	        success: function(data){
-
+	        	var index = parent.layer.getFrameIndex(window.name);
+	        	parent.$('.btn-refresh').click();
+	    		parent.layer.close(index); 
 			},
 	        error: function(XmlHttpRequest, textStatus, errorThrown){
 				layer.msg('error!',{icon:1,time:1000});
@@ -254,7 +257,11 @@ function application(){
 		}
 	}); */
 }
-		
+
+function chart(){
+	window.location.href = 'application_chart.jsp?summaryId='+summaryId+'&projectId='+document.getElementById("projectId").value;
+
+}
 /* 		
 		 var itemCost = [];
 		for(var i = 0; i < j; i++){

@@ -53,7 +53,7 @@
 
       <div class="row cl">
         <div class="formControls col-xs-4 col-xs-offset-4">
-         	<input name="" type="button"  onclick = 'register()' class="btn btn-success radius size-L" value="&nbsp;注&nbsp;&nbsp;&nbsp;&nbsp;册&nbsp;">
+         	<input name="" type="button"  onclick = 'register()' class="btn btn-success radius size-L" value="&nbsp;确&nbsp;&nbsp;&nbsp;&nbsp;认&nbsp;">
          	 <input name="" type="reset"   class="btn btn-default radius size-L" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
         </div>
       </div>
@@ -111,16 +111,21 @@ function register(){
 	        dataType: "json",   
 	        contentType: "application/json; charset=utf-8",   
 	        success: function(data){
-	        	layer.msg('注册成功!',{icon:1,time:1000});
-				window.location.href = 'login.jsp';
+	        	if(data.msg == "succ"){
+	        		layer.msg('修改密码成功!',{icon:1,time:1000});
+	        		var index = parent.layer.getFrameIndex(window.name);
+	        		parent.$('.btn-refresh').click();
+	        		parent.layer.close(index);
+	        	}
+	        	else{
+	        		layer.msg(data.msg,{icon:2,time:1000});
+	        	}
 			},
 	        error: function(XmlHttpRequest, textStatus, errorThrown){
 				layer.msg('error!',{icon:1,time:1000});
 			}
 		});
-	var index = parent.layer.getFrameIndex(window.name);
-	parent.$('.btn-refresh').click();
-	parent.layer.close(index);
+	
 }
 </script> 
 <!--/请在上方写此页面业务相关的脚本-->

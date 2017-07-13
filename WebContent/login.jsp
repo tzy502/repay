@@ -85,18 +85,23 @@ function login(){
 	        dataType: "json",   
 	        contentType: "application/json; charset=utf-8",   
 	        success: function(data){
-				layer.msg('登录成功!',{icon:1,time:1000});
-				document.cookie="userId="+userId;
-				//window.location.href = 'user_main.jsp';
-				 if(userId == "user1"){
-					window.location.href = 'user_main.jsp';
-				}
-				else if(data.userName == "admin"){
-					window.location.href = 'admin_main.jsp';
-				}
-				else{
-					window.location.href = 'auditor_main.jsp';
-				} 
+	        	if(data.msg != "succ"){
+	        		layer.msg(data.msg,{icon:2,time:1000});
+	        	}
+	        	else{
+	        		document.cookie="userId="+userId;
+	        		layer.msg('登录成功!',{icon:1,time:1000});
+	        		if(data.roleId == 0){
+	        			window.location.href = 'admin_main.jsp';
+	        		}
+	        		else if(data.roleId == 1){
+	        			window.location.href = 'auditor_main.jsp';
+	        		}
+	        		else if(data.roleId == 2){
+	        			window.location.href = 'user_main.jsp';
+	        		}
+	        	}
+	  
 			},
 	        error: function(XmlHttpRequest, textStatus, errorThrown){
 				layer.msg('error!',{icon:1,time:1000});

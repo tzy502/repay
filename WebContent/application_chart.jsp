@@ -57,76 +57,83 @@ Request = GetRequest();
 var summaryId,projectId;
 summaryId = Request['summaryId'];
 projectId = Request['projectId'];
+//summaryId = '6';
+//projectId = '13';
 $(function () {
 	var params={
 			"summaryId":summaryId,
 			"projectId":projectId,
 	} 
-	var xData = ["12","2"];  
+	//var xData = ["12","121"];  
+	
 	$.ajax({    
-	       type: "post",    
-	       async: true,    
+	       type: "post",      
 	       url: "/repay/applicationSummary.do",    
 	       data: JSON.stringify(params),
 	       dataType: "json",   
 	       contentType: "application/json; charset=utf-8",   
 	       success: function(data){
-	    	   	
-	       		for(var k = 0; k < data.length; k++){
-	       			//xData.push(data[k].itemName);
-	       		}
-	       		alert(xData);
-	       		alert("12"+$('#container').highchsrts);
-	       		$('#container').highcharts.xAxis.categories = xData;
+	    	   var xData = [];
+	    	  
+	    	   	var itemCost = [];
+	    	   	var itemBudgetCost = [];
+		       	for(var k = 0; k < data.length; k++){
+		       		xData.push(data[k].itemName);	
+		       		itemCost.push(data[k].itemCost);
+		       		itemBudgetCost.push(data[k].itemBudgetCost);
+		       	}
+	      		
+	       	    $('#container').highcharts({
+	       	        chart: {
+	       	            type: 'column'
+	       	        },
+	       	        title: {
+	       	            text: '项目预算与申报费用柱形图'
+	       	        },
+	       	        subtitle: {
+	       	            text: ''
+	       	        },
+	       	        
+	       	        tooltip: {
+	       	            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+	       	            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+	       	                '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+	       	            footerFormat: '</table>',
+	       	            shared: true,
+	       	            useHTML: true
+	       	        },
+	       	        plotOptions: {
+	       	            column: {
+	       	                pointPadding: 0.2,
+	       	                borderWidth: 0
+	       	            }
+	       	        },
+	       	        xAxis: {
+	       	            categories: xData
+	       	        },
+	       	        yAxis: {
+	       	            min: 0,
+	       	            title: {
+	       	                text: '万元'
+	       	            }
+	       	        },
+	       	        series: [  {
+	       	            name: '费用',
+	       	            data: itemCost
+
+	       	        }, {
+	       	            name: '预算',
+	       	            data: itemBudgetCost
+
+	       	        }  ]
+	       	    });
 			},
 	       error: function(XmlHttpRequest, textStatus, errorThrown){
 				layer.msg('error!',{icon:1,time:1000});
 			}
 		});
-    $('#container').highcharts({
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'Monthly Average Rainfall'
-        },
-        subtitle: {
-            text: 'Source: WorldClimate.com'
-        },
-        xAxis: {
-            categories: xData
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Rainfall (mm)'
-            }
-        },
-        tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-        },
-        plotOptions: {
-            column: {
-                pointPadding: 0.2,
-                borderWidth: 0
-            }
-        },
-        series: [ {
-            name: 'Tokyo',
-            data: [49.9, 71.5]
+	
 
-        }, {
-            name: 'New York',
-            data: [83.6, 78.8]
-
-        } ]
-    });
-    
     
 	
 

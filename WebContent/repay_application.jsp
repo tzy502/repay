@@ -200,7 +200,9 @@ repayId = Request['repayId'];
 
 var j = 0;
 var k = 0;
+
 $(document).ready(function (){
+	alert("123");
 	var params = {
 			"repayId":repayId,
 	}
@@ -287,7 +289,7 @@ function repayApplication(){
 		}
 	});
  	
- 	var isBudget,;
+ 	var isBudget;
  	var params = {
  			"projectId":document.getElementById("projectId").value,
 	}
@@ -324,12 +326,15 @@ function repayApplication(){
 	        dataType: "json",   
 	        contentType: "application/json; charset=utf-8",   
 	        success: function(data){
-
+				
 			},
 	        error: function(XmlHttpRequest, textStatus, errorThrown){
 				layer.msg('error!',{icon:1,time:1000});
 			}
-	});   
+	});  
+    var index = parent.layer.getFrameIndex(window.name);
+	parent.$('.btn-refresh').click();
+	parent.layer.close(index); 
 }
 </script> 
 <!--/请在上方写此页面业务相关的脚本-->

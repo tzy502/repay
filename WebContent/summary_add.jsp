@@ -66,10 +66,10 @@
 	
 	</form>
 	<form>
-		<input type = 'hidden' id = 'summaryId' value = 'prokectId1'>
+		
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">单据上传：</label>
-			<div class="formControls col-xs-8 col-sm-9">
+			<label class="form-label col-xs-2 col-sm-2">单据上传：</label>
+			<div class="formControls col-xs-1 col-sm-8">
 				<div class="uploader-list-container"> 
 					<div class="queueList">
 						<div id="dndArea" class="placeholder">
@@ -82,6 +82,7 @@
 						<div class="progress"> <span class="text">0%</span> <span class="percentage"></span> </div>
 						<div class="info"></div>
 						<div class="btns">
+							<input type = 'hidden' id = 'summaryId' value = 'prokectId1'>
 							<div id="filePicker2"></div>
 							<div class="uploadBtn">开始上传</div>
 						</div>
@@ -508,7 +509,9 @@ $(function(){
                 label: '点击选择图片'
             },
             formData: {
-                uid: 123
+                uid: 123,
+                projectId:document.getElementById("projectId").value,
+          
             },
             dnd: '#dndArea',
             paste: '#uploader',

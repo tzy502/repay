@@ -93,7 +93,7 @@ $(document).ready(function (){
 	        	alert("出错了！！:"+data.msg);
 	        } , 
 	        success: function(data) { 
-	        	alert(data.isBudget)
+	        	//alert(data.isBudget)
 	        	if(data.isBudget == 1){
 	        		layer_show('修改项目预算','budget_update.jsp?'+st[0],'800','500');
 	        	}

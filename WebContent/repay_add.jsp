@@ -39,16 +39,12 @@
 							<tr>
 								<th width = '2%'><input class="btn btn-primary size-S radius" type="button" value="添加" onclick="AddColumn()"></th>
 								<th width = '10%'>姓名</th>
-								<td width = '8%'><input type="text" placeholder="姓名" class="input-text radius size-S"></td>
-								<td width = '8%'><input type="text" placeholder="姓名" class="input-text radius size-S"></td>
-								<td width = '8%'><input type="text" placeholder="姓名" class="input-text radius size-S"></td>
+								<td width = '8%'><input type="text" id = "travelUserName0" placeholder="姓名" class="input-text radius size-S"></td>	
 							</tr>
 							<tr>
 								<th></th>
 								<th width = '10%'>职称</th>
-								<td width = '8%'><input type="text" placeholder="姓名" class="input-text radius size-S"></td>
-								<td width = '8%'><input type="text" placeholder="姓名" class="input-text radius size-S"></td><td width = '8%'>
-								<input type="text" placeholder="姓名" class="input-text radius size-S"></td>
+								<td width = '8%'><input type="text" id = "travelUserJob0" placeholder="职务" class="input-text radius size-S"></td>
 							</tr>
 							
 						</tbody>
@@ -239,17 +235,19 @@ function AddRow(  ){
 	tRow.insertCell(10).innerHTML = "<td width = '5%'><input type='text' id = 'other"+index+"' class='input-text radius size-S'></td>";
 }
 
+var indexY = 0;
 //增加列
 function AddColumn(  )
 {
+	indexY++;
 	var rowCount = obj.rows.length;
 	var cellCount = obj.rows[0].cells.length;
 	var tRow = obj.rows[0];
 	var tCell = tRow.insertCell( cellCount );
-	tCell.innerHTML = "<td width = '5%'><input type='text' placeholder='单位（公章）' class='input-text radius size-S'></td>";
+	tCell.innerHTML = "<td width = '5%'><input type='text' id = 'travelUserName"+indexY+"' placeholder='' class='input-text radius size-S'></td>";
 	var tRow = obj.rows[1];
 	var tCell = tRow.insertCell( cellCount );
-	tCell.innerHTML = "<td width = '5%'><input type='text' placeholder='单位（公章）' class='input-text radius size-S'></td>";
+	tCell.innerHTML = "<td width = '5%'><input type='text' id = 'travelUserJob"+indexY+"' placeholder='' class='input-text radius size-S'></td>";
 }
 
 function addRepay(){
@@ -273,12 +271,15 @@ function addRepay(){
 		}
 		itemTravel.push(travel);
 	}
-	alert(itemTravel);
-	var user = {
-			"userName":"userna",
-			"userJob":"job1",
+	//alert(itemTravel);
+	for(var j = 0; j <= indexY; j++){
+		var user = {
+				"userName":document.getElementById("travelUserName"+j).value,
+				"userJob":document.getElementById("travelUserJob"+j).value,
+		}
+		travelUser.push(user);
 	}
-	travelUser.push(user);
+	
  	 var params={
  			"projectId":document.getElementById("projectId").value,
 	    	"company":document.getElementById("company").value,

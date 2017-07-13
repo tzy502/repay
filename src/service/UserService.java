@@ -56,8 +56,24 @@ public class UserService implements IUserService{
 	public BeanUser login(String userId, String password) throws BaseException {
 		// TODO 自动生成的方法存根
 		BeanUser user = IUserDao.SearchUser(userId);
-		if(!user.getPassword().equals(password)){
-			throw new BaseException("密码错误！");
+		if(user == null){
+			throw new BaseException("用户名不存在!");
+		}
+		
+		try {
+			System.out.println("12345678:"+encoderByMd5("12345678"));
+			System.out.println("123456:"+encoderByMd5("123456"));
+			System.out.println("password:"+encoderByMd5(password));
+			System.out.println(user.getPassword());
+			if(checkPassword(password,user.getPassword()) != true){
+				throw new BaseException("密码错误！");
+			}
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return user;
 	}
@@ -68,9 +84,9 @@ public class UserService implements IUserService{
 		// TODO 自动生成的方法存根
 		BeanUser user = IUserDao.SearchUser(userId);
 		try {
-			if(checkPassword(user.getPassword(),oldPassword)){
-				user.setPassword(newPassword);
-				IUserDao.addUser(user);
+			if(checkPassword(oldPassword,user.getPassword()) == true){
+				user.setPassword(encoderByMd5(newPassword));
+				IUserDao.modifryUser(user);
 			}
 			else{
 				throw new BaseException("原密码错误！");
@@ -89,8 +105,14 @@ public class UserService implements IUserService{
 	public void resetPassword(String userId) throws BaseException {
 		// TODO 自动生成的方法存根
 		BeanUser user = IUserDao.SearchUser(userId);
-		user.setPassword("12345678");
-		IUserDao.addUser(user);
+		try {
+			user.setPassword(encoderByMd5("123456"));
+		} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		IUserDao.modifryUser(user);
 	}
 
 	//添加用户
@@ -121,20 +143,11 @@ public class UserService implements IUserService{
 	public void updateUser(String userId, String password, String userName, String userJob, String userPhone) throws BaseException {
 		// TODO 自动生成的方法存根
 		BeanUser user = IUserDao.SearchUser(userId);
-		try {
-			user.setUserId(userId);
-			user.setPassword(encoderByMd5(password));
-			user.setUserJob(userJob);
-			user.setUserName(userName);
-			user.setUserPhone(userPhone);
-			IUserDao.addUser(user);
-		} catch (NoSuchAlgorithmException e) {
-			// TODO 自动生成的 catch 块
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			// TODO 自动生成的 catch 块
-			e.printStackTrace();
-		}
+		user.setUserId(userId);
+		user.setUserJob(userJob);
+		user.setUserName(userName);
+		user.setUserPhone(userPhone);
+		IUserDao.modifryUser(user);
 
 	}
 

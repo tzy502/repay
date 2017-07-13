@@ -32,7 +32,7 @@
 		<input type="text" class="input-text" style="width:250px" placeholder="输入用户名称" id="" name="">
 		<button type="submit" class="btn btn-success" id="searchItem" name="searchBudget" onclick = "searchItem();"><i class="Hui-iconfont">&#xe665;</i> 搜预算项目</button>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a href="javascript:;" onclick="budget_add('添加预算项目','budget_add.jsp','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加项目预算</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
 	<table class="table table-border table-bordered table-bg">
 		<thead>
 			<tr>
@@ -122,9 +122,7 @@ $(document).ready(function (){
 				"<td>"+data[i].independentFees+"</td>"+
 				"<td>"+data[i].applyFees+"</td>"+
 				"<td class='td-manage'>"+
-				"<a style='text-decoration:none' id = 'update' href='javascript:;' title='"+data[i].budgetId+"'>"+
-					"<i class='Hui-iconfont'>&#xe6df;</i>"+
-				"</a>"+
+			
 				"<a style='text-decoration:none' id = 'delete' href='javascript:;' title='"+data[i].budgetId+"'>"+
 					"<i class='Hui-iconfont'>&#xe6e2;</i>"+
 				"</a>"+
@@ -162,9 +160,7 @@ function searchBudget(){
 				"<td>"+data[i].independentFees+"</td>"+
 				"<td>"+data[i].applyFees+"</td>"+
 				"<td class='td-manage'>"+
-				"<a style='text-decoration:none' id = 'update' href='javascript:;' title='"+data[i].budgetId+"'>"+
-					"<i class='Hui-iconfont'>&#xe6df;</i>"+
-				"</a>"+
+			
 				"<a style='text-decoration:none' id = 'delete' href='javascript:;' title='"+data[i].budgetId+"'>"+
 					"<i class='Hui-iconfont'>&#xe6e2;</i>"+
 				"</a>"+

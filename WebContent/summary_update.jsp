@@ -82,6 +82,8 @@
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/validate-methods.js"></script> 
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/messages_zh.js"></script> 
 <script type="text/javascript">
+var index = parent.layer.getFrameIndex(window.name);
+
 var j = 0;
 function GetRequest() {   
 	   var url = location.search; 
@@ -193,7 +195,6 @@ $(document).ready(function (){
 		} 
 		
 		params["itemCost"]=itemCost; 
-		alert(JSON.stringify(params));
 		  $.ajax({    
 	        type: "post",    
 	        async: true,    
@@ -202,40 +203,15 @@ $(document).ready(function (){
 	        dataType: "json",   
 	        contentType: "application/json; charset=utf-8",   
 	        success: function(data){
-				
+	        	parent.$('.btn-refresh').click();
+	    		parent.layer.close(index); 
 			},
 	        error: function(XmlHttpRequest, textStatus, errorThrown){
 				layer.msg('error!',{icon:1,time:1000});
 			}
 		});
 		  
-		  if(isBudget == 2){
-		    	isBudget = 4;
-		   }
-		  else{
-		    isBudget = 3;
-		  }	
-		    var params={
-			 			"projectId":document.getElementById("projectId").value,
-				    	"isBudget":isBudget,
-			} 
-		    $.ajax({    
-			        type: "post",    
-			        async: true,    
-			        url: "/repay/applySuccProject.do",    
-			        data: JSON.stringify(params),
-			        dataType: "json",   
-			        contentType: "application/json; charset=utf-8",   
-			        success: function(data){
-
-					},
-			        error: function(XmlHttpRequest, textStatus, errorThrown){
-						layer.msg('error!',{icon:1,time:1000});
-					}
-			});
-		var index = parent.layer.getFrameIndex(window.name);
-		parent.$('.btn-refresh').click();
-		parent.layer.close(index);  
+		
 }
 </script> 
 <!--/请在上方写此页面业务相关的脚本-->

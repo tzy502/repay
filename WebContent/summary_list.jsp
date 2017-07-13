@@ -32,7 +32,7 @@
 		<input type="text" class="input-text" style="width:250px" placeholder="输入用户名称" id="" name="">
 		<button type="submit" class="btn btn-success" id="searchItem" name="searchItem" onclick = "searchItem();"><i class="Hui-iconfont">&#xe665;</i> 搜报销项目</button>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a href="javascript:;" onclick="summary_add('添加汇总单','summary_add.jsp','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加汇总单</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20">  <span class="r">共有数据：<strong>54</strong> 条</span> </div>
 	<table class="table table-border table-bordered table-bg">
 		<thead>
 			<tr>
@@ -45,6 +45,7 @@
 				<th width="40">合计人民币</th>
 				<th width="40">经费主管</th>
 				<th width="40">经办人</th>
+				<th width="40">查看单据</th>
 				<th width="100">操作</th>
 			</tr>
 		</thead>
@@ -79,6 +80,11 @@ $(document).ready(function (){
 	$('body').on('click','#update',function(event){
 		layer_show('项目编辑','summary_update.jsp?summaryId='+this.title,'800','500');
 	}); 
+	$('body').on('click','#summaryPicture',function(event){
+		layer_show('单据查看','summary_picture.jsp?projectId='+this.title,'800','500');
+	});
+	
+	
 	$('body').on('click','#delete',function(event){
 		var summaryId = this.title;
 		layer.confirm('确认要删除吗？',function(){
@@ -124,11 +130,11 @@ $(document).ready(function (){
 				"<td>"+data[i].projectId+"</td>"+
 				"<td>"+data[i].sum+"</td>"+
 				"<td>"+data[i].manager+"</td>"+
-				"<td>"+data[i].applicationId+"</td>"+
-				"<td class='td-manage'>"+
-				"<a style='text-decoration:none' id = 'update' href='javascript:;' title='"+data[i].summaryId+"'>"+
-					"<i class='Hui-iconfont'>&#xe6df;</i>"+
-				"</a>"+
+				"<td>"+data[i].applicationId+"</td>";
+				str+="<td class='td-manage'><a style='text-decoration:none' id = 'summaryPicture' href='javascript:;'   title='"+data[i].projectId+"'>"+
+				"<i class='Hui-iconfont'>&#xe695;</i>"+
+				"</a></td>";
+				str+="<td class='td-manage'>"+
 				"<a style='text-decoration:none' id = 'delete' href='javascript:;' title='"+data[i].summaryId+"'>"+
 					"<i class='Hui-iconfont'>&#xe6e2;</i>"+
 				"</a>"+

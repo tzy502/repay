@@ -201,8 +201,8 @@ public class RepayController {
 		List<BeanTravelUser> btu=new ArrayList<BeanTravelUser>();
 		try {
 			bb=RepayService.SearchRepay(repayid);
-			bt=TravelService.loadTravel();
-			btu=TravelUserService.loadTravelUser();	
+			bt=TravelService.searchTravelbyrepayid(repayid);
+			btu=TravelUserService.searchTravelUserbyrepayid(repayid);
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

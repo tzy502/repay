@@ -34,11 +34,10 @@
 		<div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs" >发票报销系统</a> 
 			<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
 				<ul class="cl">
-					<li>管理员</li>
+					<li>用户</li>
 					<li class="dropDown dropDown_hover">
-						<a href="#" class="dropDown_A"><i class='Hui-iconfont'>&#xe60a;</i>user <i class="Hui-iconfont">&#xe6d5;</i></a>
+						<a href="#" class="dropDown_A"><i class='Hui-iconfont'>&#xe60a;</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <i class="Hui-iconfont">&#xe6d5;</i></a>
 						<ul class="dropDown-menu menu radius box-shadow">
-							<li><a href="javascript:;" onClick="myselfinfo()"><i class='Hui-iconfont'>&#xe67f;</i>个人信息</a></li>
 							<li><a href="javascript:;" title= '修改密码' onclick="changePassword('修改密码','changepassword.jsp','700','300')"><i class='Hui-iconfont'>&#xe63f;</i>修改密码</a></li>
 							<li><a href="javascript:;" title= '注销' onclick = 'reset()'><i class='Hui-iconfont'>&#xe726;</i>注销</a></li>
 					</ul>
@@ -75,7 +74,7 @@
 		<div class="Hui-tabNav-wp">
 			<ul id="min_title_list" class="acrossTab cl">
 				<li class="active">
-					<span title="我的桌面" data-href="welcome.html">我的桌面</span>
+					<span title="我的项目" data-href="user_project.jsp">我的项目</span>
 					<em></em></li>
 		</ul>
 	</div>
@@ -84,7 +83,7 @@
 	<div id="iframe_box" class="Hui-article">
 		<div class="show_iframe">
 			<div style="display:none" class="loading"></div>
-			<iframe scrolling="yes" frameborder="0" src="welcome.html"></iframe>
+			<iframe scrolling="yes" frameborder="0" src="user_project.jsp"></iframe>
 	</div>
 </div>
 </section>
@@ -123,87 +122,38 @@ function getCookie(Name){
 }
  $(document).ready(function (){
 	var userId = getCookie("userId");
-	
+	 $("#company").val(data.company);
 }) 
 
 function changePassword(title,url,w,h){
 	layer_show(title,url,w,h);
 }
- function reset(){
-	 window.location.href = 'login.jsp';
-}
-$(function(){
-	/*$("#min_title_list li").contextMenu('Huiadminmenu', {
-		bindings: {
-			'closethis': function(t) {
-				console.log(t);
-				if(t.find("i")){
-					t.find("i").trigger("click");
-				}		
-			},
-			'closeall': function(t) {
-				alert('Trigger was '+t.id+'\nAction was Email');
-			},
+
+function reset(){
+//注销
+	document.cookie="userId=''";
+    window.location.href = 'login.jsp';
+    /* $.ajax({    
+       type: "post",    
+       async: true,    
+       url: "/repay/reset.do",    
+       dataType: "json",   
+       contentType: "application/json; charset=utf-8",   
+       success: function(data){
+       	if(data.msg == "succ"){
+       		layer.msg('注销成功!',{icon:1,time:1000});
+       		document.cookie="userId=''";
+       		window.location.href = 'login.jsp';
+       	}
+       	else{
+       		layer.msg(data.msg,{icon:2,time:1000});
+       	}
+		},
+       error: function(XmlHttpRequest, textStatus, errorThrown){
+			layer.msg('error!',{icon:1,time:1000});
 		}
-	});*/
-});
-/*个人信息*/
-function myselfinfo(){
-	layer.open({
-		type: 1,
-		area: ['300px','200px'],
-		fix: false, //不固定
-		maxmin: true,
-		shade:0.4,
-		title: '查看信息',
-		content: '<div>管理员信息</div>'
-	});
+	}); */
 }
-
-/*资讯-添加*/
-function article_add(title,url){
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: url
-	});
-	layer.full(index);
-}
-/*图片-添加*/
-function picture_add(title,url){
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: url
-	});
-	layer.full(index);
-}
-/*产品-添加*/
-function product_add(title,url){
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: url
-	});
-	layer.full(index);
-}
-/*用户-添加*/
-function member_add(title,url,w,h){
-	layer_show(title,url,w,h);
-}
-
-
-</script> 
-
-<!--此乃百度统计代码，请自行删除-->
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?080836300300be57b7f34f4b3e97d911";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
 </script>
 <!--/此乃百度统计代码，请自行删除-->
 </body>

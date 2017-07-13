@@ -75,6 +75,7 @@
 
 $(document).ready(function (){
 	$('body').on('click','#repayApplication',function(event){
+		//alert(this.title);
 		layer_show('审核','repay_application.jsp?repayId='+this.title,'800','500');
 	}); 
 	

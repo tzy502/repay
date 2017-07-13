@@ -64,14 +64,9 @@
 	</table>
 
 	
-	<div class="row cl">
-		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-			<input class="btn btn-primary radius" type="button" onclick = "addSummary()" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">	
-		</div>
-	</div>
-	
 	</form>
 	<form>
+		<input type = 'hidden' id = 'summaryId' value = 'prokectId1'>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">单据上传：</label>
 			<div class="formControls col-xs-8 col-sm-9">
@@ -95,6 +90,13 @@
 			</div>
 		</div>
 	</form>
+	<center>
+		<div class="row cl">
+		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+			<input class="btn btn-primary radius" type="button" onclick = "addSummary()" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">	
+		</div>
+	</div>
+	</center>
 </article>
 
 
@@ -563,10 +565,7 @@ $(function(){
         // });
 
         // 添加“添加文件”的按钮，
-        uploader.addButton({
-            id: '#filePicker2',
-            label: '继续添加'
-        });
+
 
         uploader.on('ready', function() {
             window.uploader = uploader;

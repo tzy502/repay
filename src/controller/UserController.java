@@ -154,14 +154,14 @@ public class UserController {
 	//上传
 	@RequestMapping("uploadPicture.do")
 	@ResponseBody
-	//@RequestParam ("summaryId")String summaryId,
-	public void uploads(@RequestParam ("file") MultipartFile fileUpload,HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException{
+	
+	public void uploads(@RequestParam ("summaryId")String summaryId,@RequestParam ("file") MultipartFile fileUpload,HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException{
 		 String filename = new String( fileUpload.getOriginalFilename() .getBytes("iso8859-1") , "utf-8");  
 		System.out.println(filename);
 		String fileExtName = filename.substring(filename.lastIndexOf("."));
 		System.out.println(fileExtName);
 		String filePath="D:/java/workspaceforj2ee/repay/WebContent/WEB-INF/upload";
-		String filenewname="fuck"+fileExtName;
+		String filenewname=summaryId+fileExtName;
 	    try {
 			OutputStream out = new FileOutputStream(new File(filePath, filenewname));
 			InputStream in = fileUpload.getInputStream();  

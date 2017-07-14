@@ -250,7 +250,7 @@ public class UserController {
 		//System.out.println(filename);
 		String fileExtName = filename.substring(filename.lastIndexOf("."));
 		System.out.println(fileExtName);
-		String filePath="D:/java/workspaceforj2ee/repay/WebContent/upload";
+		String filePath="WebContent/upload";
 		String filenewname= "summary"+projectId+fileExtName;
 
 		

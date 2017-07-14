@@ -32,7 +32,7 @@
 		<input type="text" class="input-text" style="width:250px" placeholder="输入用户名称" id="" name="">
 		<button type="submit" class="btn btn-success" id="searchItem" name="searchItem" onclick = "searchItem();"><i class="Hui-iconfont">&#xe665;</i> 搜报销项目</button>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a href="javascript:;" onclick="item_add('添加项目','item_add.jsp','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加报销项目</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a href="javascript:;" onclick="item_add('添加项目','item_add.jsp','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加报销项目</a></span>   </div>
 	<table class="table table-border table-bordered table-bg">
 		<thead>
 			<tr>

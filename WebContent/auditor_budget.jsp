@@ -32,7 +32,7 @@
 		<input type="text" class="input-text" style="width:250px" placeholder="输入用户名称" id="" name="">
 		<button type="submit" class="btn btn-success" id="searchItem" name="searchBudget" onclick = "searchItem();"><i class="Hui-iconfont">&#xe665;</i> 搜预算项目</button>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20">  <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20">   </div>
 	<table class="table table-border table-bordered table-bg">
 		<thead>
 			<tr>

@@ -26,4 +26,5 @@ public interface IUserDao {
 	public float exploreUserbudget(String userid);
 	
 	public float exploreUsersummary(String userid);
+	public List<BeanUser> loadnormalUser() ;
 }

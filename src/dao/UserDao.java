@@ -2,6 +2,7 @@ package dao;
 
 import java.util.List;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
@@ -70,7 +71,19 @@ public class UserDao implements IUserDao{
 		tx.commit();
 		return result;
 	}
-
+	@Override
+	public List<BeanUser> loadnormalUser() {
+		// TODO 自动生成的方法存根
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		String hql = "from BeanUser where roleId=2";
+		hql += " order by userId ";
+		Query qry = session.createQuery(hql);
+		@SuppressWarnings("unchecked")
+		List<BeanUser> result = qry.list();
+		tx.commit();
+		return result;
+	}
 	@Override
 	public void modifryUser(BeanUser user) {
 		// TODO 自动生成的方法存根
@@ -100,10 +113,13 @@ public class UserDao implements IUserDao{
 	}
 
 	public static void main(String arg[]){
-		BeanUser user = new BeanUser();
+	/*	BeanUser user = new BeanUser();
 		user.setUserId("12");
 		user.setPassword("1235");
-		new UserDao().addUser(user);
+		new UserDao().addUser(user);*/
+		List<BeanUser> user = new UserDao().loadAllUser();
+		System.out.println(user.get(2).getUserName());
+		
 	}
 
 	@Override
@@ -112,12 +128,12 @@ public class UserDao implements IUserDao{
 		Session session =    HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx=session.beginTransaction();
 		try {
-
-		org.hibernate.Query qry = session.createQuery("select sum(BeanBudget.budgetSum) from BeanProject,BeanBudget where BeanProject.userId=?");
+		SQLQuery qry=session.createSQLQuery("select sum(Budget.budgetSum) from Project,Budget where Project.userId=?");
+	//	org.hibernate.Query qry = session.createQuery("select sum(BeanBudget.budgetSum) from BeanProject,BeanBudget where BeanProject.userId=?");
 		qry.setParameter(0, userid);
 		java.util.List list = qry.list();
 		session.getTransaction().commit();	
-		result =(float)list.get(0);
+		result =Float.parseFloat(list.get(0).toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 			tx.rollback();
@@ -131,12 +147,12 @@ public class UserDao implements IUserDao{
 		Session session =    HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx=session.beginTransaction();
 		try {
-
-		org.hibernate.Query qry = session.createQuery("select sum(BeanSummary.sum) from BeanProject,BeanSummary where BeanProject.userId=?");
+		SQLQuery qry=session.createSQLQuery("SELECT SUM(summary.sum) from summary,project where Project.userId=?");
+//		org.hibernate.Query qry = session.createQuery("select sum(BeanSummary.sum) from BeanProject,BeanSummary where BeanProject.userId=?");
 		qry.setParameter(0, userid);
 		java.util.List list = qry.list();
 		session.getTransaction().commit();	
-		result =(float)list.get(0);
+		result =Float.parseFloat(list.get(0).toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 			tx.rollback();
@@ -144,4 +160,6 @@ public class UserDao implements IUserDao{
 		return result;
 		
 	}
+	
+
 }

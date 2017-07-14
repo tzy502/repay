@@ -12,10 +12,15 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -78,28 +83,28 @@ public class UserController {
 		jo.put("msg", "succ");
 		return jo.toString();  
 	}
-	
+
 	//修改用户
-		@RequestMapping(value = "/updateUser.do", produces = "application/json; charset=utf-8") 
-		@ResponseBody
-		public String updateUser(@RequestBody String params) throws JSONException{
-			System.out.println(params);
-			JSONObject json = new JSONObject(params);
-			String userId = (String) json.get("userId");
-			String userName = (String) json.get("userName");
-			String userJob = (String) json.get("userJob");
-			String userPhone = (String) json.get("userPhone");
-			JSONObject jo = new JSONObject();
-			try {
-				IUserService.updateUser(userId, "", userName, userJob, userPhone);
-			} catch (BaseException e) {
-				// TODO 自动生成的 catch 块
-				jo.put("msg", e.getMessage());
-				return jo.toString();
-			}
-			jo.put("msg", "succ");
-			return jo.toString();  
+	@RequestMapping(value = "/updateUser.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String updateUser(@RequestBody String params) throws JSONException{
+		System.out.println(params);
+		JSONObject json = new JSONObject(params);
+		String userId = (String) json.get("userId");
+		String userName = (String) json.get("userName");
+		String userJob = (String) json.get("userJob");
+		String userPhone = (String) json.get("userPhone");
+		JSONObject jo = new JSONObject();
+		try {
+			IUserService.updateUser(userId, "", userName, userJob, userPhone);
+		} catch (BaseException e) {
+			// TODO 自动生成的 catch 块
+			jo.put("msg", e.getMessage());
+			return jo.toString();
 		}
+		jo.put("msg", "succ");
+		return jo.toString();  
+	}
 
 	//查找用户
 	@RequestMapping(value = "/searchUser.do", produces = "application/json; charset=utf-8") 
@@ -125,7 +130,7 @@ public class UserController {
 		jo.put("msg", "succ");
 		return jo.toString();  
 	}
-	
+
 
 	/** 导出所有用户
 	 * 发送：user
@@ -217,27 +222,27 @@ public class UserController {
 		jo.put("msg", "succ");
 		return jo.toString();  
 	}
-	
+
 	//修改密码
-		@RequestMapping(value = "/changePassword.do", produces = "application/json; charset=utf-8") 
-		@ResponseBody
-		public String changePassword(@RequestBody String params) throws JSONException{
-			System.out.println(params);
-			JSONObject json = new JSONObject(params);
-			String userId = (String) json.get("userId");
-			String oldPassword = (String) json.get("oldPassword");
-			String newPassword = (String) json.get("newPassword");
-			JSONObject jo = new JSONObject();
-			try {
-				IUserService.changePassword(userId, oldPassword, newPassword);
-			} catch (BaseException e) {
-				// TODO 自动生成的 catch 块
-				jo.put("msg", e.getMessage());
-				return jo.toString();
-			}
-			jo.put("msg", "succ");
-			return jo.toString();  
+	@RequestMapping(value = "/changePassword.do", produces = "application/json; charset=utf-8") 
+	@ResponseBody
+	public String changePassword(@RequestBody String params) throws JSONException{
+		System.out.println(params);
+		JSONObject json = new JSONObject(params);
+		String userId = (String) json.get("userId");
+		String oldPassword = (String) json.get("oldPassword");
+		String newPassword = (String) json.get("newPassword");
+		JSONObject jo = new JSONObject();
+		try {
+			IUserService.changePassword(userId, oldPassword, newPassword);
+		} catch (BaseException e) {
+			// TODO 自动生成的 catch 块
+			jo.put("msg", e.getMessage());
+			return jo.toString();
 		}
+		jo.put("msg", "succ");
+		return jo.toString();  
+	}
 
 
 	//上传
@@ -253,7 +258,7 @@ public class UserController {
 		String filePath="WebContent/upload";
 		String filenewname= "summary"+projectId+fileExtName;
 
-		
+
 		try {
 			OutputStream out = new FileOutputStream(new File(filePath, filenewname));
 			InputStream in = fileUpload.getInputStream();  
@@ -275,5 +280,28 @@ public class UserController {
 			e.printStackTrace();
 		}
 	}
+
+	//download
+
+
+	@RequestMapping("download.do")    
+	public ResponseEntity<byte[]> download() throws IOException {    
+		try {
+			IUserService.explore();
+		} catch (BaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String path="D:\\java\\workspaceforj2ee\\repay\\WebContent\\upload\\explore.xls";  
+		File file=new File(path);  
+		HttpHeaders headers = new HttpHeaders();    
+		String fileName=new String("explore.xls".getBytes("UTF-8"),"iso-8859-1");//为了解决中文名称乱码问题  
+		headers.setContentDispositionFormData("attachment", fileName);   
+		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);   
+		return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),    
+				headers, HttpStatus.CREATED);    
+	}    
+
 }
 

@@ -8,12 +8,13 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
+
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.springframework.stereotype.Service;
 
 import Decoder.BASE64Encoder;
 import daoI.IUserDao;
@@ -199,7 +200,8 @@ public class UserService implements IUserService{
 	@Override
 	public void explore() throws BaseException {
 		// TODO Auto-generated method stub
-		List<BeanUser> user =IUserDao.loadAllUser();
+		List<BeanUser> user =IUserDao.loadnormalUser();
+		
 		// 第一步，创建一个webbook，对应一个Excel文件  
 		HSSFWorkbook wb = new HSSFWorkbook();  
 		// 第二步，在webbook中添加一个sheet,对应Excel文件中的sheet  
@@ -222,22 +224,24 @@ public class UserService implements IUserService{
         cell.setCellValue("剩余");  
         cell.setCellStyle(style);  
         cell = row.createCell((short) 4);  
-        cell.setCellValue("总共");  
+        cell.setCellValue("预算");  
         cell.setCellStyle(style);  
         for(int i=0;i<user.size();i++){
+        	System.out.println(user.get(i).getUserName());
         	 row = sheet.createRow((int) i + 1);
         	 float summary=IUserDao.exploreUsersummary((user.get(i).getUserId()));
         	 float budget=IUserDao.exploreUserbudget((user.get(i).getUserId()));
         	 float Surplus=budget-summary;
         	 row.createCell((short) 0).setCellValue((int)i+1); 
-        	 row.createCell((short) 0).setCellValue(user.get(i).getUserName()); 
-        	 row.createCell((short) 0).setCellValue(summary); 
-        	 row.createCell((short) 0).setCellValue(Surplus); 
-        	 row.createCell((short) 0).setCellValue(budget); 
+        	 row.createCell((short) 1).setCellValue(user.get(i).getUserName()); 
+        	 row.createCell((short) 2).setCellValue(summary); 
+        	 row.createCell((short) 3).setCellValue(Surplus); 
+        	 row.createCell((short) 4).setCellValue(budget); 
         }
         try  
         {  
-            FileOutputStream fout = new FileOutputStream("E:/explore.xls");  
+        	System.out.println("123from ser");
+            FileOutputStream fout = new FileOutputStream("D:\\java\\workspaceforj2ee\\repay\\WebContent\\upload\\explore.xls");  
             wb.write(fout);  
             fout.close();  
         }  

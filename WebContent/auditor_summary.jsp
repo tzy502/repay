@@ -32,7 +32,9 @@
 		<input type="text" class="input-text" style="width:250px" placeholder="输入用户名称" id="" name="">
 		<button type="submit" class="btn btn-success" id="searchItem" name="searchItem" onclick = "searchItem();"><i class="Hui-iconfont">&#xe665;</i> 搜报销项目</button>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a  href="javascript:;" onclick="download()" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 导出excel</a></span>   </div>
+	<form action = '/repay/download.do'>
+		<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <input type = 'submit' class="btn btn-primary radius" value = '导出excel'></span>   </div>
+	</form>
 	<table class="table table-border table-bordered table-bg">
 		<thead>
 			<tr>
@@ -76,6 +78,23 @@
 $(document).ready(function (){
 	$('body').on('click','#update',function(event){
 		layer_show('项目编辑','summary_update.jsp?summaryId='+this.title,'800','500');
+	}); 
+	$('body').on('click','#download',function(event){
+		alert("dowbnload");
+		$.ajax({    
+	        type: "post",    
+	        async: true,    
+	        url: "/repay/download.do",  
+	        dataType: "json", 
+	        contentType: "application/json; charset=utf-8",   
+	        error: function(data){  
+	        	alert("出错了！！:"+data.msg);
+	        } , 
+	        success: function(data) { 
+	 	 		
+	        }     
+	    });
+		
 	}); 
 	$('body').on('click','#application',function(event){
 		layer_show('汇总单审核','summary_application.jsp?summaryId='+this.title,'800','500');
@@ -176,21 +195,7 @@ function searchSummary(){
     });
 }
 
-function download(){
-	$.ajax({    
-        type: "post",    
-        async: true,    
-        url: "/repay/download.do",  
-        dataType: "json", 
-        contentType: "application/json; charset=utf-8",   
-        error: function(data){  
-        	alert("出错了！！:"+data.msg);
-        } , 
-        success: function(data) { 
- 	 
-        }     
-    });
-}
+
 
 </script>
 </body>

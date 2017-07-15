@@ -32,7 +32,7 @@
 		<input type="text" class="input-text" style="width:250px" placeholder="输入用户名称" id="" name="">
 		<button type="submit" class="btn btn-success" id="searchItem" name="searchItem" onclick = "searchProject();"><i class="Hui-iconfont">&#xe665;</i> 搜项目</button>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a  href="javascript:;" onclick="project_add('添加项目','project_add.jsp','800','400')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加项目</a></span>   </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20">   </div>
 	<table class="table table-border table-bordered table-bg">
 		<thead>
 			<tr>
@@ -44,9 +44,7 @@
 				<th width="40">项目经费代码</th>
 				<th width="40">出差事由</th>
 				<th width="40">查看</th>
-				<th width="40">状态</th>
-				<th width="40">修改</th>
-				<th width="40">删除</th>
+				<th width="40">操作</th>
 			</tr>
 		</thead>
 		<tbody id = 'tbody-allProject'>
@@ -73,27 +71,9 @@
 	w		弹出层宽度（缺省调默认值）
 	h		弹出层高度（缺省调默认值）
 */
-function getCookie(Name){
-	var search = Name + "="//查询检索的值
-	   var returnvalue = "";//返回值
-	   if (document.cookie.length > 0) {
-	     sd = document.cookie.indexOf(search);
-	     if (sd!= -1) {
-	        sd += search.length;
-	        end = document.cookie.indexOf(";", sd);
-	        if (end == -1)
-	         end = document.cookie.length;
-	         //unescape() 函数可对通过 escape() 编码的字符串进行解码。
-	        returnvalue=unescape(document.cookie.substring(sd, end))
-	      }
-	   } 
-	   return returnvalue;
-}
+
 
 $(document).ready(function (){
-	$('body').on('click','#update',function(event){
-		layer_show('项目编辑','repay_update.jsp?repayId='+this.title,'800','500');
-	}); 
 	$('body').on('click','#repaySee',function(event){
 		layer_show('查看','repay_see.jsp?repayId='+this.title,'800','500');
 	}); 
@@ -120,15 +100,13 @@ $(document).ready(function (){
 			});		
 		});
 	}); 
+	
 	//加载页面数据
-	var params={
-			    	"userId":getCookie("userId"),
-			}
 	$.ajax({    
         type: "post",    
         async: true,    
-        url: "/repay/loadAllRepayByUId.do",  
-        data: JSON.stringify(params),
+        url: "/repay/loadAllRepay.do",  
+        //data: JSON.stringify(params),
         dataType: "json", 
         contentType: "application/json; charset=utf-8",   
         error: function(data){  
@@ -145,39 +123,11 @@ $(document).ready(function (){
 				str+="<td class='td-manage'><a style='text-decoration:none' id = 'repaySee' href='javascript:;'   title='"+data[i].repayId+"'>"+
 				"<i class='Hui-iconfont'>&#xe695;</i>"+
 				"</a></td>";
-				if(data[i].applicationId == null || data[i].applicationId == ''){
-					str += "<td>未审核</td>";
-					str+="<td class='td-manage'>"+
-					"<a style='text-decoration:none' id = 'update' href='javascript:;' title='"+data[i].repayId+"'"+
-						"<i class='Hui-iconfont'>&#xe6df;</i>"+
-					"</a>"+
-					"</td>";
-					str+="<td class='td-manage'><a style='text-decoration:none' id = 'delete' href='javascript:;'   title='"+data[i].repayId+"'>"+
-						"<i class='Hui-iconfont'>&#xe6e2;</i>"+
-					"</a></td>";
-				}
-				else if(data[i].applicationId == '-1'){
-					str += "<td>审核未通过</td>";
-					str+="<td class='td-manage'>"+
-					"<a style='text-decoration:none' id = 'update' href='javascript:;' title='"+data[i].repayId+"'"+
-						"<i class='Hui-iconfont'>&#xe6df;</i>"+
-					"</a>"+
-					"</td>";
-					str+="<td class='td-manage'><a style='text-decoration:none' id = 'delete' href='javascript:;'   title='"+data[i].repayId+"'>"+
-						"<i class='Hui-iconfont'>&#xe6e2;</i>"+
-					"</a></td>";
-				}
-				else{
-					str += "<td>审核通过</td>";
-					str+="<td class='td-manage'>"+
-					"<a style='text-decoration:none' "+
-						"<i class='Hui-iconfont'>&#xe6dd;</i>"+
-					"</a>"+
-					"</td>";
-					str+="<td class='td-manage'><a style='text-decoration:none'>"+
-						"<i class='Hui-iconfont'>&#xe6dd;</i>"+
-					"</a></td>";
-				}
+				str+="<td class='td-manage'>"+
+				"<a style='text-decoration:none' id = 'delete' href='javascript:;' title='"+data[i].repayId+"'>"+
+					"<i class='Hui-iconfont'>&#xe6e2;</i>"+
+				"</a>"+
+				"</td></tr>";
         	$("#tbody-allProject").html(str);  
     	} 
         }     

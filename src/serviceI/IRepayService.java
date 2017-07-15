@@ -23,4 +23,6 @@ public interface IRepayService {
 	public List<BeanRepay> loadARepay()throws BaseException;
 	
 	public int  SearchRepaymax()throws BaseException;
+	
+	public List<BeanRepay> loadAllRepayByUId(String userId)throws BaseException;
 }

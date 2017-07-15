@@ -92,11 +92,12 @@ public class UserController {
 		JSONObject json = new JSONObject(params);
 		String userId = (String) json.get("userId");
 		String userName = (String) json.get("userName");
+		String roleId = (String) json.get("roleId");
 		String userJob = (String) json.get("userJob");
 		String userPhone = (String) json.get("userPhone");
 		JSONObject jo = new JSONObject();
 		try {
-			IUserService.updateUser(userId, "", userName, userJob, userPhone);
+			IUserService.updateUser(userId, roleId, userName, userJob, userPhone);
 		} catch (BaseException e) {
 			// TODO 自动生成的 catch 块
 			jo.put("msg", e.getMessage());

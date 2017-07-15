@@ -145,7 +145,9 @@
 	</table>
 	<div class="row cl">
 		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-			<input class="btn btn-primary radius" type="button" onclick = 'repayApplication()' value="&nbsp;&nbsp;审核&nbsp;&nbsp;">
+			<input class="btn btn-primary radius" type="button" onclick = 'repayApplication()' value="&nbsp;&nbsp;审核通过&nbsp;&nbsp;">
+			<input class="btn btn-primary radius" type="button" onclick = 'noRepayApplication()' value="&nbsp;&nbsp;审核不通过&nbsp;&nbsp;">
+		
 		</div>
 	</div>
 	</form>
@@ -317,6 +319,48 @@ function repayApplication(){
     var params={
 	 			"projectId":document.getElementById("projectId").value,
 		    	"isBudget":isBudget,
+	} 
+    $.ajax({    
+	        type: "post",    
+	        async: true,    
+	        url: "/repay/applySuccProject.do",    
+	        data: JSON.stringify(params),
+	        dataType: "json",   
+	        contentType: "application/json; charset=utf-8",   
+	        success: function(data){
+				
+			},
+	        error: function(XmlHttpRequest, textStatus, errorThrown){
+				layer.msg('error!',{icon:1,time:1000});
+			}
+	});  
+    var index = parent.layer.getFrameIndex(window.name);
+	parent.$('.btn-refresh').click();
+	parent.layer.close(index); 
+}
+function noRepayApplication(){
+	var params = {
+			"repayId":repayId,
+			"applicationId":'-1',
+	}
+	$.ajax({    
+        type: "post",    
+        async: true,    
+        url: "/repay/repayApplication.do",    
+        data: JSON.stringify(params),
+        dataType: "json",   
+        contentType: "application/json; charset=utf-8",   
+        success: function(data){
+			layer.msg('审核成功!',{icon:1,time:1000});
+		},
+        error: function(XmlHttpRequest, textStatus, errorThrown){
+			layer.msg('error!',{icon:1,time:1000});
+		}
+	});
+ 	
+    var params={
+	 			"projectId":document.getElementById("projectId").value,
+		    	"isBudget":-1,
 	} 
     $.ajax({    
 	        type: "post",    

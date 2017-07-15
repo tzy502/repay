@@ -186,11 +186,13 @@ $(document).ready(function (){
 				else if(data[i].applicationId == '-1'){
 					str+="<td>"+"审核未通过"+"</td>";
 					str+="<td class='td-manage'>"+
-					"<a style='text-decoration:none' id = 'update' href='javascript:;' title='"+data[i].summaryId+"'>"+
-						"<i class='Hui-iconfont'>&#xe6df;</i>"+
-					"</a></td>"+
-					"<td class='td-manage'><a style='text-decoration:none' id = 'delete' href='javascript:;' title='"+data[i].summaryId+"'>"+
-						"<i class='Hui-iconfont'>&#xe6e2;</i>"+
+					"<a style='text-decoration:none' >"+
+					"<i class='Hui-iconfont'>&#xe6dd;</i>"+
+					"</a>"+
+					"</td>";
+					str+="<td class='td-manage'>"+
+					"<a style='text-decoration:none' >"+
+					"<i class='Hui-iconfont'>&#xe6dd;</i>"+
 					"</a>"+
 					"</td></tr>";
 				}	

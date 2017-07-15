@@ -65,7 +65,9 @@
 	<div class="row cl">
 		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
 		<input class="btn btn-primary radius" type="button" onclick = "chart()" value="&nbsp;&nbsp;查看图表&nbsp;&nbsp;">
-			<input class="btn btn-primary radius" type="button" onclick = "application()" value="&nbsp;&nbsp;审核&nbsp;&nbsp;">
+			<input class="btn btn-primary radius" type="button" onclick = "application()" value="&nbsp;&nbsp;审核通过&nbsp;&nbsp;">
+			<input class="btn btn-primary radius" type="button" onclick = "noApplication()" value="&nbsp;&nbsp;审核不通过&nbsp;&nbsp;">
+				
 		</div>
 	</div>
 	</form>
@@ -257,74 +259,57 @@ function application(){
 		}
 	}); */
 }
+function noApplication(){
+ 	var params = {
+			"summaryId":summaryId,
+			"applicationId":'-1',
+			"manager":'-1',
+	}
+	$.ajax({    
+        type: "post",    
+        async: true,    
+        url: "/repay/summaryApplication.do",    
+        data: JSON.stringify(params),
+        dataType: "json",   
+        contentType: "application/json; charset=utf-8",   
+        success: function(data){
+			layer.msg('审核成功!',{icon:1,time:1000});
+		},
+        error: function(XmlHttpRequest, textStatus, errorThrown){
+			layer.msg('error!',{icon:1,time:1000});
+		}
+	});
+	
+ 
 
-function chart(){
-	window.location.href = 'application_chart.jsp?summaryId='+summaryId+'&projectId='+document.getElementById("projectId").value;
-
-}
-/* 		
-		 var itemCost = [];
-		for(var i = 0; i < j; i++){
-			var item = {
-					"itemCostName":document.getElementById("schoolItemName"+i).value,
-					"itemCost":document.getElementById("schoolItem"+i).value,
-			}
-			itemCost.push(item);
-    	}
-	 	 var params={
-	 			"userId":getCookie("userId"),
-	 			"projectId":document.getElementById("projectId").value,
-		    	"billCount":document.getElementById("billCount").value,
-		    	"company":document.getElementById("company").value,
-		    	"workerId":document.getElementById("workerId").value,
-		    	"workerName":document.getElementById("userName").value,
-		    	"cardNumber":document.getElementById("cardNumber").value,
-		    	"money":document.getElementById("money").value,
-		    	"manager":"",
-		    	"applicationId":"",
-		} 
+ 	
 		
-		params["itemCost"]=itemCost; 
-		alert(JSON.stringify(params));
-		  $.ajax({    
+    var params={
+	 			"projectId":document.getElementById("projectId").value,
+		    	"isBudget":-1,
+	} 
+    $.ajax({    
 	        type: "post",    
 	        async: true,    
-	        url: "/repay/addSummary.do",    
+	        url: "/repay/applySuccProject.do",    
 	        data: JSON.stringify(params),
 	        dataType: "json",   
 	        contentType: "application/json; charset=utf-8",   
 	        success: function(data){
-				layer.msg('添加成功!',{icon:1,time:1000});
+	        	var index = parent.layer.getFrameIndex(window.name);
+	        	parent.$('.btn-refresh').click();
+	    		parent.layer.close(index); 
 			},
 	        error: function(XmlHttpRequest, textStatus, errorThrown){
 				layer.msg('error!',{icon:1,time:1000});
 			}
-		});
-		  
-		  if(isBudget == 2){
-		    	isBudget = 4;
-		    }
-		    else{
-		    	isBudget = 3;
-		    }	
-		    var params={
-			 			"projectId":document.getElementById("projectId").value,
-				    	"isBudget":isBudget,
-			} 
-		    $.ajax({    
-			        type: "post",    
-			        async: true,    
-			        url: "/repay/applySuccProject.do",    
-			        data: JSON.stringify(params),
-			        dataType: "json",   
-			        contentType: "application/json; charset=utf-8",   
-			        success: function(data){
+	}); 
+}
+function chart(){
+	window.location.href = 'application_chart.jsp?summaryId='+summaryId+'&projectId='+document.getElementById("projectId").value;
 
-					},
-			        error: function(XmlHttpRequest, textStatus, errorThrown){
-						layer.msg('error!',{icon:1,time:1000});
-					}
-			}); */ 
+}
+ 
   
 
 </script> 

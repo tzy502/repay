@@ -21,4 +21,7 @@ public interface IRepay {
 	
 	//导出待审核的报销单
 	public List<BeanRepay> loadARepay();
+	
+	//导出待审核的报销单
+		public List<BeanRepay> loadAllRepayByUId(String userId);
 }
